@@ -8,7 +8,7 @@
 @import url("normalize.css");
 
 /* Global - global pieces like media queries, mixins and placholders */
-@import url("global/index");
+@import url("global");
 
 /* Base - base styles such as fonts, typography, and wordpress overrides */
-@import url("base/index");
+@import url("base");
