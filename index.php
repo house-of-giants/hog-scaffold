@@ -2,7 +2,7 @@
 /**
  * The main template file
  *
- * @package HoGScaffold
+ * @package ChalatLaw
  */
 
 get_header(); ?>

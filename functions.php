@@ -2,22 +2,22 @@
 /**
  * WP Theme constants and setup functions
  *
- * @package HoGScaffold
+ * @package ChalatLaw
  */
 
 // Useful global constants.
-define( 'HoG_SCAFFOLD_VERSION', '0.1.0' );
-define( 'HoG_SCAFFOLD_TEMPLATE_URL', get_template_directory_uri() );
-define( 'HoG_SCAFFOLD_PATH', get_template_directory() . '/' );
-define( 'HoG_SCAFFOLD_INC', HoG_SCAFFOLD_PATH . 'includes/' );
+define( 'Chalat_LAW_VERSION', '0.1.0' );
+define( 'Chalat_LAW_TEMPLATE_URL', get_template_directory_uri() );
+define( 'Chalat_LAW_PATH', get_template_directory() . '/' );
+define( 'Chalat_LAW_INC', Chalat_LAW_PATH . 'includes/' );
 
-require_once HoG_SCAFFOLD_INC . 'core.php';
-require_once HoG_SCAFFOLD_INC . 'overrides.php';
-require_once HoG_SCAFFOLD_INC . 'template-tags.php';
-require_once HoG_SCAFFOLD_INC . 'utility.php';
+require_once Chalat_LAW_INC . 'core.php';
+require_once Chalat_LAW_INC . 'overrides.php';
+require_once Chalat_LAW_INC . 'template-tags.php';
+require_once Chalat_LAW_INC . 'utility.php';
 
 // Run the setup functions.
-HoGScaffold\Core\setup();
+ChalatLaw\Core\setup();
 
 // Require Composer autoloader if it exists.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {

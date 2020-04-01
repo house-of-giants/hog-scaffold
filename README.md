@@ -29,10 +29,10 @@ The NPM commands will fail without these files present.
 - Do case-sensitive search/replace for the following:
 
       	- HoGScaffold
-      	- HoG_SCAFFOLD
-      	- HoG-scaffold
-      	- HoG_scaffold
-      	- HoG Scaffold
+        - HoG_SCAFFOLD
+        - HoG-scaffold
+        - HoG_scaffold
+        - HoG Scaffold
 
 - `cd` into the theme folder
 - run `npm run start`
