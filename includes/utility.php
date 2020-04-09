@@ -8,7 +8,7 @@
  * to Namespaces.
  *
  * @link https://developer.wordpress.org/themes/basics/template-tags/
- * @package ChalatLaw
+ * @package HoGScaffold
  */
 
-namespace ChalatLaw\Utility;
+namespace HoGScaffold\Utility;

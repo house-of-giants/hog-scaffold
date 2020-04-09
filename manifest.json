@@ -1,7 +1,7 @@
 {
-  "name": "Chalat Law",
-  "short_name": "Chalat Law",
-  "description": "Project description for Chalat Law",
+  "name": "HoG Scaffold",
+  "short_name": "HoG Scaffold",
+  "description": "Project description for HoG Scaffold",
   "display": "standalone",
   "start_url": "/?utm_source=app",
   "background_color": "#232323",

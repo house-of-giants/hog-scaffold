@@ -2,10 +2,10 @@
 /**
  * Core setup, site hooks and filters.
  *
- * @package ChalatLaw\Core
+ * @package HoGScaffold\Core
  */
 
-namespace ChalatLaw\Core;
+namespace HoGScaffold\Core;
 
 /**
  * Set up theme defaults and register supported WordPress features.
@@ -31,13 +31,13 @@ function setup() {
  * Makes Theme available for translation.
  *
  * Translations can be added to the /languages directory.
- * If you're building a theme based on "Chalat-law", change the
- * filename of '/languages/ChalatLaw.pot' to the name of your project.
+ * If you're building a theme based on "HoG-scaffold", change the
+ * filename of '/languages/HoGScaffold.pot' to the name of your project.
  *
  * @return void
  */
 function i18n() {
-	load_theme_textdomain( 'Chalat-law', Chalat_LAW_PATH . '/languages' );
+	load_theme_textdomain( 'HoG-scaffold', HoG_SCAFFOLD_PATH . '/languages' );
 }
 
 /**
@@ -72,9 +72,9 @@ function scripts() {
 
 	wp_enqueue_script(
 		'frontend',
-		Chalat_LAW_TEMPLATE_URL . '/dist/js/frontend.js',
+		HoG_SCAFFOLD_TEMPLATE_URL . '/dist/js/frontend.js',
 		[],
-		Chalat_LAW_VERSION,
+		HoG_SCAFFOLD_VERSION,
 		true
 	);
 
@@ -89,9 +89,9 @@ function styles() {
 
 	wp_enqueue_style(
 		'styles',
-		Chalat_LAW_TEMPLATE_URL . '/dist/css/style.css',
+		HoG_SCAFFOLD_TEMPLATE_URL . '/dist/css/style.css',
 		[],
-		Chalat_LAW_VERSION
+		HoG_SCAFFOLD_VERSION
 	);
 }
 
@@ -147,5 +147,5 @@ function script_loader_tag( $tag, $handle ) {
  * @return void
  */
 function add_manifest() {
-	echo "<link rel='manifest' href='" . esc_url( Chalat_LAW_TEMPLATE_URL . '/manifest.json' ) . "' />";
+	echo "<link rel='manifest' href='" . esc_url( HoG_SCAFFOLD_TEMPLATE_URL . '/manifest.json' ) . "' />";
 }

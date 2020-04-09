@@ -2,7 +2,7 @@
 /**
  * The template for displaying search results pages.
  *
- * @package ChalatLaw
+ * @package HoGScaffold
  */
 
 get_header(); ?>
