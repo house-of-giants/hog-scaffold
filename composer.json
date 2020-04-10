@@ -1,0 +1,27 @@
+{
+  "name": "HoG/Project_Name",
+  "type": "wordpress-theme",
+  "authors": [
+    {
+      "name": "House of Giants",
+      "email": "hello@houeofgiants.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Project_Name\\": "includes/classes/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "10up/phpcs-composer": "dev-master"
+  },
+  "scripts": {
+    "lint": "phpcs .",
+    "lint-fix": "phpcbf ."
+  }
+}
