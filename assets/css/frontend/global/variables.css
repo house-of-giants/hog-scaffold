@@ -1,0 +1,32 @@
+/*
+ * Colors
+ */
+:root {
+	--c-black: #000;
+	--c-white: #fff;
+
+	--ff-body: sans-serif;
+	--ff-heading: serif;
+
+	--fs-2xs: 0.512rem;
+	--fs-xs: 0.64rem;
+	--fs-s: 0.8rem;
+	--fs-base: 1rem;
+	--fs-m: 1.25rem;
+	--fs-l: 1.563rem;
+	--fs-xl: 1.953rem;
+	--fs-2xl: 2.441rem;
+	--fs-3xl: 3.052rem;
+
+	--sp-2xs: var(--fs-2xs);
+	--sp-xs: var(--fs-xs);
+	--sp-s: var(--fs-s);
+	--sp-base: var(--fs-base);
+	--sp-m: var(--fs-m);
+	--sp-l: var(--fs-l);
+	--sp-xl: var(--fs-xl);
+	--sp-2xl: var(--fs-2xl);
+	--sp-3xl: var(--fs-3xl);
+
+	--w-base: 1280px;
+}
