@@ -4,9 +4,9 @@
   "description": "Project description for HoG Scaffold",
   "display": "standalone",
   "start_url": "/?utm_source=app",
-  "background_color": "#232323",
+  "background_color": "#030809",
   "orientation": "any",
-  "theme_color": "#d23226",
+  "theme_color": "#ff3d00",
   "icons": [
     {
       "src": "dist/icons/icon-512.png",

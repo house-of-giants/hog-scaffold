@@ -1,7 +1,7 @@
 /* global process, module, require */
 
 const path = require( 'path' );
-const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
+const CopyPlugin = require( 'copy-webpack-plugin' );
 const FixStyleOnlyEntriesPlugin = require( 'webpack-fix-style-only-entries' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
@@ -123,13 +123,16 @@ module.exports = {
 		} ),
 
 		// Copy static assets to the `dist` folder.
-		new CopyWebpackPlugin( [
-			{
-				from: settings.copyWebpackConfig.from,
-				to: settings.copyWebpackConfig.to,
-				context: path.resolve( process.cwd(), settings.paths.src.base ),
-			},
-		] ),
+		new CopyPlugin({
+			patterns: [
+				{
+					from: settings.copyWebpackConfig.from,
+					to: settings.copyWebpackConfig.to,
+					context: path.resolve( process.cwd(), settings.paths.src.base ),
+					noErrorOnMissing: true,
+				},
+			]
+		}),
 
 		// Lint CSS.
 		new StyleLintPlugin( {
