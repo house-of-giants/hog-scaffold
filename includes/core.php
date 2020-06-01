@@ -37,7 +37,7 @@ function setup() {
  * @return void
  */
 function i18n() {
-	load_theme_textdomain( 'HoG-scaffold', HoG_SCAFFOLD_PATH . '/languages' );
+	load_theme_textdomain( 'HoG-scaffold', HOG_SCAFFOLD_PATH . '/languages' );
 }
 
 /**
@@ -72,9 +72,9 @@ function scripts() {
 
 	wp_enqueue_script(
 		'frontend',
-		HoG_SCAFFOLD_TEMPLATE_URL . '/dist/js/frontend.js',
+		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/js/frontend.js',
 		[],
-		HoG_SCAFFOLD_VERSION,
+		HOG_SCAFFOLD_VERSION,
 		true
 	);
 
@@ -89,9 +89,9 @@ function styles() {
 
 	wp_enqueue_style(
 		'styles',
-		HoG_SCAFFOLD_TEMPLATE_URL . '/dist/css/style.css',
+		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/style.css',
 		[],
-		HoG_SCAFFOLD_VERSION
+		HOG_SCAFFOLD_VERSION
 	);
 }
 
@@ -147,5 +147,5 @@ function script_loader_tag( $tag, $handle ) {
  * @return void
  */
 function add_manifest() {
-	echo "<link rel='manifest' href='" . esc_url( HoG_SCAFFOLD_TEMPLATE_URL . '/manifest.json' ) . "' />";
+	echo "<link rel='manifest' href='" . esc_url( HOG_SCAFFOLD_TEMPLATE_URL . '/manifest.json' ) . "' />";
 }
