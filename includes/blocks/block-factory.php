@@ -91,7 +91,7 @@ class Block {
 		}
 
 		register_block_type(
-			'HoGScaffold/' . $this->name,
+			'hogscaffold/' . $this->name,
 			array(
 				'attributes'      => $this->attributes,
 				'render_callback' => [ $this, 'render' ],
@@ -125,12 +125,6 @@ class Block {
 					unset( $allowed_block_types[ $this->name ] );
 				}
 			}
-		}
-
-		if ( 'testimonials' === $post->post_type || 'legal-dictionary' === $post->post_type ) {
-			$allowed_block_types = array(
-				'core/paragraph',
-			);
 		}
 
 		return $allowed_block_types;
