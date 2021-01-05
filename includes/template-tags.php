@@ -11,5 +11,4 @@
  * Example: `HoG_function()`
  *
  * @package ThemeScaffold\Template_Tags
- *
  */
