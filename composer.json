@@ -1,10 +1,10 @@
 {
-  "name": "HoG/Project_Name",
+  "name": "hog/project_name",
   "type": "wordpress-theme",
   "authors": [
     {
       "name": "House of Giants",
-      "email": "hello@houeofgiants.com"
+      "email": "hello@houseofgiants.com"
     }
   ],
   "require": {
@@ -12,7 +12,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Project_Name\\": "includes/classes/"
+      "project_name\\": "includes/classes/"
     }
   },
   "minimum-stability": "dev",
