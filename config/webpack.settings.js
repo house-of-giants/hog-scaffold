@@ -31,7 +31,6 @@ module.exports = {
     // Copied from `'minimal'`.
     all: false,
     errors: true,
-    maxModules: 0,
     modules: true,
     warnings: true,
     // Our additional options.
