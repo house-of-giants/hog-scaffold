@@ -14,7 +14,9 @@ module.exports = {
   },
   filename: {
     js: "js/[name].js",
-    css: "css/[name].css"
+    css: "css/[name].css",
+    block: 'blocks/[name]/editor.js',
+    blockCSS: 'blocks/[name]/editor.css'
   },
   paths: {
     src: {
@@ -47,7 +49,7 @@ module.exports = {
   BrowserSyncConfig: {
     host: "localhost",
     port: 3000,
-    proxy: "http://sandbox.test",
+    proxy: "http://wptest.local/",
     open: false,
     files: [
       "**/*.php",
