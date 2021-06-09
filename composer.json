@@ -14,5 +14,13 @@
     "psr-4": {
       "HoGScaffold\\": "includes/classes/"
     }
-  }
+  },
+  "require-dev": {
+    "10up/phpcs-composer": "dev-master"
+  },
+  "scripts": {
+		"lint": [
+			"phpcs ."
+		]
+	}
 }

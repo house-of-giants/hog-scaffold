@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f5bdb542403346b47260eed8b8807d5",
+    "content-hash": "9c8b066e72f269520e34a8bfee23a88e",
     "packages": [],
     "packages-dev": [
         {
@@ -365,11 +365,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "10up/phpcs-composer": 20
     },
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.0"
