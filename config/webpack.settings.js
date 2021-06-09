@@ -44,7 +44,7 @@ module.exports = {
   },
   copyWebpackConfig: {
     from: "**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}",
-    to: "[path][name].[ext]"
+    to: "[path][name][ext]"
   },
   BrowserSyncConfig: {
     host: "localhost",
