@@ -12,16 +12,7 @@
   },
   "autoload": {
     "psr-4": {
-      "project_name\\": "includes/classes/"
+      "HoGScaffold\\": "includes/classes/"
     }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "require-dev": {
-    "10up/phpcs-composer": "dev-master"
-  },
-  "scripts": {
-    "lint": "phpcs .",
-    "lint-fix": "phpcbf ."
   }
 }
