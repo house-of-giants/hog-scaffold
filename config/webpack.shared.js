@@ -8,9 +8,9 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
 const WebpackBar = require( 'webpackbar' );
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+const CleanExtractedDeps = require('./clean-extracted-deps.js');
 
 // Config files.
-const externals = require( './externals' );
 const settings = require( './webpack.settings.js' );
 
 /**
@@ -28,6 +28,7 @@ const configureEntries = () => {
 module.exports = {
 	entry: configureEntries(),
 	output: {
+		clean: true,
 		path: path.resolve( process.cwd(), settings.paths.dist.base ),
 		filename: settings.filename.js,
 	},
@@ -35,9 +36,6 @@ module.exports = {
 	// Console stats output.
 	// @link https://webpack.js.org/configuration/stats/#stats
 	stats: settings.stats,
-
-	// External objects.
-	externals: externals,
 
 	// Performance settings.
 	performance: {
@@ -50,7 +48,7 @@ module.exports = {
 			// Scripts.
 			{
 				test: /\.js$/,
-				exclude: /node_modules/,
+				exclude: /(node_modules)/,
 				use: [
 					{
 						loader: 'babel-loader',
@@ -85,10 +83,6 @@ module.exports = {
 			fix: false,
 		}),
 
-		// During rebuilds, all webpack assets that are not used anymore
-		// will be removed automatically.
-		new CleanWebpackPlugin(),
-
 		// Extract CSS into individual files.
 		new MiniCssExtractPlugin( {
 			filename: (options) => {
@@ -120,10 +114,16 @@ module.exports = {
 		// Fancy WebpackBar.
 		new WebpackBar(),
 
+		// During rebuilds, all webpack assets that are not used anymore
+		// will be removed automatically.
+		new CleanWebpackPlugin(),
+
 		// dependecyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		new DependencyExtractionWebpackPlugin ( {
-			injectPolyfill: false,
+			injectPolyfill: true,
 		} ),
+
+		new CleanExtractedDeps(),
 	],
 };
