@@ -10,28 +10,24 @@ module.exports = merge( common, {
 	mode: 'production',
 
 	optimization: {
+		minimize: true,
 		minimizer: [
-			new TerserPlugin( {
-				cache: true,
-				parallel: true,
-				sourceMap: false,
-				terserOptions: {
-					parse: {
-						ecma: 8
-					},
-					compress: {
-						ecma: 5,
-						warnings: false,
-						comparisons: false,
-						inline: 2
-					},
-					output: {
-						ecma: 5,
-						comments: false
-					},
-					ie8: false
-				}
-			} )
+				new TerserPlugin( {
+					parallel: true,
+					terserOptions: {
+						parse: {
+							ecma: 8
+						},
+						compress: {
+							warnings: false,
+							comparisons: false,
+							inline: 2
+						},
+						output: {
+							comments: false
+						},
+					}
+				} )
 		],
 	},
 	plugins: [

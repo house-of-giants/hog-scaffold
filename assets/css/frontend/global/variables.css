@@ -2,8 +2,8 @@
  * Colors
  */
 :root {
-	--c-black: #000;
-	--c-white: #fff;
+	--c-black: #000000;
+	--c-white: #ffffff;
 
 	--ff-body: sans-serif;
 	--ff-heading: serif;

@@ -2,15 +2,15 @@
 
 const path = require( 'path' );
 const CopyPlugin = require( 'copy-webpack-plugin' );
-const FixStyleOnlyEntriesPlugin = require( 'webpack-fix-style-only-entries' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
 const WebpackBar = require( 'webpackbar' );
-
-const isProduction = 'production' === process.env.NODE_ENV;
+const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+const CleanExtractedDeps = require('./clean-extracted-deps.js');
 
 // Config files.
-const externals = require( './externals' );
 const settings = require( './webpack.settings.js' );
 
 /**
@@ -22,13 +22,13 @@ const configureEntries = () => {
 	for ( const [ key, value ] of Object.entries( settings.entries ) ) {
 		entries[ key ] = path.resolve( process.cwd(), value );
 	}
-
 	return entries;
 };
 
 module.exports = {
 	entry: configureEntries(),
 	output: {
+		clean: true,
 		path: path.resolve( process.cwd(), settings.paths.dist.base ),
 		filename: settings.filename.js,
 	},
@@ -36,9 +36,6 @@ module.exports = {
 	// Console stats output.
 	// @link https://webpack.js.org/configuration/stats/#stats
 	stats: settings.stats,
-
-	// External objects.
-	externals: externals,
 
 	// Performance settings.
 	performance: {
@@ -48,20 +45,10 @@ module.exports = {
 	// Build rules to handle asset files.
 	module: {
 		rules: [
-			// Lint JS.
-			{
-				test: /\.js$/,
-				enforce: 'pre',
-				loader: 'eslint-loader',
-				options: {
-					fix: true
-				}
-			},
-
 			// Scripts.
 			{
 				test: /\.js$/,
-				exclude: /node_modules/,
+				exclude: /(node_modules)/,
 				use: [
 					{
 						loader: 'babel-loader',
@@ -70,12 +57,12 @@ module.exports = {
 								[ '@babel/preset-env',
 									{
 										'useBuiltIns': 'usage',
+										'targets': 'defaults',
 										'corejs': 3,
 									}
 								]
 							],
 							cacheDirectory: true,
-							sourceMap: ! isProduction,
 						},
 					},
 				],
@@ -83,42 +70,24 @@ module.exports = {
 
 			// Styles.
 			{
-				test: /\.css$/,
+				test: /\.css$/i,
 				include: path.resolve( process.cwd(), settings.paths.src.css ),
-				use: [
-					{
-						loader: MiniCssExtractPlugin.loader,
-					},
-					{
-						loader: 'css-loader',
-						options: {
-							sourceMap: ! isProduction,
-							// We copy fonts etc. using CopyWebpackPlugin.
-							url: false,
-						},
-					},
-					{
-						loader: 'postcss-loader',
-						options: {
-							sourceMap: ! isProduction,
-						},
-					},
-				],
+				use: [ MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader' ],
 			},
 		],
 	},
 
 	plugins: [
-
-		// Remove the extra JS files Webpack creates for CSS entries.
-		// This should be fixed in Webpack 5.
-		new FixStyleOnlyEntriesPlugin( {
-			silent: true,
-		} ),
+		new ESLintPlugin({
+			failOnError: false,
+			fix: false,
+		}),
 
 		// Extract CSS into individual files.
 		new MiniCssExtractPlugin( {
-			filename: settings.filename.css,
+			filename: (options) => {
+				return options.chunk.name.match(/-block$/) ? settings.filename.blockCSS : settings.filename.css
+			},
 			chunkFilename: '[id].css',
 		} ),
 
@@ -138,9 +107,23 @@ module.exports = {
 		new StyleLintPlugin( {
 			context: path.resolve( process.cwd(), settings.paths.src.css ),
 			files: '**/*.css',
+			allowEmptyInput: true,
+			configFile: path.join(path.dirname(__dirname), '.stylelintrc.json'),
 		} ),
 
 		// Fancy WebpackBar.
 		new WebpackBar(),
+
+		// During rebuilds, all webpack assets that are not used anymore
+		// will be removed automatically.
+		new CleanWebpackPlugin(),
+
+		// dependecyExternals variable controls whether scripts' assets get
+		// generated, and the default externals set.
+		new DependencyExtractionWebpackPlugin ( {
+			injectPolyfill: true,
+		} ),
+
+		new CleanExtractedDeps(),
 	],
 };

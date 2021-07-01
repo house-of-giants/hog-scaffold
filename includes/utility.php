@@ -12,3 +12,17 @@
  */
 
 namespace HoGScaffold\Utility;
+
+function get_dep_asset( $slug, $attribute = null ) {
+	if ( ! file_exists( HOG_SCAFFOLD_PATH . 'dist/' . $slug . '.asset.php' ) ) {
+		return null;
+	}
+
+	$asset = require HOG_SCAFFOLD_PATH . 'dist/' . $slug . '.asset.php';
+
+	if ( ! empty( $attribute ) && isset ( $asset[$attribute] ) ) {
+		return $asset[$attribute];
+	}
+
+	return $asset;
+}

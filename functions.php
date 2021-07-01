@@ -10,6 +10,7 @@ define( 'HOG_SCAFFOLD_VERSION', '0.1.0' );
 define( 'HOG_SCAFFOLD_TEMPLATE_URL', get_template_directory_uri() );
 define( 'HOG_SCAFFOLD_PATH', get_template_directory() . '/' );
 define( 'HOG_SCAFFOLD_INC', HOG_SCAFFOLD_PATH . 'includes/' );
+define( 'HOG_SCAFFOLD_BLOCK_DIR', HOG_SCAFFOLD_INC . 'blocks/' );
 
 require_once HOG_SCAFFOLD_INC . 'core.php';
 require_once HOG_SCAFFOLD_INC . 'overrides.php';

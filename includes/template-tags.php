@@ -12,3 +12,5 @@
  *
  * @package ThemeScaffold\Template_Tags
  */
+
+// empty

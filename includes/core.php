@@ -6,6 +6,7 @@
  */
 
 namespace HoGScaffold\Core;
+use HoGScaffold\Utility;
 
 /**
  * Set up theme defaults and register supported WordPress features.
@@ -58,7 +59,7 @@ function theme_setup() {
 	// This theme uses wp_nav_menu() in three locations.
 	register_nav_menus(
 		array(
-			'primary' => esc_html__( 'Primary Menu', 'HoG' ),
+			'primary' => esc_html__( 'Primary Menu', 'hog' ),
 		)
 	);
 }
@@ -73,8 +74,8 @@ function scripts() {
 	wp_enqueue_script(
 		'frontend',
 		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/js/frontend.js',
-		[],
-		HOG_SCAFFOLD_VERSION,
+		Utility\get_dep_asset( 'frontend', 'dependencies' ),
+		Utility\get_dep_asset( 'frontend', 'version' ),
 		true
 	);
 
@@ -91,7 +92,7 @@ function styles() {
 		'styles',
 		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/style.css',
 		[],
-		HOG_SCAFFOLD_VERSION
+		Utility\get_dep_asset( 'styles', 'version' ),
 	);
 }
 

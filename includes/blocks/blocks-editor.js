@@ -3,4 +3,4 @@
  * used in editor only
  */
 
-// import './block-name';
+import './example-block';
