@@ -28,11 +28,18 @@ The NPM commands will fail without these files present.
 
 - Do case-sensitive search/replace for the following:
 
-      	- HoGScaffold
+        - HoGScaffold
         - HoG_SCAFFOLD
         - HoG-scaffold
         - HoG_scaffold
         - HoG Scaffold
+        - hog-scaffold-blocks
+        - https://project-website.tld
+        - HOG_SCAFFOLD_VERSION
+        - HOG_SCAFFOLD_TEMPLATE_URL
+        - HOG_SCAFFOLD_PATH
+        - HOG_SCAFFOLD_INC
+        - HOG_SCAFFOLD_BLOCK_DIR
 
 - `cd` into the theme folder
 - run `npm run start`
