@@ -74,6 +74,20 @@ module.exports = {
 				include: path.resolve( process.cwd(), settings.paths.src.css ),
 				use: [ MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader' ],
 			},
+
+			// Images
+			{
+				test: /\.(jpe?g|png|gif)$/i,
+				include: path.resolve( process.cwd(), settings.paths.src.images ),
+				use: [{
+					loader: 'file-loader',
+					options: {
+						name: '[name].[ext]',
+						outputPath: `images/`,
+						publicPath: `../images/`
+					}
+				}]
+			}
 		],
 	},
 
