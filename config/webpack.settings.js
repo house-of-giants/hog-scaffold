@@ -22,7 +22,8 @@ module.exports = {
     src: {
       base: "./assets/",
       css: "./assets/css/",
-      js: "./assets/js/"
+      js: "./assets/js/",
+      images: "./assets/images/"
     },
     dist: {
       base: "./dist/",
