@@ -1,16 +1,18 @@
 {
 	"extends": "stylelint-config-recommended",
+	"plugins": ["stylelint-order"],
 	"rules": {
+		"order/properties-alphabetical-order": true,
 		"at-rule-empty-line-before": [
 			"always",
 			{
-				"except": [ "blockless-after-blockless" ],
-				"ignore": [ "after-comment" ]
+				"except": ["blockless-after-blockless"],
+				"ignore": ["after-comment"]
 			}
 		],
 		"at-rule-name-case": "lower",
 		"at-rule-name-space-after": "always-single-line",
-		"at-rule-no-unknown": true,
+		"at-rule-no-unknown": [true, { "ignoreAtRules": ["mixin", "define-mixin"] }],
 		"at-rule-semicolon-newline-after": "always",
 		"block-closing-brace-newline-after": "always",
 		"block-closing-brace-newline-before": "always",
@@ -21,7 +23,7 @@
 		"comment-empty-line-before": [
 			"always",
 			{
-				"ignore": [ "stylelint-commands" ]
+				"ignore": ["stylelint-commands"]
 			}
 		],
 		"declaration-bang-space-after": "never",
@@ -29,7 +31,7 @@
 		"declaration-block-no-duplicate-properties": [
 			true,
 			{
-				"ignore": [ "consecutive-duplicates" ]
+				"ignore": ["consecutive-duplicates"]
 			}
 		],
 		"declaration-block-semicolon-newline-after": "always-multi-line",
@@ -45,7 +47,7 @@
 		"font-weight-notation": [
 			"numeric",
 			{
-				"ignore": [ "relative" ]
+				"ignore": ["relative"]
 			}
 		],
 		"function-comma-space-after": "always-single-line",
@@ -54,7 +56,7 @@
 		"function-name-case": [
 			"lower",
 			{
-				"ignoreFunctions": [ "/^DXImageTransform.Microsoft.*$/" ]
+				"ignoreFunctions": ["/^DXImageTransform.Microsoft.*$/"]
 			}
 		],
 		"function-parentheses-space-inside": "never-single-line",
@@ -63,14 +65,6 @@
 		"indentation": "tab",
 		"length-zero-no-unit": true,
 		"max-empty-lines": 2,
-		"max-line-length": [
-			80,
-			{
-				"ignorePattern": [
-					"/(https?://[0-9,a-z]*.*)|(^description\\:.+)|(^tags\\:.+)/i"
-				]
-			}
-		],
 		"media-feature-colon-space-after": "always",
 		"media-feature-colon-space-before": "never",
 		"media-feature-range-operator-space-after": "always",
@@ -78,7 +72,8 @@
 		"media-query-list-comma-newline-after": "always-multi-line",
 		"media-query-list-comma-space-after": "always-single-line",
 		"media-query-list-comma-space-before": "never",
-		"no-eol-whitespace": true,
+		"no-descending-specificity": null,
+		"no-eol-whitespace": null,
 		"no-missing-end-of-source-newline": true,
 		"number-leading-zero": "always",
 		"number-no-trailing-zeros": true,
@@ -86,33 +81,20 @@
 		"rule-empty-line-before": [
 			"always",
 			{
-				"ignore": [ "after-comment" ],
-				"except": [ "first-nested" ]
+				"ignore": ["after-comment"],
+				"except": ["first-nested"]
 			}
 		],
 		"selector-attribute-brackets-space-inside": "never",
 		"selector-attribute-operator-space-after": "never",
 		"selector-attribute-operator-space-before": "never",
 		"selector-attribute-quotes": "always",
-		"selector-class-pattern": [
-			"^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-			{
-				"message":
-					"Selector should use lowercase and separate words with hyphens (selector-class-pattern)"
-			}
-		],
-		"selector-id-pattern": [
-			"^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-			{
-				"message":
-					"Selector should use lowercase and separate words with hyphens (selector-id-pattern)"
-			}
-		],
 		"selector-combinator-space-after": "always",
 		"selector-combinator-space-before": "always",
 		"selector-list-comma-newline-after": "always",
 		"selector-list-comma-space-before": "never",
 		"selector-max-empty-lines": 0,
+		"selector-nested-pattern": ["^&"],
 		"selector-pseudo-class-case": "lower",
 		"selector-pseudo-class-parentheses-space-inside": "never",
 		"selector-pseudo-element-case": "lower",

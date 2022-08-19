@@ -19,7 +19,12 @@ module.exports = ({ file, env }) => {
 	if (path.basename(file) === 'editor-style.css') {
 		config.plugins['postcss-editor-styles'] = {
 			scopeTo: '.editor-styles-wrapper',
-			ignore: [':root', '.edit-post-visual-editor.editor-styles-wrapper', '.wp-toolbar'],
+			ignore: [
+				':root',
+				'.edit-post-visual-editor.editor-styles-wrapper',
+				'.wp-toolbar',
+				'@media',
+			],
 			remove: ['html', ':disabled', '[readonly]', '[disabled]'],
 			tags: ['button', 'input', 'label', 'select', 'textarea', 'form'],
 		};
