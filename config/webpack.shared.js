@@ -136,6 +136,7 @@ module.exports = {
 		// generated, and the default externals set.
 		new DependencyExtractionWebpackPlugin ( {
 			injectPolyfill: true,
+			combineAssets: true,
 		} ),
 
 		new CleanExtractedDeps(),
