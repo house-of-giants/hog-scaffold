@@ -1,4 +1,12 @@
 {
-  "singleQuote": true,
-  "useTabs": true
+	"singleQuote": true,
+	"useTabs": true,
+	"overrides": [
+		{
+			"files": ["**/*.css", "**/*.scss", "**/*.html"],
+			"options": {
+				"singleQuote": false
+			}
+		}
+	]
 }
