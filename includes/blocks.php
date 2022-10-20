@@ -70,7 +70,7 @@ function blocks_editor_scripts() {
 	wp_enqueue_script(
 		'blocks-editor',
 		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/js/blocks-editor.js',
-		[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor', 'wp-compose', 'wp-data' ],
+		[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor', 'wp-compose', 'wp-data', 'wp-dom', 'wp-dom-ready', 'wp-edit-post' ],
 		HOG_SCAFFOLD_VERSION,
 		false
 	);
