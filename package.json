@@ -67,7 +67,6 @@
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^2.6.1",
     "postcss": "^8.4.16",
-    "postcss-editor-styles": "^0.3.0",
     "postcss-import": "^14.1.0",
     "postcss-loader": "^7.0.1",
     "postcss-mixins": "^9.0.3",

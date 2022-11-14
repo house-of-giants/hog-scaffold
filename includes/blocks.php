@@ -94,12 +94,13 @@ function blocks_editor_scripts() {
 			[],
 			HOG_SCAFFOLD_VERSION
 		);
-		wp_enqueue_style(
-			'editor-style',
-			HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/editor-style.css',
-			[],
-			HOG_SCAFFOLD_VERSION
-		);
+
+		/*
+		 * Import editor styles with .editor-styles-wrapper prefix
+		 * See https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#enqueuing-the-editor-style
+		 */
+		add_theme_support( 'editor-styles' );
+		add_editor_style( '/dist/css/editor-style.css' );
 	}
 
 }
