@@ -3,23 +3,23 @@
 	"description": "An Example Block",
 	"text-domain": "hog",
 	"name": "hog/example",
-  "icon": "feedback",
-  "category": "hog-scaffold-blocks",
-	"attributes":{
+	"icon": "feedback",
+	"category": "hog-scaffold-blocks",
+	"attributes": {
 		"customTitle": {
-			"type" : "string"
+			"type": "string"
 		}
-  },
-  "example": {
-    "attributes":{
-      "customTitle": "Example Block"
-    }
-  },
-  "supports": {
+	},
+	"example": {
+		"attributes": {
+			"customTitle": "Example Block"
+		}
+	},
+	"supports": {
 		"align": false,
 		"alignWide": false,
 		"anchor": false,
-		"color":{
+		"color": {
 			"gradients": false,
 			"background": false,
 			"text": false

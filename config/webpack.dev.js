@@ -1,13 +1,13 @@
 /* global module, require */
 
-const { merge } = require( 'webpack-merge' );
-const BrowserSyncPlugin = require( 'browser-sync-webpack-plugin' );
+const { merge } = require('webpack-merge');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 // Config files.
-const common = require( './webpack.shared.js' );
-const settings = require( './webpack.settings.js' );
+const common = require('./webpack.shared.js');
+const settings = require('./webpack.settings.js');
 
-module.exports = merge( common, {
+module.exports = merge(common, {
 	mode: 'development',
 	devtool: 'inline-cheap-module-source-map',
 	plugins: [
@@ -26,4 +26,4 @@ module.exports = merge( common, {
 			}
 		),
 	],
-} );
+});
