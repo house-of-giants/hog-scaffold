@@ -1,15 +1,11 @@
 {
-  "parser": "@babel/eslint-parser",
+	"parser": "@babel/eslint-parser",
 	"env": {
 		"browser": true,
 		"es6": true
 	},
-  "plugins": ["react", "prettier"],
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended"
-  ],
+	"plugins": ["react", "prettier"],
+	"extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
 	"settings": {
 		"import/resolver": {
 			"node": {
@@ -21,24 +17,21 @@
 			"version": "detect"
 		}
 	},
-  "rules": {
+	"rules": {
 		"class-methods-use-this": 0,
 		"no-restricted-syntax": [
 			"error",
 			{
 				"selector": "ForInStatement",
-				"message":
-					"for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array."
+				"message": "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array."
 			},
 			{
 				"selector": "LabeledStatement",
-				"message":
-					"Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand."
+				"message": "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand."
 			},
 			{
 				"selector": "WithStatement",
-				"message":
-					"`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
+				"message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
 			}
 		],
 		"prefer-destructuring": [2, { "array": false, "object": true }],
@@ -52,10 +45,10 @@
 				"checkChildContextTypes": true
 			}
 		]
-  },
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  }
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	}
 }
