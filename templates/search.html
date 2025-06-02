@@ -5,15 +5,10 @@
 	<!-- wp:group {"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group">
 		<!-- wp:heading {"level":1} -->
-		<h1>Latest Posts</h1>
+		<h1>Search Results</h1>
 		<!-- /wp:heading -->
 
-		<!-- wp:paragraph -->
-		<p>
-			Welcome to our blog. Here you'll find our latest thoughts, updates, and
-			insights.
-		</p>
-		<!-- /wp:paragraph -->
+		<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search...","width":100,"widthUnit":"%","buttonText":"Search"} /-->
 	</div>
 	<!-- /wp:group -->
 
@@ -25,7 +20,6 @@
 		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|base"}}} -->
 		<div class="wp-block-group">
 			<!-- wp:post-date {"format":"M j, Y"} /-->
-			<!-- wp:post-author {"showAvatar":false,"showBio":false,"byline":"By"} /-->
 			<!-- wp:post-terms {"term":"category"} /-->
 		</div>
 		<!-- /wp:group -->
@@ -41,15 +35,17 @@
 		<!-- wp:group {"layout":{"type":"constrained"}} -->
 		<div class="wp-block-group">
 			<!-- wp:heading {"level":2} -->
-			<h2>No posts found</h2>
+			<h2>Nothing found</h2>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph -->
 			<p>
-				There are no posts available at the moment. Please check back later for
-				new content.
+				Sorry, but nothing matched your search terms. Please try again with some
+				different keywords.
 			</p>
 			<!-- /wp:paragraph -->
+
+			<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Try a different search...","width":100,"widthUnit":"%","buttonText":"Search"} /-->
 		</div>
 		<!-- /wp:group -->
 		<!-- /wp:query-no-results -->

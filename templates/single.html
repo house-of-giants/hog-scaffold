@@ -2,9 +2,42 @@
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-	<!-- wp:post-title {"level":1} /-->
-	<!-- wp:post-date /-->
-	<!-- wp:post-content /-->
+	<!-- wp:group {"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group">
+		<!-- wp:post-title {"level":1} /-->
+
+		<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|base","margin":{"top":"var:preset|spacing|base","bottom":"var:preset|spacing|large"}}}} -->
+		<div
+			class="wp-block-group"
+			style="
+				margin-top: var(--wp--preset--spacing--base);
+				margin-bottom: var(--wp--preset--spacing--large);
+			"
+		>
+			<!-- wp:post-date {"format":"F j, Y"} /-->
+			<!-- wp:post-author {"showAvatar":true,"showBio":false,"byline":"By"} /-->
+			<!-- wp:post-terms {"term":"category"} /-->
+			<!-- wp:post-terms {"term":"post_tag"} /-->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:post-featured-image {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|large"}}}} /-->
+
+	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+	<!-- wp:group {"layout":{"type":"constrained"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|3xl"}}}} -->
+	<div
+		class="wp-block-group"
+		style="margin-top: var(--wp--preset--spacing--3xl)"
+	>
+		<!-- wp:separator /-->
+
+		<!-- wp:post-navigation-link {"type":"previous","showTitle":true,"linkLabel":true,"arrow":"arrow"} /-->
+		<!-- wp:post-navigation-link {"type":"next","showTitle":true,"linkLabel":true,"arrow":"arrow"} /-->
+	</div>
+	<!-- /wp:group -->
 
 	<!-- wp:comments -->
 	<div class="wp-block-comments">
@@ -21,8 +54,8 @@
 			<!-- wp:column -->
 			<div class="wp-block-column">
 				<!-- wp:comment-author-name {"fontSize":"small"} /-->
-				<!-- wp:group {"style":{"spacing":{"margin":{"top":"0px","bottom":"0px"}}},"layout":{"type":"flex"}} -->
-				<div class="wp-block-group" style="margin-top: 0px; margin-bottom: 0px">
+				<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex"}} -->
+				<div class="wp-block-group" style="margin-top: 0; margin-bottom: 0">
 					<!-- wp:comment-date {"fontSize":"small"} /-->
 					<!-- wp:comment-edit-link {"fontSize":"small"} /-->
 				</div>
