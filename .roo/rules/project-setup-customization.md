@@ -1,0 +1,108 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project Setup & Customization Guide
+
+## Initial Project Setup
+
+### Required Search & Replace Operations
+When starting a new project, perform case-sensitive search_files/replace for these placeholders:
+
+#### Theme Identifiers
+- `HoGScaffold` → `YourThemeName` (PascalCase)
+- `HoG_SCAFFOLD` → `YOUR_THEME_NAME` (SCREAMING_SNAKE_CASE)
+- `HoG-scaffold` → `your-theme-name` (kebab-case)
+- `HoG_scaffold` → `your_theme_name` (snake_case)
+- `HoG Scaffold` → `Your Theme Name` (Title Case)
+
+#### Block Namespace
+- `hog-scaffold-blocks` → `your-theme-blocks`
+
+#### URL & Constants
+- `https://project-website.tld` → `https://your-project-url.com`
+- `HOG_SCAFFOLD_VERSION` → `YOUR_THEME_VERSION`
+- `HOG_SCAFFOLD_TEMPLATE_URL` → `YOUR_THEME_TEMPLATE_URL`
+- `HOG_SCAFFOLD_PATH` → `YOUR_THEME_PATH`
+- `HOG_SCAFFOLD_INC` → `YOUR_THEME_INC`
+- `HOG_SCAFFOLD_BLOCK_DIR` → `YOUR_THEME_BLOCK_DIR`
+
+## Key Customization Files
+
+### Theme Information
+- [style.css](mdc:style.css) - Update theme header with project details
+- [package.json](mdc:package.json) - Update name, version, repository URL
+- [composer.json](mdc:composer.json) - Update package information
+
+### Core Theme Files
+- [functions.php](mdc:functions.php) - Theme setup, enqueue scripts, WordPress features
+- [index.php](mdc:index.php) - Main template fallback
+- [header.php](mdc:header.php) - Site header and navigation
+- [footer.php](mdc:footer.php) - Site footer
+
+## Build Configuration
+
+### Webpack Settings
+Edit [webpack.settings.js](mdc:config/webpack.settings.js) to:
+- Add/remove JavaScript entry points
+- Add/remove CSS entry points  
+- Configure asset paths
+- Set up custom file processing rules
+
+### Asset Entry Points
+Default entry points to customize:
+- `assets/js/app.js` - Main JavaScript bundle
+- `assets/css/style.css` - Main stylesheet
+- Add additional bundles as needed for specific pages/functionality
+
+## WordPress Theme Setup
+
+### Theme Support Features
+In [functions.php](mdc:functions.php), enable WordPress features:
+- `add_theme_support('post-thumbnails')`
+- `add_theme_support('menus')`
+- `add_theme_support('html5')`
+- `add_theme_support('custom-logo')`
+- Block editor support features
+
+### Navigation Menus
+Register custom navigation menus:
+```php
+register_nav_menus(array(
+    'primary' => 'Primary Navigation',
+    'footer' => 'Footer Navigation'
+));
+```
+
+### Widget Areas
+Register sidebars and widget areas as needed for the theme design.
+
+## Development Workflow Setup
+
+### Initial Commands
+1. `npm run start` - Install dependencies and build assets
+2. `composer install` - Install PHP dependencies
+3. `npm run watch` - Start development with file watching
+
+### IDE Configuration
+Hidden files to include when copying project:
+- [.babelrc](mdc:.babelrc) - Babel configuration
+- [.browserslistrc](mdc:.browserslistrc) - Browser support
+- [.editorconfig](mdc:.editorconfig) - Editor settings
+- [.eslintignore](mdc:.eslintignore) - ESLint ignore patterns
+- [.eslintrc](mdc:.eslintrc) - ESLint rules
+- [.gitignore](mdc:.gitignore) - Git ignore patterns
+
+## Testing & Quality Assurance
+
+### Code Quality Setup
+- Run `npm run lint` to check all code quality rules
+- Set up pre-commit hooks with [package.json](mdc:package.json) lint-staged configuration
+- Test theme with WordPress Theme Check plugin
+- Validate HTML, CSS, and accessibility standards
+
+### Browser Testing
+- Test across browsers defined in [.browserslistrc](mdc:.browserslistrc)
+- Ensure responsive design works on all device sizes
+- Test with various WordPress content scenarios
