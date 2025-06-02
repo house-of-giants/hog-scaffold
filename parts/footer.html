@@ -1,18 +1,146 @@
-<!-- wp:group {"tagName":"footer","layout":{"type":"constrained"}} -->
-<footer class="wp-block-group">
-	<!-- wp:paragraph {"align":"center"} -->
-	<p class="has-text-align-center">
-		© 2024
-		<!-- wp:site-title {"level":0,"isLink":false} /-->
-	</p>
-	<!-- /wp:paragraph -->
+<!-- wp:group {"tagName":"footer","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|large","bottom":"var:preset|spacing|medium"}}},"backgroundColor":"contrast","textColor":"base","layout":{"type":"constrained"}} -->
+<footer
+	class="wp-block-group alignfull has-base-color has-contrast-background-color has-text-color has-background"
+	style="
+		padding-top: var(--wp--preset--spacing--large);
+		padding-bottom: var(--wp--preset--spacing--medium);
+	"
+>
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|large","left":"var:preset|spacing|large"},"margin":{"bottom":"var:preset|spacing|large"}}}} -->
+		<div
+			class="wp-block-columns"
+			style="margin-bottom: var(--wp--preset--spacing--large)"
+		>
+			<!-- wp:column {"width":"40%"} -->
+			<div class="wp-block-column" style="flex-basis: 40%">
+				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+				<div class="wp-block-group">
+					<!-- wp:site-logo {"width":40,"shouldSyncIcon":false} /-->
 
-	<!-- wp:social-links {"iconColor":"primary","iconColorValue":"#000000","className":"is-style-logos-only","layout":{"type":"flex","justifyContent":"center"}} -->
-	<ul class="wp-block-social-links has-icon-color is-style-logos-only">
-		<!-- wp:social-link {"url":"#","service":"twitter"} /-->
-		<!-- wp:social-link {"url":"#","service":"facebook"} /-->
-		<!-- wp:social-link {"url":"#","service":"instagram"} /-->
-	</ul>
-	<!-- /wp:social-links -->
+					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|xs"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+					<div class="wp-block-group">
+						<!-- wp:site-title {"level":2,"style":{"typography":{"fontWeight":"700"}},"fontSize":"medium","textColor":"base"} /-->
+						<!-- wp:site-tagline {"style":{"typography":{"fontSize":"0.875rem"}},"textColor":"base-2"} /-->
+					</div>
+					<!-- /wp:group -->
+				</div>
+				<!-- /wp:group -->
+
+				<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem"}},"textColor":"base-2"} -->
+				<p class="has-base-2-color has-text-color" style="font-size: 0.875rem">
+					Building modern, accessible, and performant web experiences with
+					WordPress block themes.
+				</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:column -->
+
+			<!-- wp:column {"width":"30%"} -->
+			<div class="wp-block-column" style="flex-basis: 30%">
+				<!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"600"}},"fontSize":"small","textColor":"base"} -->
+				<h3
+					class="wp-block-heading has-base-color has-text-color has-small-font-size"
+					style="font-weight: 600"
+				>
+					Quick Links
+				</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:navigation {"textColor":"base-2","layout":{"type":"flex","orientation":"vertical"},"style":{"spacing":{"blockGap":"var:preset|spacing|xs"},"typography":{"fontSize":"0.875rem"}},"overlayMenu":"never"} -->
+				<!-- wp:navigation-link {"label":"Privacy Policy","url":"/privacy"} /-->
+				<!-- wp:navigation-link {"label":"Terms of Service","url":"/terms"} /-->
+				<!-- wp:navigation-link {"label":"Support","url":"/support"} /-->
+				<!-- wp:navigation-link {"label":"Sitemap","url":"/sitemap"} /-->
+				<!-- /wp:navigation -->
+			</div>
+			<!-- /wp:column -->
+
+			<!-- wp:column {"width":"30%"} -->
+			<div class="wp-block-column" style="flex-basis: 30%">
+				<!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"600"}},"fontSize":"small","textColor":"base"} -->
+				<h3
+					class="wp-block-heading has-base-color has-text-color has-small-font-size"
+					style="font-weight: 600"
+				>
+					Stay Connected
+				</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem"}},"textColor":"base-2"} -->
+				<p class="has-base-2-color has-text-color" style="font-size: 0.875rem">
+					Subscribe to our newsletter for updates and insights.
+				</p>
+				<!-- /wp:paragraph -->
+
+				<!-- wp:html -->
+				<form class="newsletter-form" style="margin-top: 1rem">
+					<div style="display: flex; gap: 0.5rem">
+						<input
+							type="email"
+							placeholder="Enter your email"
+							style="
+								flex: 1;
+								padding: 0.5rem;
+								border: 1px solid #ccc;
+								border-radius: 4px;
+							"
+							required
+						/>
+						<button
+							type="submit"
+							style="
+								padding: 0.5rem 1rem;
+								background: var(--wp--preset--color--primary);
+								color: white;
+								border: none;
+								border-radius: 4px;
+								cursor: pointer;
+							"
+						>
+							Subscribe
+						</button>
+					</div>
+				</form>
+				<!-- /wp:html -->
+			</div>
+			<!-- /wp:column -->
+		</div>
+		<!-- /wp:columns -->
+
+		<!-- wp:separator {"style":{"spacing":{"margin":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"}}},"backgroundColor":"contrast-2"} -->
+		<hr
+			class="wp-block-separator has-text-color has-contrast-2-color has-alpha-channel-opacity has-contrast-2-background-color has-background"
+			style="
+				margin-top: var(--wp--preset--spacing--medium);
+				margin-bottom: var(--wp--preset--spacing--medium);
+			"
+		/>
+		<!-- /wp:separator -->
+
+		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
+		<div class="wp-block-group alignwide">
+			<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem"}},"textColor":"base-2"} -->
+			<p class="has-base-2-color has-text-color" style="font-size: 0.875rem">
+				© 2024
+				<!-- wp:site-title {"level":0,"isLink":false,"style":{"typography":{"fontSize":"0.875rem"}},"textColor":"base-2"} /-->
+				. All rights reserved.
+			</p>
+			<!-- /wp:paragraph -->
+
+			<!-- wp:social-links {"iconColor":"base-2","iconColorValue":"var(--wp--preset--color--base-2)","className":"is-style-logos-only","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|small"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
+			<ul class="wp-block-social-links has-icon-color is-style-logos-only">
+				<!-- wp:social-link {"url":"#","service":"twitter"} /-->
+				<!-- wp:social-link {"url":"#","service":"facebook"} /-->
+				<!-- wp:social-link {"url":"#","service":"instagram"} /-->
+				<!-- wp:social-link {"url":"#","service":"linkedin"} /-->
+				<!-- wp:social-link {"url":"#","service":"github"} /-->
+			</ul>
+			<!-- /wp:social-links -->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
 </footer>
 <!-- /wp:group -->

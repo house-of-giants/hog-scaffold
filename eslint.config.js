@@ -28,11 +28,14 @@ export default [
 			},
 			globals: {
 				wp: 'readonly',
-				jQuery: 'readonly',
-				$: 'readonly',
 				window: 'readonly',
 				document: 'readonly',
 				console: 'readonly',
+				fetch: 'readonly',
+				URLSearchParams: 'readonly',
+				setTimeout: 'readonly',
+				alert: 'readonly',
+				localStorage: 'readonly',
 			},
 		},
 		plugins: {

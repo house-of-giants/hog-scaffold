@@ -454,7 +454,7 @@ function enqueue_security_scripts()
   wp_enqueue_script(
     'hog-scaffold-security',
     HOG_SCAFFOLD_TEMPLATE_URL . '/assets/js/security.js',
-    array('jquery'),
+    array(),
     HOG_SCAFFOLD_VERSION,
     true
   );

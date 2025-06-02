@@ -4,7 +4,7 @@
  * @package HoGScaffold
  */
 
-(function ($) {
+(function () {
 	'use strict';
 
 	// Security utilities object
@@ -33,48 +33,34 @@
 		 * Setup secure AJAX defaults
 		 */
 		setupAjaxSecurity: function () {
-			// Set AJAX defaults for WordPress
-			$.ajaxSetup({
-				beforeSend: function (xhr, settings) {
-					// Add nonce to all AJAX requests
-					if (settings.data && typeof settings.data === 'string') {
-						if (settings.data.indexOf('action=') !== -1) {
-							const action = settings.data.match(/action=([^&]*)/);
-							if (action && action[1]) {
-								const nonce = HoGScaffoldSecurity.getNonce(action[1]);
-								if (nonce) {
-									settings.data += '&_wpnonce=' + nonce;
-								}
-							}
-						}
-					}
-				},
-				error: function (xhr, status, error) {
-					if (xhr.status === 403) {
-						HoGScaffoldSecurity.handleSecurityError(
-							'Security verification failed. Please refresh the page and try again.',
-						);
-					}
-				},
-			});
+			// Note: Since we're using fetch API, we'll handle nonce injection per request
+			// rather than globally like $.ajaxSetup()
 		},
 
 		/**
 		 * Bind security events to forms
 		 */
 		bindFormEvents: function () {
-			// Contact form security
-			$(document).on(
-				'submit',
-				'.hog-scaffold-contact-form',
-				this.handleContactForm,
-			);
+			// Contact form security - use event delegation
+			document.addEventListener('submit', (e) => {
+				if (e.target.matches('.hog-scaffold-contact-form')) {
+					this.handleContactForm(e);
+				}
+			});
 
-			// File upload security
-			$(document).on('change', 'input[type="file"]', this.validateFileUpload);
+			// File upload security - use event delegation
+			document.addEventListener('change', (e) => {
+				if (e.target.matches('input[type="file"]')) {
+					this.validateFileUpload(e);
+				}
+			});
 
-			// Prevent double submission
-			$(document).on('submit', 'form', this.preventDoubleSubmission);
+			// Prevent double submission - use event delegation
+			document.addEventListener('submit', (e) => {
+				if (e.target.matches('form')) {
+					this.preventDoubleSubmission(e);
+				}
+			});
 		},
 
 		/**
@@ -85,63 +71,73 @@
 		handleContactForm: function (e) {
 			e.preventDefault();
 
-			const $form = $(this);
-			const $submitBtn = $form.find('button[type="submit"]');
-			const originalText = $submitBtn.text();
+			const form = e.target;
+			const submitBtn = form.querySelector('button[type="submit"]');
+			const originalText = submitBtn.textContent;
 
 			// Disable submit button
-			$submitBtn.prop('disabled', true).text('Sending...');
+			submitBtn.disabled = true;
+			submitBtn.textContent = 'Sending...';
 
 			// Clear previous errors
-			$form.find('.error-message').remove();
-			$form.find('.field-error').removeClass('field-error');
+			const errorMessages = form.querySelectorAll('.error-message');
+			errorMessages.forEach((el) => el.remove());
+
+			const fieldErrors = form.querySelectorAll('.field-error');
+			fieldErrors.forEach((el) => el.classList.remove('field-error'));
 
 			// Get form data
 			const formData = {
 				action: 'hog_scaffold_contact_form',
-				name: $form.find('[name="name"]').val(),
-				email: $form.find('[name="email"]').val(),
-				phone: $form.find('[name="phone"]').val(),
-				message: $form.find('[name="message"]').val(),
-				contact_nonce: HoGScaffoldSecurity.getNonce('contact_form'),
+				name: form.querySelector('[name="name"]')?.value || '',
+				email: form.querySelector('[name="email"]')?.value || '',
+				phone: form.querySelector('[name="phone"]')?.value || '',
+				message: form.querySelector('[name="message"]')?.value || '',
+				contact_nonce: this.getNonce('contact_form'),
 			};
 
 			// Validate form data
-			const validation = HoGScaffoldSecurity.validateContactForm(formData);
+			const validation = this.validateContactForm(formData);
 			if (!validation.valid) {
-				HoGScaffoldSecurity.displayFormErrors($form, validation.errors);
-				$submitBtn.prop('disabled', false).text(originalText);
+				this.displayFormErrors(form, validation.errors);
+				submitBtn.disabled = false;
+				submitBtn.textContent = originalText;
 				return;
 			}
 
-			// Submit form via AJAX
-			$.ajax({
-				url: window.hogScaffoldAjax.ajaxurl,
-				type: 'POST',
-				data: formData,
-				success: function (response) {
-					if (response.success) {
-						HoGScaffoldSecurity.showSuccessMessage(
-							$form,
-							response.data.message,
-						);
-						$form[0].reset();
-					} else {
-						HoGScaffoldSecurity.displayFormErrors(
-							$form,
-							response.data.errors || {},
-						);
+			// Convert form data to URLSearchParams for submission
+			const params = new URLSearchParams(formData);
+
+			// Submit form via fetch API
+			fetch(window.hogScaffoldAjax.ajaxurl, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: params,
+			})
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
 					}
-				},
-				error: function (xhr, status, error) {
-					HoGScaffoldSecurity.handleSecurityError(
-						'An error occurred. Please try again.',
-					);
-				},
-				complete: function () {
-					$submitBtn.prop('disabled', false).text(originalText);
-				},
-			});
+					return response.json();
+				})
+				.then((data) => {
+					if (data.success) {
+						this.showSuccessMessage(form, data.data.message);
+						form.reset();
+					} else {
+						this.displayFormErrors(form, data.data.errors || {});
+					}
+				})
+				.catch((error) => {
+					console.error('AJAX Error:', error);
+					this.handleSecurityError('An error occurred. Please try again.');
+				})
+				.finally(() => {
+					submitBtn.disabled = false;
+					submitBtn.textContent = originalText;
+				});
 		},
 
 		/**
@@ -201,7 +197,7 @@
 		 * @returns {boolean} Is valid phone
 		 */
 		isValidPhone: function (phone) {
-			const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+			const phoneRegex = /^[+]?[0-9\s\-()]{10,}$/;
 			return phoneRegex.test(phone);
 		},
 
@@ -212,7 +208,7 @@
 		 */
 		validateFileUpload: function (e) {
 			const file = e.target.files[0];
-			const $input = $(e.target);
+			const input = e.target;
 			const maxSize = 2 * 1024 * 1024; // 2MB
 			const allowedTypes = [
 				'image/jpeg',
@@ -223,27 +219,25 @@
 			];
 
 			// Clear previous errors
-			$input.siblings('.file-error').remove();
+			const existingErrors = input.parentNode.querySelectorAll('.file-error');
+			existingErrors.forEach((el) => el.remove());
 
 			if (!file) return;
 
 			// Check file size
 			if (file.size > maxSize) {
-				HoGScaffoldSecurity.showFileError(
-					$input,
-					'File size must not exceed 2MB',
-				);
-				$input.val('');
+				this.showFileError(input, 'File size must not exceed 2MB');
+				input.value = '';
 				return;
 			}
 
 			// Check file type
 			if (!allowedTypes.includes(file.type)) {
-				HoGScaffoldSecurity.showFileError(
-					$input,
+				this.showFileError(
+					input,
 					'File type not allowed. Please upload images or PDF files only.',
 				);
-				$input.val('');
+				input.value = '';
 				return;
 			}
 		},
@@ -251,39 +245,59 @@
 		/**
 		 * Show file upload error
 		 *
-		 * @param {jQuery} $input - File input element
+		 * @param {HTMLElement} input - File input element
 		 * @param {string} message - Error message
 		 */
-		showFileError: function ($input, message) {
-			$input.after(
-				'<div class="file-error error-message">' + message + '</div>',
-			);
+		showFileError: function (input, message) {
+			const errorDiv = document.createElement('div');
+			errorDiv.className = 'file-error error-message';
+			errorDiv.textContent = message;
+			input.insertAdjacentElement('afterend', errorDiv);
 		},
 
 		/**
 		 * Display form validation errors
 		 *
-		 * @param {jQuery} $form - Form element
+		 * @param {HTMLElement} form - Form element
 		 * @param {Object} errors - Validation errors
 		 */
-		displayFormErrors: function ($form, errors) {
-			$.each(errors, function (field, message) {
-				const $field = $form.find('[name="' + field + '"]');
-				$field.addClass('field-error');
-				$field.after('<div class="error-message">' + message + '</div>');
+		displayFormErrors: function (form, errors) {
+			Object.entries(errors).forEach(([field, message]) => {
+				const fieldElement = form.querySelector(`[name="${field}"]`);
+				if (fieldElement) {
+					fieldElement.classList.add('field-error');
+
+					const errorDiv = document.createElement('div');
+					errorDiv.className = 'error-message';
+					errorDiv.textContent = message;
+					fieldElement.insertAdjacentElement('afterend', errorDiv);
+				}
 			});
 		},
 
 		/**
 		 * Show success message
 		 *
-		 * @param {jQuery} $form - Form element
+		 * @param {HTMLElement} form - Form element
 		 * @param {string} message - Success message
 		 */
-		showSuccessMessage: function ($form, message) {
-			$form.before('<div class="success-message">' + message + '</div>');
-			setTimeout(function () {
-				$('.success-message').fadeOut();
+		showSuccessMessage: function (form, message) {
+			const successDiv = document.createElement('div');
+			successDiv.className = 'success-message';
+			successDiv.textContent = message;
+			form.insertAdjacentElement('beforebegin', successDiv);
+
+			// Fade out after 5 seconds using CSS transition
+			setTimeout(() => {
+				successDiv.style.transition = 'opacity 0.5s ease-out';
+				successDiv.style.opacity = '0';
+
+				// Remove element after transition completes
+				setTimeout(() => {
+					if (successDiv.parentNode) {
+						successDiv.remove();
+					}
+				}, 500);
 			}, 5000);
 		},
 
@@ -303,16 +317,19 @@
 		 * @param {Event} e - Form submit event
 		 */
 		preventDoubleSubmission: function (e) {
-			const $form = $(this);
-			if ($form.data('submitted')) {
+			const form = e.target;
+			const isSubmitted = form.dataset.submitted === 'true';
+
+			if (isSubmitted) {
 				e.preventDefault();
 				return false;
 			}
-			$form.data('submitted', true);
+
+			form.dataset.submitted = 'true';
 
 			// Reset after a delay to allow legitimate resubmissions
-			setTimeout(function () {
-				$form.data('submitted', false);
+			setTimeout(() => {
+				form.dataset.submitted = 'false';
 			}, 3000);
 		},
 
@@ -320,26 +337,26 @@
 		 * Validate form inputs on submit
 		 */
 		validateOnSubmit: function () {
-			$(document).on('submit', 'form', function (e) {
-				const $form = $(this);
+			document.addEventListener('submit', (e) => {
+				if (!e.target.matches('form')) return;
+
+				const form = e.target;
 				let isValid = true;
 
 				// Check required fields
-				$form.find('[required]').each(function () {
-					const $field = $(this);
-					if (!$field.val().trim()) {
-						$field.addClass('field-error');
+				const requiredFields = form.querySelectorAll('[required]');
+				requiredFields.forEach((field) => {
+					if (!field.value.trim()) {
+						field.classList.add('field-error');
 						isValid = false;
 					} else {
-						$field.removeClass('field-error');
+						field.classList.remove('field-error');
 					}
 				});
 
 				if (!isValid) {
 					e.preventDefault();
-					HoGScaffoldSecurity.handleSecurityError(
-						'Please fill in all required fields.',
-					);
+					this.handleSecurityError('Please fill in all required fields.');
 				}
 			});
 		},
@@ -380,8 +397,12 @@
 		},
 	};
 
-	// Initialize when document is ready
-	$(document).ready(function () {
-		HoGScaffoldSecurity.init();
-	});
-})(jQuery);
+	// Initialize when DOM content is loaded
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', () => {
+			window.HoGScaffoldSecurity.init();
+		});
+	} else {
+		window.HoGScaffoldSecurity.init();
+	}
+})();
