@@ -12,7 +12,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"HoGScaffold\\": "includes/classes/"
+			"HoGScaffold\\": "inc/classes/"
 		}
 	},
 	"require-dev": {
