@@ -12,8 +12,8 @@ import { registerBlockType } from '@wordpress/blocks';
 /**
  * Internal dependencies
  */
-import edit from './edit';
-import save from './save';
+import edit from './edit.js';
+import save from './save.js';
 import block from './block.json';
 
 /* Uncomment for CSS overrides in the admin */

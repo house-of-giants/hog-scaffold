@@ -3,4 +3,4 @@
  * used in editor only
  */
 
-import './example-block';
+import './example-block/index.js';

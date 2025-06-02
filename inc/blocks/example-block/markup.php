@@ -16,12 +16,12 @@
 // Set defaults.
 $args = wp_parse_args(
 	$args,
-	[
-		'attributes' => [
+	array(
+		'attributes' => array(
 			'customTitle' => __( 'Custom title default', 'hog' ),
-		],
+		),
 		'class_name' => 'wp-block-example',
-	]
+	)
 );
 
 ?>

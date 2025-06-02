@@ -6,6 +6,7 @@
  */
 
 namespace HoGScaffold\Core;
+
 use HoGScaffold\Utility;
 
 /**
@@ -13,20 +14,19 @@ use HoGScaffold\Utility;
  *
  * @return void
  */
-function setup()
-{
-  $n = function ($function) {
-    return __NAMESPACE__ . "\\$function";
-  };
+function setup() {
+	$n = function ( $function ) {
+		return __NAMESPACE__ . "\\$function";
+	};
 
-  add_action('after_setup_theme', $n('i18n'));
-  add_action('after_setup_theme', $n('theme_setup'));
-  add_action('wp_enqueue_scripts', $n('scripts'));
-  add_action('wp_enqueue_scripts', $n('styles'));
-  add_action('wp_head', $n('js_detection'), 0);
-  add_action('wp_head', $n('add_manifest'), 10);
+	add_action( 'after_setup_theme', $n( 'i18n' ) );
+	add_action( 'after_setup_theme', $n( 'theme_setup' ) );
+	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
+	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
+	add_action( 'wp_head', $n( 'js_detection' ), 0 );
+	add_action( 'wp_head', $n( 'add_manifest' ), 10 );
 
-  add_filter('script_loader_tag', $n('script_loader_tag'), 10, 2);
+	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
 }
 
 /**
@@ -38,41 +38,39 @@ function setup()
  *
  * @return void
  */
-function i18n()
-{
-  load_theme_textdomain('HoG-scaffold', HOG_SCAFFOLD_PATH . '/languages');
+function i18n() {
+	load_theme_textdomain( 'HoG-scaffold', HOG_SCAFFOLD_PATH . '/languages' );
 }
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  */
-function theme_setup()
-{
-  add_theme_support('automatic-feed-links');
-  add_theme_support('title-tag');
-  add_theme_support('post-thumbnails');
-  add_theme_support(
-    'html5',
-    array(
-      'search-form',
-      'gallery',
-    )
-  );
+function theme_setup() {
+	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support(
+		'html5',
+		array(
+			'search-form',
+			'gallery',
+		)
+	);
 
-  // Add block theme support
-  add_theme_support('block-templates');
-  add_theme_support('block-template-parts');
-  add_theme_support('editor-styles');
-  add_theme_support('wp-block-styles');
-  add_theme_support('align-wide');
-  add_theme_support('responsive-embeds');
+	// Add block theme support
+	add_theme_support( 'block-templates' );
+	add_theme_support( 'block-template-parts' );
+	add_theme_support( 'editor-styles' );
+	add_theme_support( 'wp-block-styles' );
+	add_theme_support( 'align-wide' );
+	add_theme_support( 'responsive-embeds' );
 
-  // This theme uses wp_nav_menu() in three locations.
-  register_nav_menus(
-    array(
-      'primary' => esc_html__('Primary Menu', 'hog'),
-    )
-  );
+	// This theme uses wp_nav_menu() in three locations.
+	register_nav_menus(
+		array(
+			'primary' => esc_html__( 'Primary Menu', 'hog' ),
+		)
+	);
 }
 
 /**
@@ -80,17 +78,15 @@ function theme_setup()
  *
  * @return void
  */
-function scripts()
-{
+function scripts() {
 
-  wp_enqueue_script(
-    'frontend',
-    HOG_SCAFFOLD_TEMPLATE_URL . '/dist/js/frontend.js',
-    Utility\get_dep_asset('frontend', 'dependencies'),
-    Utility\get_dep_asset('frontend', 'version'),
-    true
-  );
-
+	wp_enqueue_script(
+		'frontend',
+		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/js/frontend.js',
+		Utility\get_dep_asset( 'frontend', 'dependencies' ),
+		Utility\get_dep_asset( 'frontend', 'version' ),
+		true
+	);
 }
 
 /**
@@ -98,15 +94,14 @@ function scripts()
  *
  * @return void
  */
-function styles()
-{
+function styles() {
 
-  wp_enqueue_style(
-    'styles',
-    HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/style.css',
-    [],
-    Utility\get_dep_asset('styles', 'version'),
-  );
+	wp_enqueue_style(
+		'styles',
+		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/style.css',
+		array(),
+		Utility\get_dep_asset( 'styles', 'version' ),
+	);
 }
 
 /**
@@ -116,10 +111,9 @@ function styles()
  *
  * @return void
  */
-function js_detection()
-{
+function js_detection() {
 
-  echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>\n";
+	echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>\n";
 }
 
 /**
@@ -130,31 +124,30 @@ function js_detection()
  * @param string $handle The script handle.
  * @return string
  */
-function script_loader_tag($tag, $handle)
-{
-  $script_execution = wp_scripts()->get_data($handle, 'script_execution');
+function script_loader_tag( $tag, $handle ) {
+	$script_execution = wp_scripts()->get_data( $handle, 'script_execution' );
 
-  if (!$script_execution) {
-    return $tag;
-  }
+	if ( ! $script_execution ) {
+		return $tag;
+	}
 
-  if ('async' !== $script_execution && 'defer' !== $script_execution) {
-    return $tag;
-  }
+	if ( 'async' !== $script_execution && 'defer' !== $script_execution ) {
+		return $tag;
+	}
 
-  // Abort adding async/defer for scripts that have this script as a dependency. _doing_it_wrong()?
-  foreach (wp_scripts()->registered as $script) {
-    if (in_array($handle, $script->deps, true)) {
-      return $tag;
-    }
-  }
+	// Abort adding async/defer for scripts that have this script as a dependency. _doing_it_wrong()?
+	foreach ( wp_scripts()->registered as $script ) {
+		if ( in_array( $handle, $script->deps, true ) ) {
+			return $tag;
+		}
+	}
 
-  // Add the attribute if it hasn't already been added.
-  if (!preg_match(":\s$script_execution(=|>|\s):", $tag)) {
-    $tag = preg_replace(':(?=></script>):', " $script_execution", $tag, 1);
-  }
+	// Add the attribute if it hasn't already been added.
+	if ( ! preg_match( ":\s$script_execution(=|>|\s):", $tag ) ) {
+		$tag = preg_replace( ':(?=></script>):', " $script_execution", $tag, 1 );
+	}
 
-  return $tag;
+	return $tag;
 }
 
 /**
@@ -162,7 +155,6 @@ function script_loader_tag($tag, $handle)
  *
  * @return void
  */
-function add_manifest()
-{
-  echo "<link rel='manifest' href='" . esc_url(HOG_SCAFFOLD_TEMPLATE_URL . '/manifest.json') . "' />";
+function add_manifest() {
+	echo "<link rel='manifest' href='" . esc_url( HOG_SCAFFOLD_TEMPLATE_URL . '/manifest.json' ) . "' />";
 }

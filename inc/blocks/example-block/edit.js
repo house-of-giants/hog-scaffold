@@ -7,7 +7,7 @@ import { RichText } from '@wordpress/block-editor';
 /**
  * Internal dependencies
  */
-import { editPropsShape } from './props-shape';
+import { editPropsShape } from './props-shape.js';
 
 /**
  * Edit component.

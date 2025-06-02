@@ -15,7 +15,7 @@ use HoGScaffold\Blocks\Example;
  * @return void
  */
 function setup() {
-	$n = function( $function ) {
+	$n = function ( $function ) {
 		return __NAMESPACE__ . "\\$function";
 	};
 
@@ -70,7 +70,7 @@ function blocks_editor_scripts() {
 	wp_enqueue_script(
 		'blocks-editor',
 		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/js/blocks-editor.js',
-		[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor', 'wp-compose', 'wp-data', 'wp-dom', 'wp-dom-ready', 'wp-edit-post' ],
+		array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor', 'wp-compose', 'wp-data', 'wp-dom', 'wp-dom-ready', 'wp-edit-post' ),
 		HOG_SCAFFOLD_VERSION,
 		false
 	);
@@ -83,7 +83,7 @@ function blocks_editor_scripts() {
 	wp_enqueue_style(
 		'shared-style',
 		HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/shared-style.css',
-		[],
+		array(),
 		HOG_SCAFFOLD_VERSION
 	);
 
@@ -91,7 +91,7 @@ function blocks_editor_scripts() {
 		wp_enqueue_style(
 			'admin-style',
 			HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/admin-style.css',
-			[],
+			array(),
 			HOG_SCAFFOLD_VERSION
 		);
 
@@ -102,7 +102,6 @@ function blocks_editor_scripts() {
 		add_theme_support( 'editor-styles' );
 		add_editor_style( '/dist/css/editor-style.css' );
 	}
-
 }
 
 /**
