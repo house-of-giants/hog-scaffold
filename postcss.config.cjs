@@ -1,6 +1,6 @@
-const path = require('path');
+const path = require( 'path' );
 
-module.exports = ({ file, env }) => {
+module.exports   = ({ file, env }) => {
 	const config = {
 		plugins: {
 			'postcss-import': {},
@@ -18,7 +18,7 @@ module.exports = ({ file, env }) => {
 	config.plugins.cssnano =
 		env === 'production'
 			? {
-					preset: [
+				preset: [
 						'default',
 						{
 							autoprefixer: false,
@@ -31,9 +31,9 @@ module.exports = ({ file, env }) => {
 							},
 							mergeLonghand: false,
 							zindex: false,
-						},
+				},
 					],
-			  }
+	}
 			: false;
 
 	return config;
