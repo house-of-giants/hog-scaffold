@@ -1,0 +1,344 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Modern JavaScript Over jQuery
+
+**Avoid jQuery unless absolutely necessary.** Use modern JavaScript APIs and ES6+ features instead for better performance, smaller bundle sizes, and improved maintainability.
+
+## **DOM Selection & Manipulation**
+
+### ✅ DO: Use Modern JavaScript
+```javascript
+// Element selection
+const element = document.querySelector('.my-class');
+const elements = document.querySelectorAll('.my-class');
+const elementById = document.getElementById('my-id');
+
+// Adding/removing classes
+element.classList.add('active');
+element.classList.remove('inactive');
+element.classList.toggle('visible');
+element.classList.contains('active');
+
+// Setting attributes
+element.setAttribute('data-value', 'example');
+element.removeAttribute('data-old');
+
+// Content manipulation
+element.textContent = 'New text';
+element.innerHTML = '<span>New HTML</span>';
+element.value = 'New input value';
+
+// Style manipulation
+element.style.display = 'none';
+element.style.backgroundColor = '#ff0000';
+```
+
+### ❌ DON'T: Use jQuery equivalents
+```javascript
+// Avoid these jQuery patterns
+$('.my-class');
+$('#my-id');
+$element.addClass('active');
+$element.removeClass('inactive');
+$element.toggleClass('visible');
+$element.hasClass('active');
+$element.attr('data-value', 'example');
+$element.text('New text');
+$element.html('<span>New HTML</span>');
+$element.val('New input value');
+$element.hide();
+$element.css('background-color', '#ff0000');
+```
+
+## **Event Handling**
+
+### ✅ DO: Use addEventListener
+```javascript
+// Single event listener
+element.addEventListener('click', (event) => {
+    event.preventDefault();
+    // Handle click
+});
+
+// Event delegation
+document.addEventListener('click', (event) => {
+    if (event.target.matches('.button')) {
+        // Handle delegated click
+    }
+});
+
+// Multiple events
+['mouseenter', 'mouseleave'].forEach(eventType => {
+    element.addEventListener(eventType, handleMouseEvent);
+});
+
+// Remove event listener
+element.removeEventListener('click', clickHandler);
+```
+
+### ❌ DON'T: Use jQuery event methods
+```javascript
+// Avoid jQuery event handling
+$element.on('click', handler);
+$element.off('click', handler);
+$element.click(handler);
+$(document).on('click', '.button', handler);
+```
+
+## **AJAX Requests**
+
+### ✅ DO: Use Fetch API
+```javascript
+// GET request
+async function getData(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Fetch error:', error);
+        throw error;
+    }
+}
+
+// POST request
+async function postData(url, data) {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': wpApiSettings.nonce // WordPress nonce
+            },
+            body: JSON.stringify(data)
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Post error:', error);
+        throw error;
+    }
+}
+```
+
+### ❌ DON'T: Use jQuery AJAX
+```javascript
+// Avoid jQuery AJAX methods
+$.ajax({
+    url: '/api/endpoint',
+    method: 'GET',
+    success: function(data) { },
+    error: function(xhr, status, error) { }
+});
+
+$.get('/api/endpoint');
+$.post('/api/endpoint', data);
+```
+
+## **DOM Ready & Loading**
+
+### ✅ DO: Use Modern Approaches
+```javascript
+// DOM content loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize code
+});
+
+// Or use modules with defer/async
+// In HTML: <script src="app.js" defer></script>
+
+// Check if DOM is already loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+```
+
+### ❌ DON'T: Use jQuery ready
+```javascript
+// Avoid jQuery document ready
+$(document).ready(function() {
+    // Initialize code
+});
+
+// Or shorthand
+$(function() {
+    // Initialize code
+});
+```
+
+## **Element Creation & Insertion**
+
+### ✅ DO: Use Modern DOM Methods
+```javascript
+// Create elements
+const div = document.createElement('div');
+div.className = 'new-element';
+div.textContent = 'Hello World';
+
+// Insert elements
+parentElement.appendChild(div);
+parentElement.insertBefore(div, referenceElement);
+element.insertAdjacentHTML('beforeend', '<span>New content</span>');
+
+// Remove elements
+element.remove();
+parentElement.removeChild(element);
+```
+
+### ❌ DON'T: Use jQuery creation/insertion
+```javascript
+// Avoid jQuery element creation
+const $div = $('<div class="new-element">Hello World</div>');
+$parent.append($div);
+$parent.prepend($div);
+$element.after($div);
+$element.before($div);
+$element.remove();
+```
+
+## **Animations & Effects**
+
+### ✅ DO: Use CSS Transitions/Animations + JavaScript
+```css
+/* Define transitions in CSS */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}
+
+.slide-down {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.slide-down.open {
+    max-height: 200px; /* or use auto with JavaScript calculation */
+}
+```
+
+```javascript
+// Trigger animations with classes
+element.classList.add('visible');
+
+// Or use Web Animations API for complex animations
+element.animate([
+    { opacity: 0, transform: 'translateY(-20px)' },
+    { opacity: 1, transform: 'translateY(0)' }
+], {
+    duration: 300,
+    easing: 'ease-out'
+});
+```
+
+### ❌ DON'T: Use jQuery animations
+```javascript
+// Avoid jQuery animation methods
+$element.fadeIn();
+$element.fadeOut();
+$element.slideDown();
+$element.slideUp();
+$element.animate({ opacity: 1 });
+```
+
+## **Utility Functions**
+
+### ✅ DO: Use Modern JavaScript Utilities
+```javascript
+// Array iteration
+items.forEach(item => processItem(item));
+const processed = items.map(item => transform(item));
+const filtered = items.filter(item => item.active);
+
+// Object manipulation
+const merged = { ...obj1, ...obj2 };
+const keys = Object.keys(obj);
+const values = Object.values(obj);
+
+// Type checking
+Array.isArray(value);
+typeof value === 'string';
+
+// Utilities
+const trimmed = str.trim();
+const parsed = JSON.parse(jsonString);
+const serialized = JSON.stringify(data);
+```
+
+### ❌ DON'T: Use jQuery utilities
+```javascript
+// Avoid jQuery utility methods
+$.each(items, function(index, item) { });
+$.map(items, function(item) { });
+$.extend({}, obj1, obj2);
+$.isArray(value);
+$.type(value);
+$.trim(str);
+$.parseJSON(jsonString);
+```
+
+## **When jQuery Might Still Be Acceptable**
+
+- **Legacy WordPress plugins** that require jQuery as a dependency
+- **Complex UI libraries** (like jQuery UI) where modern alternatives aren't feasible
+- **Temporary compatibility** during gradual migration from jQuery codebase
+- **Third-party integrations** that specifically require jQuery
+
+**Important:** Even in these cases, isolate jQuery usage and avoid mixing with modern JavaScript patterns.
+
+## **WordPress Specific Considerations**
+
+### ✅ DO: Handle WordPress jQuery Conflicts
+```javascript
+// If jQuery is absolutely required, use noConflict mode
+jQuery(document).ready(function($) {
+    // Use $ safely within this scope
+});
+
+// Or use WordPress's jQuery wrapper
+(function($) {
+    // jQuery code here
+})(jQuery);
+```
+
+### ✅ DO: Enqueue Modern Scripts Properly
+```php
+// In functions.php - enqueue modern JavaScript
+wp_enqueue_script(
+    'theme-modern-js',
+    get_template_directory_uri() . '/js/app.js',
+    [], // No jQuery dependency
+    filemtime(get_template_directory() . '/js/app.js'),
+    true // Load in footer
+);
+```
+
+## **Bundle Size & Performance Benefits**
+
+- **Smaller bundles:** Modern JavaScript eliminates jQuery's ~30KB overhead
+- **Better performance:** Native DOM APIs are faster than jQuery abstractions
+- **Modern features:** Access to latest browser APIs and ES6+ features
+- **Better debugging:** Direct browser API usage in developer tools
+- **Future-proof:** Aligned with modern web development practices
+
+## **Migration Strategy**
+
+1. **Audit existing jQuery usage** in the codebase
+2. **Replace simple DOM operations** first (selectors, classes, attributes)
+3. **Convert event handlers** to addEventListener
+4. **Replace AJAX calls** with fetch API
+5. **Remove jQuery animations** in favor of CSS transitions
+6. **Update build process** to exclude jQuery if no longer needed
+
+Refer to [webpack.settings.js](mdc:config/webpack.settings.js) for build configuration and [functions.php](mdc:functions.php) for proper script enqueueing in WordPress.
