@@ -1,0 +1,157 @@
+# BEGIN WordPress Security Hardening
+
+# Security Headers
+
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always append X-Frame-Options SAMEORIGIN
+    
+    # XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options nosniff
+    
+    # Referrer Policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Content Security Policy
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: http:; connect-src 'self' https://www.google-analytics.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; object-src 'none';"
+    
+    # Feature Policy
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    
+    # Remove server signature
+    Header unset Server
+    Header unset X-Powered-By
+</IfModule>
+
+# Hide sensitive files
+
+<FilesMatch "(^#.\*#|\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|sw[op])|~)$">
+Order allow,deny
+Deny from all
+Satisfy All
+</FilesMatch>
+
+# Protect wp-config.php
+
+<Files wp-config.php>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protect .htaccess
+
+<Files .htaccess>
+Order allow,deny
+Deny from all
+</Files>
+
+# Block access to sensitive WordPress files
+
+<FilesMatch "^(xmlrpc\.php|wp-trackback\.php|wp-links-opml\.php|wp-config-sample\.php)">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Block access to theme files
+
+<FilesMatch "\.(tpl|inc)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Prevent access to readme and license files
+
+<FilesMatch "^(readme|license|changelog)\.(txt|md)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Block PHP execution in uploads directory
+
+<Directory "\*/wp-content/uploads/">
+<FilesMatch "\.php$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+</Directory>
+
+# Prevent access to PHP files in themes
+
+<Directory "\*/wp-content/themes/">
+<FilesMatch "\.php$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+</Directory>
+
+# Allow only necessary PHP files in theme root
+
+<Directory "_/wp-content/themes/_/">
+<FilesMatch "(index|style|functions|screenshot)\.(php|css|png|jpg)$">
+Order deny,allow
+Allow from all
+</FilesMatch>
+</Directory>
+
+# Disable directory browsing
+
+Options All -Indexes
+
+# Disable server signature
+
+ServerSignature Off
+
+# Limit file upload size (adjust as needed)
+
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_vars 3000
+</IfModule>
+
+# Block suspicious requests
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Block requests with suspicious query strings
+    RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|ê|"|;|\?|\*|=$).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
+    RewriteCond %{QUERY_STRING} ^.*(request|select|union|delete|insert).* [NC]
+    RewriteRule ^(.*)$ - [F,L]
+    
+    # Block bad user agents
+    RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+    RewriteCond %{HTTP_USER_AGENT} ^(-|\.|') [OR]
+    RewriteCond %{HTTP_USER_AGENT} ^(.*(java|curl|wget)).* [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} ^(.*(@gmail\.com|@yahoo\.com|@hotmail\.com)).* [NC]
+    RewriteRule ^(.*)$ - [F,L]
+    
+    # Block hotlinking (uncomment and modify domain as needed)
+    # RewriteCond %{HTTP_REFERER} !^$
+    # RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?yourdomain\.com [NC]
+    # RewriteRule \.(jpg|jpeg|png|gif)$ - [F]
+</IfModule>
+
+# Rate limiting for login attempts (basic)
+
+<IfModule mod_evasive24.c>
+    DOSHashTableSize    2048
+    DOSPageCount        2
+    DOSPageInterval     1
+    DOSSiteCount        50
+    DOSSiteInterval     1
+    DOSBlockingPeriod   86400
+</IfModule>
+
+# END WordPress Security Hardening

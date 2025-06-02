@@ -1,0 +1,9 @@
+# Deny direct access to all files in inc directory
+Order allow,deny
+Deny from all
+
+# Prevent PHP execution
+<FilesMatch "\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch> 
