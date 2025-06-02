@@ -1,3 +1,3 @@
-import foo from './components/bar';
+import foo from './components/bar.js';
 
 foo();
