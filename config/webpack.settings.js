@@ -2,7 +2,7 @@ module.exports = {
 	entries: {
 		// JS files.
 		admin: './assets/js/admin/admin.js',
-		'blocks-editor': './includes/blocks/blocks-editor.js',
+		'blocks-editor': './inc/blocks/blocks-editor.js',
 		frontend: './assets/js/frontend/frontend.js',
 		shared: './assets/js/shared/shared.js',
 
