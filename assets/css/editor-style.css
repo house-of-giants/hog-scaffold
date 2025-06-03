@@ -1,0 +1,14 @@
+/* ==========================================================================
+   Editor Styles
+   Styles for the WordPress block editor
+   ========================================================================== */
+
+/* Import main styles for editor preview */
+@import "main.css";
+
+/* Editor-specific overrides */
+.editor-styles-wrapper {
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--base);
+	line-height: 1.6;
+} 

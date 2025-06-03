@@ -24,6 +24,11 @@
 	--wp--preset--color--neutral-800: #262626;
 	--wp--preset--color--neutral-900: #171717;
 
+	/* Semantic Colors */
+	--wp--preset--color--success: #00a32a;
+	--wp--preset--color--warning: #f0b849;
+	--wp--preset--color--error: #d63638;
+
 	/* Typography - synced with theme.json fontSizes */
 	--wp--preset--font-size--2xs: 0.512rem;
 	--wp--preset--font-size--xs: 0.64rem;
@@ -97,6 +102,18 @@
 	--grid-columns: 12;
 	--grid-gap: var(--wp--preset--spacing--base);
 	--grid-max-width: var(--wp--style--global--wide-size);
+
+	/* Custom Media Queries */
+	--bp-tiny: 25em; /* 400px */
+	--bp-small: 30em; /* 480px */
+	--bp-medium: 48em; /* 768px */
+	--bp-large: 64em; /* 1024px */
+	--bp-xlarge: 80em; /* 1280px */
+	--bp-xxlarge: 90em; /* 1440px */
+
+	/* WP Core Breakpoints (used for the admin bar for example) */
+	--wp-small: 600px;
+	--wp-medium-max: 782px;
 }
 
 /* Responsive Variable Adjustments */

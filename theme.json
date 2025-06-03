@@ -85,6 +85,21 @@
 					"slug": "neutral-900",
 					"color": "#171717",
 					"name": "Neutral 900"
+				},
+				{
+					"slug": "success",
+					"color": "#00a32a",
+					"name": "Success"
+				},
+				{
+					"slug": "warning",
+					"color": "#f0b849",
+					"name": "Warning"
+				},
+				{
+					"slug": "error",
+					"color": "#d63638",
+					"name": "Error"
 				}
 			],
 			"gradients": [

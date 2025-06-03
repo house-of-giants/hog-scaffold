@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Security Messages Component
+   Styles for success, error, and validation messages
+   ========================================================================== */
+
+.success-message {
+	background: color-mix(in srgb, var(--wp--preset--color--success) 10%, white);
+	border: 1px solid var(--wp--preset--color--success);
+	border-radius: var(--wp--preset--border-radius--small);
+	color: var(--wp--preset--color--success);
+	margin-bottom: var(--wp--preset--spacing--base);
+	opacity: 1;
+	padding: var(--wp--preset--spacing--base);
+	transition: opacity var(--transition-slow);
+}
+
+.success-message.fade-out {
+	opacity: 0;
+}
+
+.error-message,
+.file-error {
+	background: color-mix(in srgb, var(--wp--preset--color--error) 10%, white);
+	border: 1px solid var(--wp--preset--color--error);
+	border-radius: var(--wp--preset--border-radius--small);
+	color: var(--wp--preset--color--error);
+	font-size: var(--wp--preset--font-size--small);
+	margin-top: var(--wp--preset--spacing--xs);
+	padding: var(--wp--preset--spacing--xs);
+}
+
+.field-error {
+	border-color: var(--wp--preset--color--error) !important;
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--wp--preset--color--error) 25%, transparent);
+} 

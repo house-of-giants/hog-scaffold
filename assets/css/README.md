@@ -2,14 +2,17 @@
 
 ## Overview
 
-This WordPress theme implements a modern, scalable CSS architecture using custom properties, BEM methodology, and a component-based approach. The styles are organized into logical modules and build upon WordPress block theme standards.
+This WordPress theme implements a modern, scalable CSS architecture using WordPress theme variables, BEM methodology, and a component-based approach. The styles are organized into logical modules and build upon WordPress block theme standards.
+
+**Note:** This CSS structure was recently consolidated (Task 22) to eliminate redundancy and enforce consistent WordPress theme variable usage across all stylesheets.
 
 ## Architecture Principles
 
-### 1. Custom Properties System
-- All design tokens are defined as CSS custom properties in `global/variables.css`
-- Properties are synced with `theme.json` for WordPress block editor compatibility
+### 1. WordPress Theme Variables System
+- All design tokens are defined as CSS custom properties synced with `theme.json`
 - Variables follow WordPress naming conventions: `var(--wp--preset--[type]--[name])`
+- Semantic colors added for UI states: success, warning, error
+- Complete integration with WordPress block editor for real-time preview
 
 ### 2. BEM Methodology
 - Block Element Modifier naming convention for component classes
@@ -30,92 +33,326 @@ This WordPress theme implements a modern, scalable CSS architecture using custom
 
 ```
 assets/css/
-├── main.css                    # Main entry point
+├── main.css                    # Main entry point (imports all styles)
+├── editor-style.css           # Editor styles (imports main.css + editor overrides)
 ├── global/                     # Global styles and variables
-│   ├── variables.css          # Design tokens and custom properties
-│   └── base.css              # Reset, typography, and foundational styles
+│   ├── variables.css          # WordPress theme variables and custom properties
+│   └── base.css              # Reset, typography, foundational styles, WordPress alignment classes
 ├── components/                # Reusable UI components
 │   ├── buttons.css           # Button styles and variants
 │   ├── forms.css             # Form controls and layouts
 │   ├── navigation.css        # Navigation components
-│   └── cards.css            # Card components and variants
+│   ├── cards.css            # Card components and variants
+│   ├── skip-link.css        # Accessibility skip link component
+│   ├── newsletter-form.css  # Newsletter subscription form component
+│   └── security-messages.css # Success/error/validation message component
 ├── blocks/                   # WordPress block styles
 │   ├── core/                # Core WordPress blocks
 │   │   ├── group.css        # Group block styles
 │   │   ├── columns.css      # Columns block styles
+│   │   ├── cover.css        # Cover block styles
+│   │   ├── heading.css      # Heading block styles
+│   │   ├── paragraph.css    # Paragraph block styles
+│   │   ├── list.css         # List block styles
+│   │   ├── image.css        # Image block styles
 │   │   └── button.css       # Button block styles
 │   └── custom/              # Custom block styles
 │       ├── hero.css         # Hero block styles
-│       └── testimonial.css  # Testimonial block styles
+│       ├── service-cards.css # Service cards block styles
+│       ├── team-profiles.css # Team profiles block styles
+│       ├── testimonials.css # Testimonials block styles
+│       └── cta.css          # Call-to-action block styles
 ├── utilities/               # Utility classes
 │   ├── spacing.css         # Margin and padding utilities
 │   ├── layout.css          # Display, flexbox, grid utilities
 │   ├── typography.css      # Text styling utilities
-│   └── visibility.css      # Show/hide and accessibility utilities
-└── templates/              # Template-specific styles
-    ├── header.css          # Header and navigation
-    ├── footer.css          # Footer styles
-    ├── home.css            # Homepage specific styles
-    ├── blog.css            # Blog archive styles
-    ├── single.css          # Single post/page styles
-    ├── archive.css         # Archive template styles
-    └── page.css            # Static page styles
+│   ├── visibility.css      # Show/hide and accessibility utilities
+│   └── interactive-blocks.css # Interactive block utilities and patterns
+├── templates/              # Template-specific styles
+│   ├── header.css          # Header and navigation
+│   ├── footer.css          # Footer styles
+│   ├── single.css          # Single post/page styles
+│   ├── archive.css         # Archive template styles
+│   └── page.css            # Static page styles
+├── shared/                 # Shared utility styles
+├── admin/                  # WordPress admin specific styles
+└── print.css              # Print-specific styles
 ```
 
-## Variable System
+## WordPress Theme Variables System
 
 ### Color System
+All colors use WordPress theme variables from `theme.json`:
+
 ```css
 /* Primary brand colors */
---wp--preset--color--primary
---wp--preset--color--secondary  
---wp--preset--color--accent
+--wp--preset--color--primary      /* #000000 - Primary brand color */
+--wp--preset--color--secondary    /* #ffffff - Secondary brand color */
+--wp--preset--color--accent       /* #007cba - Accent/link color */
 
-/* Neutral color scale */
---wp--preset--color--neutral-50 to --wp--preset--color--neutral-900
+/* Base colors */
+--wp--preset--color--black        /* #000000 */
+--wp--preset--color--white        /* #ffffff */
 
-/* Semantic colors */
---wp--preset--color--success
---wp--preset--color--warning
---wp--preset--color--error
+/* Neutral color scale (50-900) */
+--wp--preset--color--neutral-50   /* #fafafa - Lightest neutral */
+--wp--preset--color--neutral-100  /* #f5f5f5 */
+--wp--preset--color--neutral-200  /* #e5e5e5 */
+--wp--preset--color--neutral-300  /* #d4d4d4 */
+--wp--preset--color--neutral-400  /* #a3a3a3 */
+--wp--preset--color--neutral-500  /* #737373 */
+--wp--preset--color--neutral-600  /* #525252 */
+--wp--preset--color--neutral-700  /* #404040 */
+--wp--preset--color--neutral-800  /* #262626 */
+--wp--preset--color--neutral-900  /* #171717 - Darkest neutral */
+
+/* Semantic colors (added during consolidation) */
+--wp--preset--color--success      /* #00a32a - Success green */
+--wp--preset--color--warning      /* #f0b849 - Warning yellow */
+--wp--preset--color--error        /* #d63638 - Error red */
+```
+
+**Usage Examples:**
+```css
+/* ✅ Correct - Use WordPress theme variables */
+.button {
+    background: var(--wp--preset--color--accent);
+    color: var(--wp--preset--color--white);
+}
+
+.success-message {
+    color: var(--wp--preset--color--success);
+    border-color: var(--wp--preset--color--success);
+}
+
+/* ✅ Correct - With fallback values for better compatibility */
+.link {
+    color: var(--wp--preset--color--accent, #007cba);
+}
+
+/* ❌ Incorrect - Don't use hardcoded colors */
+.button {
+    background: #007cba; /* Use var(--wp--preset--color--accent) instead */
+    color: #d63638;      /* Use var(--wp--preset--color--error) instead */
+}
 ```
 
 ### Typography Scale
 ```css
 /* Font sizes */
---wp--preset--font-size--xs to --wp--preset--font-size--5xl
+--wp--preset--font-size--2xs      /* 0.512rem */
+--wp--preset--font-size--xs       /* 0.64rem */
+--wp--preset--font-size--small    /* 0.8rem */
+--wp--preset--font-size--base     /* 1rem */
+--wp--preset--font-size--medium   /* 1.25rem */
+--wp--preset--font-size--large    /* 1.563rem */
+--wp--preset--font-size--xl       /* 1.953rem */
+--wp--preset--font-size--2xl      /* 2.441rem */
+--wp--preset--font-size--3xl      /* 3.052rem */
 
 /* Font families */
---wp--preset--font-family--body
---wp--preset--font-family--heading
+--wp--preset--font-family--system /* System fonts */
+--wp--preset--font-family--body   /* Body text font */
+--wp--preset--font-family--heading /* Heading font */
+```
+
+**Usage Examples:**
+```css
+/* ✅ Correct - Use WordPress font size variables */
+.heading {
+    font-size: var(--wp--preset--font-size--xl);
+    font-family: var(--wp--preset--font-family--heading);
+}
+
+.small-text {
+    font-size: var(--wp--preset--font-size--small);
+}
+
+/* ❌ Incorrect - Don't use hardcoded font sizes */
+.heading {
+    font-size: 1.953rem; /* Use var(--wp--preset--font-size--xl) instead */
+}
 ```
 
 ### Spacing Scale
 ```css
 /* Consistent spacing system */
---wp--preset--spacing--xs to --wp--preset--spacing--3xl
+--wp--preset--spacing--2xs        /* 0.512rem */
+--wp--preset--spacing--xs         /* 0.64rem */
+--wp--preset--spacing--small      /* 0.8rem */
+--wp--preset--spacing--base       /* 1rem */
+--wp--preset--spacing--medium     /* 1.25rem */
+--wp--preset--spacing--large      /* 1.563rem */
+--wp--preset--spacing--xl         /* 1.953rem */
+--wp--preset--spacing--2xl        /* 2.441rem */
+--wp--preset--spacing--3xl        /* 3.052rem */
 ```
+
+**Usage Examples:**
+```css
+/* ✅ Correct - Use WordPress spacing variables */
+.card {
+    padding: var(--wp--preset--spacing--medium);
+    margin-bottom: var(--wp--preset--spacing--base);
+}
+
+.newsletter-form {
+    gap: var(--wp--preset--spacing--xs);
+}
+
+/* ❌ Incorrect - Don't use hardcoded spacing */
+.card {
+    padding: 1.25rem; /* Use var(--wp--preset--spacing--medium) instead */
+    margin-bottom: 16px; /* Use var(--wp--preset--spacing--base) instead */
+}
+```
+
+### Border Radius & Effects
+```css
+/* Border radius */
+--wp--preset--border-radius--small   /* 4px */
+--wp--preset--border-radius--medium  /* 8px */
+--wp--preset--border-radius--large   /* 16px */
+--wp--preset--border-radius--full    /* 50% */
+
+/* Shadows */
+--wp--preset--shadow--small
+--wp--preset--shadow--medium
+--wp--preset--shadow--large
+```
+
+## Consolidation Process & History
+
+### Background
+The CSS structure was consolidated in **Task 22** to eliminate redundancy and enforce consistent WordPress theme variable usage. This process removed the duplicate `assets/css/frontend/` folder and moved unique content to appropriate locations.
+
+### What Was Consolidated
+
+**Removed Duplicate Content:**
+- `frontend/global/variables.css` - Outdated variables using non-WordPress format
+- `frontend/style.css` - Duplicate main entry point
+- `frontend/editor-style.css` - Empty file
+- `frontend/templates/index.css` - Empty file
+- `frontend/layout/index.css` - Empty file
+
+**Preserved & Relocated Unique Content:**
+- WordPress alignment classes → Moved to `global/base.css`
+- Accessibility styles (prefers-reduced-motion) → Moved to `global/base.css`
+- Custom media queries → Moved to `global/variables.css`
+- Skip link component → New `components/skip-link.css`
+- Newsletter form component → New `components/newsletter-form.css`
+- Security messages component → New `components/security-messages.css`
+
+**Updated References:**
+- Webpack configuration updated to point to new file locations
+- All hardcoded colors replaced with WordPress theme variables
+- Added semantic colors (success, warning, error) to `theme.json` and variables
+
+### Benefits of Consolidation
+- ✅ Eliminated duplicate CSS files and redundant code
+- ✅ Enforced consistent WordPress theme variable usage
+- ✅ Improved maintainability with single source of truth
+- ✅ Better integration with WordPress block editor
+- ✅ Reduced build complexity and file size
+- ✅ Clear separation of concerns with logical file organization
+
+### Prevention Guidelines
+To prevent recreation of duplicate structures:
+
+1. **Always use existing CSS structure** - Check current organization before adding new files
+2. **Follow WordPress theme variable standards** - Use `var(--wp--preset--*)` format consistently
+3. **Use semantic file organization** - Components go in `components/`, blocks in `blocks/`, etc.
+4. **Import order matters** - Follow the order in `main.css` (global → components → blocks → templates → utilities)
+5. **Avoid hardcoded values** - Always use theme variables for colors, spacing, typography
 
 ## Component Patterns
 
 ### Buttons
 ```css
 /* Base button class */
-.btn { /* base styles */ }
+.btn {
+    background: var(--wp--preset--color--accent);
+    border: none;
+    border-radius: var(--wp--preset--border-radius--small);
+    color: var(--wp--preset--color--white);
+    cursor: pointer;
+    font-size: var(--wp--preset--font-size--base);
+    padding: var(--wp--preset--spacing--small) var(--wp--preset--spacing--medium);
+    transition: var(--transition-fast);
+}
 
 /* Size variants */
-.btn--small
-.btn--large
+.btn--small {
+    font-size: var(--wp--preset--font-size--small);
+    padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--small);
+}
+
+.btn--large {
+    font-size: var(--wp--preset--font-size--medium);
+    padding: var(--wp--preset--spacing--medium) var(--wp--preset--spacing--large);
+}
 
 /* Style variants */
-.btn--primary
-.btn--secondary
-.btn--outline
+.btn--primary {
+    background: var(--wp--preset--color--primary);
+}
+
+.btn--secondary {
+    background: var(--wp--preset--color--secondary);
+    color: var(--wp--preset--color--primary);
+}
+
+.btn--outline {
+    background: transparent;
+    border: 2px solid var(--wp--preset--color--accent);
+    color: var(--wp--preset--color--accent);
+}
 
 /* State classes */
-.btn:hover
-.btn:focus
-.btn:disabled
+.btn:hover {
+    background: var(--wp--preset--color--primary);
+}
+
+.btn:focus {
+    outline: 2px solid var(--wp--preset--color--accent);
+    outline-offset: 2px;
+}
+
+.btn:disabled {
+    background: var(--wp--preset--color--neutral-300);
+    color: var(--wp--preset--color--neutral-500);
+    cursor: not-allowed;
+}
+```
+
+### Message Components (Added During Consolidation)
+```css
+/* Success message */
+.success-message {
+    background: color-mix(in srgb, var(--wp--preset--color--success) 10%, white);
+    border: 1px solid var(--wp--preset--color--success);
+    border-radius: var(--wp--preset--border-radius--small);
+    color: var(--wp--preset--color--success);
+    padding: var(--wp--preset--spacing--base);
+}
+
+/* Error message */
+.error-message {
+    background: color-mix(in srgb, var(--wp--preset--color--error) 10%, white);
+    border: 1px solid var(--wp--preset--color--error);
+    border-radius: var(--wp--preset--border-radius--small);
+    color: var(--wp--preset--color--error);
+    padding: var(--wp--preset--spacing--base);
+}
+
+/* Warning message */
+.warning-message {
+    background: color-mix(in srgb, var(--wp--preset--color--warning) 10%, white);
+    border: 1px solid var(--wp--preset--color--warning);
+    border-radius: var(--wp--preset--border-radius--small);
+    color: var(--wp--preset--color--warning);
+    padding: var(--wp--preset--spacing--base);
+}
 ```
 
 ### Cards
@@ -216,21 +453,54 @@ assets/css/
 ### 1. Adding New Components
 1. Create component file in `components/` directory
 2. Follow BEM naming conventions
-3. Use existing custom properties
-4. Add responsive behavior
-5. Document component usage
+3. **Use WordPress theme variables consistently**
+4. Add responsive behavior using theme breakpoints
+5. Import the component in `main.css`
+6. Document component usage in this README
 
 ### 2. Creating Block Styles
 1. Add styles to appropriate `blocks/` subdirectory
 2. Register block style variations in PHP
-3. Test in block editor
-4. Ensure responsive behavior
+3. **Use WordPress theme variables for colors, spacing, typography**
+4. Test in block editor for real-time preview
+5. Ensure responsive behavior
 
 ### 3. Adding Utilities
 1. Add to appropriate utilities file
 2. Follow consistent naming patterns
-3. Use custom properties for values
+3. **Use WordPress theme variables for values**
 4. Consider responsive variants
+
+### 4. Variable Usage Best Practices
+```css
+/* ✅ Always use WordPress theme variables */
+.component {
+    color: var(--wp--preset--color--neutral-700);
+    font-size: var(--wp--preset--font-size--base);
+    margin: var(--wp--preset--spacing--medium);
+}
+
+/* ✅ Use fallbacks for critical styles */
+.critical-component {
+    background: var(--wp--preset--color--primary, #000000);
+}
+
+/* ✅ Use semantic colors for UI states */
+.form-field--error {
+    border-color: var(--wp--preset--color--error);
+}
+
+.notification--success {
+    color: var(--wp--preset--color--success);
+}
+
+/* ❌ Never use hardcoded values */
+.bad-component {
+    color: #404040; /* Should be var(--wp--preset--color--neutral-700) */
+    font-size: 16px; /* Should be var(--wp--preset--font-size--base) */
+    margin: 20px; /* Should be var(--wp--preset--spacing--medium) */
+}
+```
 
 ## Testing Guidelines
 
