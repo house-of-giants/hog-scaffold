@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Custom Testimonial Block Styles
-   Testimonial block styling using custom properties
-   ========================================================================== */
+	Custom Testimonial Block Styles
+	Testimonial block styling using custom properties
+	========================================================================== */
 
 .wp-block-testimonial {
 	background-color: var(--wp--preset--color--white);

@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Main CSS Entry Point
-   Imports all styles in proper order for WordPress block theme
-   ========================================================================== */
+	Main CSS Entry Point
+	Imports all styles in proper order for WordPress block theme
+	========================================================================== */
 
 /* Global Foundation */
 @import "global/variables.css";

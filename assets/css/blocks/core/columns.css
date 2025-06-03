@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Core Columns Block Styles
-   WordPress core columns block styling using custom properties
-   ========================================================================== */
+	Core Columns Block Styles
+	WordPress core columns block styling using custom properties
+	========================================================================== */
 
 .wp-block-columns {
 	display: flex;

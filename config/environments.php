@@ -1,313 +1,303 @@
 <?php
 /**
  * Environment Configuration
- * 
+ *
  * Manages environment-specific settings for development, staging, and production.
- * 
+ *
  * @package HoG_Scaffold
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-  exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 /**
  * Environment Configuration Class
  */
-class Environment_Config
-{
+class Environment_Config {
 
-  /**
-   * Current environment
-   * @var string
-   */
-  private static $environment = null;
 
-  /**
-   * Environment configurations
-   * @var array
-   */
-  private static $configs = [];
+	/**
+	 * Current environment
+	 *
+	 * @var string
+	 */
+	private static $environment = null;
 
-  /**
-   * Initialize environment configuration
-   */
-  public static function init()
-  {
-    self::detect_environment();
-    self::setup_configurations();
-    self::apply_environment_config();
-  }
+	/**
+	 * Environment configurations
+	 *
+	 * @var array
+	 */
+	private static $configs = array();
 
-  /**
-   * Detect current environment
-   */
-  private static function detect_environment()
-  {
-    // Check for explicit environment setting
-    if (defined('WP_ENVIRONMENT_TYPE')) {
-      self::$environment = WP_ENVIRONMENT_TYPE;
-      return;
-    }
+	/**
+	 * Initialize environment configuration
+	 */
+	public static function init() {
+		self::detect_environment();
+		self::setup_configurations();
+		self::apply_environment_config();
+	}
 
-    // Check environment variable
-    if (getenv('WPENGINE_ENV')) {
-      self::$environment = getenv('WPENGINE_ENV');
-      return;
-    }
+	/**
+	 * Detect current environment
+	 */
+	private static function detect_environment() {
+		// Check for explicit environment setting
+		if ( defined( 'WP_ENVIRONMENT_TYPE' ) ) {
+			self::$environment = WP_ENVIRONMENT_TYPE;
+			return;
+		}
 
-    // Detect by URL patterns
-    $host = $_SERVER['HTTP_HOST'] ?? '';
+		// Check environment variable
+		if ( getenv( 'WPENGINE_ENV' ) ) {
+			self::$environment = getenv( 'WPENGINE_ENV' );
+			return;
+		}
 
-    if (strpos($host, '.wpengine.com') !== false) {
-      self::$environment = 'staging';
-    } elseif (strpos($host, 'localhost') !== false || strpos($host, '.local') !== false) {
-      self::$environment = 'development';
-    } elseif (defined('WP_DEBUG') && WP_DEBUG) {
-      self::$environment = 'development';
-    } else {
-      self::$environment = 'production';
-    }
-  }
+		// Detect by URL patterns
+		$host = $_SERVER['HTTP_HOST'] ?? '';
 
-  /**
-   * Set up environment-specific configurations
-   */
-  private static function setup_configurations()
-  {
-    self::$configs = [
-      'development' => [
-        'debug' => true,
-        'debug_log' => true,
-        'debug_display' => true,
-        'cache_enabled' => false,
-        'minify_assets' => false,
-        'cdn_enabled' => false,
-        'error_reporting' => E_ALL,
-        'log_errors' => true,
-        'cache_timeout' => 0,
-        'asset_version' => time(), // Always fresh assets in dev
-      ],
-      'staging' => [
-        'debug' => true,
-        'debug_log' => true,
-        'debug_display' => false,
-        'cache_enabled' => true,
-        'minify_assets' => true,
-        'cdn_enabled' => false,
-        'error_reporting' => E_ALL & ~E_NOTICE,
-        'log_errors' => true,
-        'cache_timeout' => 300, // 5 minutes
-        'asset_version' => defined('HOG_SCAFFOLD_VERSION') ? HOG_SCAFFOLD_VERSION : '1.0.0',
-      ],
-      'production' => [
-        'debug' => false,
-        'debug_log' => true,
-        'debug_display' => false,
-        'cache_enabled' => true,
-        'minify_assets' => true,
-        'cdn_enabled' => true,
-        'error_reporting' => 0,
-        'log_errors' => true,
-        'cache_timeout' => 3600, // 1 hour
-        'asset_version' => defined('HOG_SCAFFOLD_VERSION') ? HOG_SCAFFOLD_VERSION : '1.0.0',
-      ]
-    ];
-  }
+		if ( strpos( $host, '.wpengine.com' ) !== false ) {
+			self::$environment = 'staging';
+		} elseif ( strpos( $host, 'localhost' ) !== false || strpos( $host, '.local' ) !== false ) {
+			self::$environment = 'development';
+		} elseif ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			self::$environment = 'development';
+		} else {
+			self::$environment = 'production';
+		}
+	}
 
-  /**
-   * Apply environment-specific configuration
-   */
-  private static function apply_environment_config()
-  {
-    $config = self::get_config();
+	/**
+	 * Set up environment-specific configurations
+	 */
+	private static function setup_configurations() {
+		self::$configs = array(
+			'development' => array(
+				'debug'           => true,
+				'debug_log'       => true,
+				'debug_display'   => true,
+				'cache_enabled'   => false,
+				'minify_assets'   => false,
+				'cdn_enabled'     => false,
+				'error_reporting' => E_ALL,
+				'log_errors'      => true,
+				'cache_timeout'   => 0,
+				'asset_version'   => time(), // Always fresh assets in dev
+			),
+			'staging'     => array(
+				'debug'           => true,
+				'debug_log'       => true,
+				'debug_display'   => false,
+				'cache_enabled'   => true,
+				'minify_assets'   => true,
+				'cdn_enabled'     => false,
+				'error_reporting' => E_ALL & ~E_NOTICE,
+				'log_errors'      => true,
+				'cache_timeout'   => 300, // 5 minutes
+				'asset_version'   => defined( 'HOG_SCAFFOLD_VERSION' ) ? HOG_SCAFFOLD_VERSION : '1.0.0',
+			),
+			'production'  => array(
+				'debug'           => false,
+				'debug_log'       => true,
+				'debug_display'   => false,
+				'cache_enabled'   => true,
+				'minify_assets'   => true,
+				'cdn_enabled'     => true,
+				'error_reporting' => 0,
+				'log_errors'      => true,
+				'cache_timeout'   => 3600, // 1 hour
+				'asset_version'   => defined( 'HOG_SCAFFOLD_VERSION' ) ? HOG_SCAFFOLD_VERSION : '1.0.0',
+			),
+		);
+	}
 
-    // Set WordPress debug constants if not already defined
-    if (!defined('WP_DEBUG')) {
-      define('WP_DEBUG', $config['debug']);
-    }
-    if (!defined('WP_DEBUG_LOG')) {
-      define('WP_DEBUG_LOG', $config['debug_log']);
-    }
-    if (!defined('WP_DEBUG_DISPLAY')) {
-      define('WP_DEBUG_DISPLAY', $config['debug_display']);
-    }
+	/**
+	 * Apply environment-specific configuration
+	 */
+	private static function apply_environment_config() {
+		$config = self::get_config();
 
-    // Set error reporting
-    error_reporting($config['error_reporting']);
-    ini_set('log_errors', $config['log_errors']);
+		// Set WordPress debug constants if not already defined
+		if ( ! defined( 'WP_DEBUG' ) ) {
+			define( 'WP_DEBUG', $config['debug'] );
+		}
+		if ( ! defined( 'WP_DEBUG_LOG' ) ) {
+			define( 'WP_DEBUG_LOG', $config['debug_log'] );
+		}
+		if ( ! defined( 'WP_DEBUG_DISPLAY' ) ) {
+			define( 'WP_DEBUG_DISPLAY', $config['debug_display'] );
+		}
 
-    // Environment-specific actions
-    add_action('init', [__CLASS__, 'environment_specific_setup']);
-    add_filter('script_loader_tag', [__CLASS__, 'add_asset_attributes'], 10, 3);
-    add_filter('style_loader_tag', [__CLASS__, 'add_asset_attributes'], 10, 4);
-  }
+		// Set error reporting
+		error_reporting( $config['error_reporting'] );
+		ini_set( 'log_errors', $config['log_errors'] );
 
-  /**
-   * Environment-specific setup
-   */
-  public static function environment_specific_setup()
-  {
-    $config = self::get_config();
+		// Environment-specific actions
+		add_action( 'init', array( __CLASS__, 'environment_specific_setup' ) );
+		add_filter( 'script_loader_tag', array( __CLASS__, 'add_asset_attributes' ), 10, 3 );
+		add_filter( 'style_loader_tag', array( __CLASS__, 'add_asset_attributes' ), 10, 4 );
+	}
 
-    // Development-specific setup
-    if (self::$environment === 'development') {
-      // Disable caching plugins
-      if (function_exists('wp_cache_flush')) {
-        add_action('wp_loaded', 'wp_cache_flush');
-      }
+	/**
+	 * Environment-specific setup
+	 */
+	public static function environment_specific_setup() {
+		$config = self::get_config();
 
-      // Show admin bar for all users
-      show_admin_bar(true);
+		// Development-specific setup
+		if ( self::$environment === 'development' ) {
+			// Disable caching plugins
+			if ( function_exists( 'wp_cache_flush' ) ) {
+				add_action( 'wp_loaded', 'wp_cache_flush' );
+			}
 
-      // Disable external HTTP requests in development
-      if (!defined('WP_HTTP_BLOCK_EXTERNAL')) {
-        define('WP_HTTP_BLOCK_EXTERNAL', false);
-      }
-    }
+			// Show admin bar for all users
+			show_admin_bar( true );
 
-    // Staging-specific setup
-    if (self::$environment === 'staging') {
-      // Add staging notice
-      add_action('admin_notices', [__CLASS__, 'staging_notice']);
-      add_action('wp_footer', [__CLASS__, 'staging_banner']);
+			// Disable external HTTP requests in development
+			if ( ! defined( 'WP_HTTP_BLOCK_EXTERNAL' ) ) {
+				define( 'WP_HTTP_BLOCK_EXTERNAL', false );
+			}
+		}
 
-      // Disable search engine indexing
-      add_filter('pre_option_blog_public', '__return_zero');
-    }
+		// Staging-specific setup
+		if ( self::$environment === 'staging' ) {
+			// Add staging notice
+			add_action( 'admin_notices', array( __CLASS__, 'staging_notice' ) );
+			add_action( 'wp_footer', array( __CLASS__, 'staging_banner' ) );
 
-    // Production-specific setup
-    if (self::$environment === 'production') {
-      // Disable file editing
-      if (!defined('DISALLOW_FILE_EDIT')) {
-        define('DISALLOW_FILE_EDIT', true);
-      }
+			// Disable search engine indexing
+			add_filter( 'pre_option_blog_public', '__return_zero' );
+		}
 
-      // Enable automatic updates for minor releases
-      add_filter('allow_minor_auto_core_updates', '__return_true');
+		// Production-specific setup
+		if ( self::$environment === 'production' ) {
+			// Disable file editing
+			if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
+				define( 'DISALLOW_FILE_EDIT', true );
+			}
 
-      // Remove WordPress version from head
-      remove_action('wp_head', 'wp_generator');
-    }
-  }
+			// Enable automatic updates for minor releases
+			add_filter( 'allow_minor_auto_core_updates', '__return_true' );
 
-  /**
-   * Add asset attributes based on environment
-   */
-  public static function add_asset_attributes($tag, $handle, $href = null, $media = null)
-  {
-    $config = self::get_config();
+			// Remove WordPress version from head
+			remove_action( 'wp_head', 'wp_generator' );
+		}
+	}
 
-    // Add cache busting version for development
-    if (self::$environment === 'development' && strpos($tag, '?ver=') !== false) {
-      $tag = preg_replace('/\?ver=[^"\']*/', '?ver=' . time(), $tag);
-    }
+	/**
+	 * Add asset attributes based on environment
+	 */
+	public static function add_asset_attributes( $tag, $handle, $href = null, $media = null ) {
+		$config = self::get_config();
 
-    // Add preload for critical assets in production
-    if (self::$environment === 'production' && in_array($handle, ['theme-style', 'theme-script'])) {
-      $tag = str_replace(' href=', ' rel="preload" as="style" onload="this.onload=null;this.rel=\'stylesheet\'" href=', $tag);
-    }
+		// Add cache busting version for development
+		if ( self::$environment === 'development' && strpos( $tag, '?ver=' ) !== false ) {
+			$tag = preg_replace( '/\?ver=[^"\']*/', '?ver=' . time(), $tag );
+		}
 
-    return $tag;
-  }
+		// Add preload for critical assets in production
+		if ( self::$environment === 'production' && in_array( $handle, array( 'theme-style', 'theme-script' ) ) ) {
+			$tag = str_replace( ' href=', ' rel="preload" as="style" onload="this.onload=null;this.rel=\'stylesheet\'" href=', $tag );
+		}
 
-  /**
-   * Show staging notice in admin
-   */
-  public static function staging_notice()
-  {
-    echo '<div class="notice notice-warning"><p><strong>STAGING ENVIRONMENT</strong> - This is not the live site.</p></div>';
-  }
+		return $tag;
+	}
 
-  /**
-   * Show staging banner on frontend
-   */
-  public static function staging_banner()
-  {
-    if (!is_admin() && current_user_can('manage_options')) {
-      echo '<div style="position: fixed; top: 0; left: 0; right: 0; background: #f56565; color: white; text-align: center; padding: 5px; z-index: 9999; font-weight: bold;">STAGING ENVIRONMENT</div>';
-    }
-  }
+	/**
+	 * Show staging notice in admin
+	 */
+	public static function staging_notice() {
+		echo '<div class="notice notice-warning"><p><strong>STAGING ENVIRONMENT</strong> - This is not the live site.</p></div>';
+	}
 
-  /**
-   * Get current environment
-   * 
-   * @return string Current environment
-   */
-  public static function get_environment()
-  {
-    return self::$environment;
-  }
+	/**
+	 * Show staging banner on frontend
+	 */
+	public static function staging_banner() {
+		if ( ! is_admin() && current_user_can( 'manage_options' ) ) {
+			echo '<div style="position: fixed; top: 0; left: 0; right: 0; background: #f56565; color: white; text-align: center; padding: 5px; z-index: 9999; font-weight: bold;">STAGING ENVIRONMENT</div>';
+		}
+	}
 
-  /**
-   * Get environment configuration
-   * 
-   * @param string $key Optional configuration key
-   * @return mixed Configuration value or full config array
-   */
-  public static function get_config($key = null)
-  {
-    $config = self::$configs[self::$environment] ?? self::$configs['production'];
+	/**
+	 * Get current environment
+	 *
+	 * @return string Current environment
+	 */
+	public static function get_environment() {
+		return self::$environment;
+	}
 
-    if ($key) {
-      return $config[$key] ?? null;
-    }
+	/**
+	 * Get environment configuration
+	 *
+	 * @param string $key Optional configuration key
+	 * @return mixed Configuration value or full config array
+	 */
+	public static function get_config( $key = null ) {
+		$config = self::$configs[ self::$environment ] ?? self::$configs['production'];
 
-    return $config;
-  }
+		if ( $key ) {
+			return $config[ $key ] ?? null;
+		}
 
-  /**
-   * Check if current environment matches
-   * 
-   * @param string|array $environment Environment(s) to check
-   * @return bool True if current environment matches
-   */
-  public static function is_environment($environment)
-  {
-    if (is_array($environment)) {
-      return in_array(self::$environment, $environment);
-    }
+		return $config;
+	}
 
-    return self::$environment === $environment;
-  }
+	/**
+	 * Check if current environment matches
+	 *
+	 * @param string|array $environment Environment(s) to check
+	 * @return bool True if current environment matches
+	 */
+	public static function is_environment( $environment ) {
+		if ( is_array( $environment ) ) {
+			return in_array( self::$environment, $environment );
+		}
 
-  /**
-   * Get environment-specific database configuration
-   * 
-   * @return array Database configuration
-   */
-  public static function get_database_config()
-  {
-    $configs = [
-      'development' => [
-        'host' => getenv('DB_HOST') ?: 'localhost',
-        'name' => getenv('DB_NAME') ?: 'wordpress_dev',
-        'user' => getenv('DB_USER') ?: 'root',
-        'password' => getenv('DB_PASSWORD') ?: '',
-        'charset' => 'utf8mb4',
-        'collate' => '',
-      ],
-      'staging' => [
-        'host' => getenv('DB_HOST') ?: 'localhost',
-        'name' => getenv('DB_NAME'),
-        'user' => getenv('DB_USER'),
-        'password' => getenv('DB_PASSWORD'),
-        'charset' => 'utf8mb4',
-        'collate' => '',
-      ],
-      'production' => [
-        'host' => getenv('DB_HOST') ?: 'localhost',
-        'name' => getenv('DB_NAME'),
-        'user' => getenv('DB_USER'),
-        'password' => getenv('DB_PASSWORD'),
-        'charset' => 'utf8mb4',
-        'collate' => '',
-      ]
-    ];
+		return self::$environment === $environment;
+	}
 
-    return $configs[self::$environment] ?? $configs['production'];
-  }
+	/**
+	 * Get environment-specific database configuration
+	 *
+	 * @return array Database configuration
+	 */
+	public static function get_database_config() {
+		$configs = array(
+			'development' => array(
+				'host'     => getenv( 'DB_HOST' ) ?: 'localhost',
+				'name'     => getenv( 'DB_NAME' ) ?: 'wordpress_dev',
+				'user'     => getenv( 'DB_USER' ) ?: 'root',
+				'password' => getenv( 'DB_PASSWORD' ) ?: '',
+				'charset'  => 'utf8mb4',
+				'collate'  => '',
+			),
+			'staging'     => array(
+				'host'     => getenv( 'DB_HOST' ) ?: 'localhost',
+				'name'     => getenv( 'DB_NAME' ),
+				'user'     => getenv( 'DB_USER' ),
+				'password' => getenv( 'DB_PASSWORD' ),
+				'charset'  => 'utf8mb4',
+				'collate'  => '',
+			),
+			'production'  => array(
+				'host'     => getenv( 'DB_HOST' ) ?: 'localhost',
+				'name'     => getenv( 'DB_NAME' ),
+				'user'     => getenv( 'DB_USER' ),
+				'password' => getenv( 'DB_PASSWORD' ),
+				'charset'  => 'utf8mb4',
+				'collate'  => '',
+			),
+		);
+
+		return $configs[ self::$environment ] ?? $configs['production'];
+	}
 }
 
 // Initialize environment configuration

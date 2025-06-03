@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Core Group Block Styles
-   WordPress core group block styling using custom properties
-   ========================================================================== */
+	Core Group Block Styles
+	WordPress core group block styling using custom properties
+	========================================================================== */
 
 .wp-block-group {
 	padding: var(--wp--preset--spacing--base);

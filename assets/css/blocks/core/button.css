@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Core Button Block Styles
-   WordPress core button block styling using custom properties
-   ========================================================================== */
+	Core Button Block Styles
+	WordPress core button block styling using custom properties
+	========================================================================== */
 
 .wp-block-button {
 	margin-bottom: var(--wp--preset--spacing--base);
