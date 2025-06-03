@@ -11,4 +11,196 @@
 	font-family: var(--wp--preset--font-family--body);
 	font-size: var(--wp--preset--font-size--base);
 	line-height: 1.6;
+}
+
+/* Pattern-specific editor enhancements */
+.editor-styles-wrapper .wp-block-group {
+	/* Improve visual separation between pattern sections in editor */
+	border: 1px dashed transparent;
+	transition: border-color 0.2s ease;
+}
+
+.editor-styles-wrapper .wp-block-group:hover {
+	border-color: #007cba;
+}
+
+.editor-styles-wrapper .wp-block-group.alignfull {
+	/* Better visual indication for full-width sections */
+	position: relative;
+}
+
+.editor-styles-wrapper .wp-block-group.alignfull::before {
+	background: #ffffff;
+	border-radius: 2px;
+	color: #757575;
+	content: "Full Width Section";
+	font-size: 11px;
+	left: 0;
+	opacity: 0;
+	padding: 2px 6px;
+	position: absolute;
+	top: -20px;
+	transition: opacity 0.2s ease;
+}
+
+.editor-styles-wrapper .wp-block-group.alignfull:hover::before {
+	opacity: 1;
+}
+
+/* Enhanced form field styling in editor */
+.editor-styles-wrapper input[type="text"],
+.editor-styles-wrapper input[type="email"],
+.editor-styles-wrapper textarea {
+	border: 2px solid #dddddd;
+	border-radius: 8px;
+	font-family: inherit;
+	font-size: 16px;
+	padding: 12px;
+	transition: border-color 0.2s ease;
+	width: 100%;
+}
+
+.editor-styles-wrapper input[type="text"]:focus,
+.editor-styles-wrapper input[type="email"]:focus,
+.editor-styles-wrapper textarea:focus {
+	border-color: #007cba;
+	box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+	outline: none;
+}
+
+/* Better visual feedback for details/summary elements */
+.editor-styles-wrapper .wp-block-details {
+	border: 1px solid #e0e0e0;
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+.editor-styles-wrapper .wp-block-details summary {
+	background: #f8f9fa;
+	border-bottom: 1px solid #e0e0e0;
+	cursor: pointer;
+	font-weight: 600;
+	padding: 20px;
+	transition: background-color 0.2s ease;
+}
+
+.editor-styles-wrapper .wp-block-details summary:hover {
+	background: #e9ecef;
+}
+
+.editor-styles-wrapper .wp-block-details[open] summary {
+	border-bottom: 1px solid #e0e0e0;
+}
+
+/* Improved column visualization in editor */
+.editor-styles-wrapper .wp-block-columns {
+	border: 1px dashed transparent;
+	border-radius: 4px;
+	transition: border-color 0.2s ease;
+}
+
+.editor-styles-wrapper .wp-block-columns:hover {
+	border-color: #007cba;
+}
+
+.editor-styles-wrapper .wp-block-column {
+	position: relative;
+}
+
+/* Better button styling in editor */
+.editor-styles-wrapper .wp-block-button .wp-block-button__link {
+	border-radius: 8px;
+	font-weight: 600;
+	padding: 12px 24px;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+/* Enhanced image styling in editor */
+.editor-styles-wrapper .wp-block-image {
+	position: relative;
+}
+
+.editor-styles-wrapper .wp-block-image img {
+	border-radius: 8px;
+	height: auto;
+	max-width: 100%;
+}
+
+/* Pattern section spacing improvements */
+.editor-styles-wrapper .wp-block-group[style*="padding"] {
+	/* Visual indicator for sections with custom padding */
+	box-shadow: inset 0 0 0 1px rgba(0, 124, 186, 0.1);
+}
+
+/* Cover block enhancements for hero pattern */
+.editor-styles-wrapper .wp-block-cover {
+	min-height: 400px; /* Fallback for editor */
+	position: relative;
+}
+
+.editor-styles-wrapper .wp-block-cover .wp-block-cover__inner-container {
+	padding: 40px 20px;
+}
+
+/* Typography improvements in editor */
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+	line-height: 1.2;
+	margin-bottom: 1rem;
+	margin-top: 0;
+}
+
+.editor-styles-wrapper .has-x-large-font-size {
+	font-size: 2.5rem;
+	line-height: 1.1;
+}
+
+.editor-styles-wrapper .has-large-font-size {
+	font-size: 1.5rem;
+	line-height: 1.3;
+}
+
+/* Responsive preview improvements */
+@media (max-width: 768px) {
+	.editor-styles-wrapper .wp-block-columns {
+		flex-direction: column;
+	}
+	
+	.editor-styles-wrapper .wp-block-column {
+		flex-basis: 100% !important;
+		margin-bottom: 20px;
+	}
+	
+	.editor-styles-wrapper .has-x-large-font-size {
+		font-size: 2rem;
+	}
+}
+
+/* Pattern-specific editor hints */
+.editor-styles-wrapper .wp-block-group[class*="has-base-2-background-color"] {
+	/* Visual indicator for sections with alternate background */
+	position: relative;
+}
+
+.editor-styles-wrapper .wp-block-group[class*="has-base-2-background-color"]::after {
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 2px;
+	color: #666666;
+	content: "Alternate Background";
+	font-size: 10px;
+	opacity: 0;
+	padding: 2px 6px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	transition: opacity 0.2s ease;
+}
+
+.editor-styles-wrapper .wp-block-group[class*="has-base-2-background-color"]:hover::after {
+	opacity: 1;
 } 

@@ -160,30 +160,108 @@ function blocks_categories($categories, $post)
  */
 function block_patterns_and_categories()
 {
-  /*
-     ## Examples
+  // Register custom block pattern categories
+  register_block_pattern_category(
+    'hog-scaffold-sections',
+    array(
+      'label' => __('Theme Sections', 'hog-scaffold'),
+      'description' => __('Complete page sections for building layouts', 'hog-scaffold'),
+    )
+  );
 
-     // Register block pattern
-     register_block_pattern(
-       'hog/block-pattern',
-       array(
-             'title'       => __( 'Two buttons', 'hog' ),
-             'description' => _x( 'Two horizontal buttons, the left button is filled in, and the right button is outlined.', 'Block pattern description', 'wpdocs-my-plugin' ),
-             'content'     => "<!-- wp:buttons {\"align\":\"center\"} -->\n<div class=\"wp-block-buttons aligncenter\"><!-- wp:button {\"backgroundColor\":\"very-dark-gray\",\"borderRadius\":0} -->\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link has-background has-very-dark-gray-background-color no-border-radius\">" . esc_html__( 'Button One', 'wpdocs-my-plugin' ) . "</a></div>\n<!-- /wp:button -->\n\n<!-- wp:button {\"textColor\":\"very-dark-gray\",\"borderRadius\":0,\"className\":\"is-style-outline\"} -->\n<div class=\"wp-block-button is-style-outline\"><a class=\"wp-block-button__link has-text-color has-very-dark-gray-color no-border-radius\">" . esc_html__( 'Button Two', 'wpdocs-my-plugin' ) . "</a></div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons -->",
-         )
-     );
+  register_block_pattern_category(
+    'hog-scaffold-content',
+    array(
+      'label' => __('Content Blocks', 'hog-scaffold'),
+      'description' => __('Reusable content components', 'hog-scaffold'),
+    )
+  );
 
-     // Unregister a block pattern
-     unregister_block_pattern( 'hog/block-pattern' );
+  // Register block patterns from pattern files
+  $pattern_files = array(
+    'hero' => array(
+      'title' => __('Hero Section', 'hog-scaffold'),
+      'description' => __('A prominent hero section with heading, description, and call-to-action buttons.', 'hog-scaffold'),
+      'categories' => array('hog-scaffold-sections', 'header', 'featured'),
+      'keywords' => array('hero', 'banner', 'header', 'cta', 'featured'),
+    ),
+    'services-grid' => array(
+      'title' => __('Services Grid', 'hog-scaffold'),
+      'description' => __('A flexible grid layout for showcasing services or features with icons, titles, and descriptions.', 'hog-scaffold'),
+      'categories' => array('hog-scaffold-sections', 'text', 'featured'),
+      'keywords' => array('services', 'grid', 'features', 'columns', 'icons'),
+    ),
+    'about-section' => array(
+      'title' => __('About Section', 'hog-scaffold'),
+      'description' => __('A compelling about section with image, headline, description, and key features.', 'hog-scaffold'),
+      'categories' => array('hog-scaffold-sections', 'text', 'featured'),
+      'keywords' => array('about', 'company', 'story', 'features', 'image'),
+    ),
+    'testimonials' => array(
+      'title' => __('Testimonials Section', 'hog-scaffold'),
+      'description' => __('Customer testimonials with quotes, names, and company information.', 'hog-scaffold'),
+      'categories' => array('hog-scaffold-sections', 'text', 'featured'),
+      'keywords' => array('testimonials', 'reviews', 'quotes', 'customers', 'feedback'),
+    ),
+    'team-section' => array(
+      'title' => __('Team Section', 'hog-scaffold'),
+      'description' => __('Meet the team section with member photos, names, roles, and descriptions.', 'hog-scaffold'),
+      'categories' => array('hog-scaffold-sections', 'text', 'featured'),
+      'keywords' => array('team', 'staff', 'members', 'about', 'people'),
+    ),
+    'contact-section' => array(
+      'title' => __('Contact Section', 'hog-scaffold'),
+      'description' => __('Contact section with form fields, contact information, and call-to-action.', 'hog-scaffold'),
+      'categories' => array('hog-scaffold-sections', 'contact', 'featured'),
+      'keywords' => array('contact', 'form', 'email', 'phone', 'address', 'get in touch'),
+    ),
+    'faq-section' => array(
+      'title' => __('FAQ Section', 'hog-scaffold'),
+      'description' => __('Frequently asked questions section with expandable answers.', 'hog-scaffold'),
+      'categories' => array('hog-scaffold-sections', 'text', 'featured'),
+      'keywords' => array('faq', 'questions', 'answers', 'accordion', 'help', 'support'),
+    ),
+  );
 
-     // Register a block pattern category
-     register_block_pattern_category(
-       'client-name',
-         array( 'label' => __( 'Client Name', 'hog' ) )
-     );
+  // Register each pattern
+  foreach ($pattern_files as $pattern_slug => $pattern_data) {
+    $pattern_file = get_template_directory() . '/patterns/' . $pattern_slug . '.php';
 
-     // Unregister a block pattern category
-     unregister_block_pattern('client-name')
+    if (file_exists($pattern_file)) {
+      // Get the pattern content
+      ob_start();
+      include $pattern_file;
+      $pattern_content = ob_get_clean();
 
-   */
+      // Extract the content after the PHP header
+      $pattern_content = preg_replace('/^<\?php.*?\?>\s*/s', '', $pattern_content);
+
+      // Register the pattern
+      register_block_pattern(
+        'hog-scaffold/' . $pattern_slug,
+        array(
+          'title' => $pattern_data['title'],
+          'description' => $pattern_data['description'],
+          'content' => $pattern_content,
+          'categories' => $pattern_data['categories'],
+          'keywords' => $pattern_data['keywords'],
+          'viewportWidth' => 1200,
+        )
+      );
+    }
+  }
+
+  // Unregister default WordPress patterns that might conflict
+  $patterns_to_remove = array(
+    'core/query-standard-posts',
+    'core/query-medium-posts',
+    'core/query-small-posts',
+    'core/query-grid-posts',
+    'core/query-large-title-posts',
+    'core/social-links-shared-background-color',
+  );
+
+  foreach ($patterns_to_remove as $pattern) {
+    unregister_block_pattern($pattern);
+  }
 }
