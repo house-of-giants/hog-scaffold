@@ -19,11 +19,15 @@ require_once HOG_SCAFFOLD_INC . 'template-tags.php';
 require_once HOG_SCAFFOLD_INC . 'utility.php';
 require_once HOG_SCAFFOLD_INC . 'blocks.php';
 require_once HOG_SCAFFOLD_INC . 'security.php';
+require_once HOG_SCAFFOLD_INC . 'performance.php';
+require_once HOG_SCAFFOLD_INC . 'cpt.php';
 
 // Run the setup functions.
 HoGScaffold\Core\setup();
 HoGScaffold\Blocks\setup();
 HoGScaffold\Security\setup();
+HoGScaffold\Performance\setup();
+HoGScaffold\CPT\setup();
 
 // Require Composer autoloader if it exists.
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
