@@ -1,0 +1,16 @@
+/* ==========================================================================
+   Blocks CSS Entry Point
+   Imports all block styles for WordPress block theme
+   ========================================================================== */
+
+/* Core WordPress Blocks */
+@import "core/group.css";
+@import "core/columns.css";
+@import "core/button.css";
+
+/* Custom Blocks */
+@import "custom/hero.css";
+@import "custom/service-cards.css";
+@import "custom/team-profiles.css";
+@import "custom/testimonials.css";
+@import "custom/cta.css"; 

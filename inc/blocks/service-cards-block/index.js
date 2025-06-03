@@ -6,7 +6,6 @@
 /**
  * WordPress dependencies
  */
-import { __ } from "@wordpress/i18n";
 import { registerBlockType } from "@wordpress/blocks";
 
 /**
@@ -14,20 +13,13 @@ import { registerBlockType } from "@wordpress/blocks";
  */
 import edit from "./edit.js";
 import save from "./save.js";
-import block from "./block.json";
-
-/* Import CSS for the block */
-import "./index.css";
+import metadata from "./block.json";
 
 /**
  * Register block
+ * All metadata is defined in block.json
  */
-registerBlockType(block.name, {
-	title: __("Service Cards", "hog"),
-	description: __(
-		"Display service or feature cards with icons, titles, descriptions, and links in a responsive grid layout",
-		"hog"
-	),
+registerBlockType(metadata.name, {
 	edit,
 	save,
 });

@@ -25,7 +25,9 @@
 
 /* Custom Blocks */
 @import "blocks/custom/hero.css";
-@import "blocks/custom/testimonial.css";
+@import "blocks/custom/service-cards.css";
+@import "blocks/custom/team-profiles.css";
+@import "blocks/custom/testimonials.css";
 @import "blocks/custom/cta.css";
 
 /* Templates */

@@ -15,19 +15,19 @@
 
 // Set defaults.
 $args = wp_parse_args(
-	$args,
-	array(
-		'attributes' => array(
-			'customTitle' => __( 'Custom title default', 'hog' ),
-		),
-		'class_name' => 'wp-block-example',
-	)
+  $args,
+  array(
+    'attributes' => array(
+      'customTitle' => __('Custom title default', 'hog-scaffold'),
+    ),
+    'class_name' => 'wp-block-example',
+  )
 );
 
 ?>
-<div class="<?php echo esc_attr( $args['class_name'] ); ?>">
-	<h2 class="wp-block-example-title">
-		<?php echo wp_kses_post( $args['attributes']['customTitle'] ); ?>
-	</h2>
-	Some stuff here I guess
+<div class="<?php echo esc_attr($args['class_name']); ?>">
+  <h2 class="wp-block-example-title">
+    <?php echo wp_kses_post($args['attributes']['customTitle']); ?>
+  </h2>
+  Some stuff here I guess
 </div>

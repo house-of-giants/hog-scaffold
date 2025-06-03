@@ -88,27 +88,36 @@ const HeroBlockEdit = ({ attributes, setAttributes }) => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__("Layout Settings", "hog")} initialOpen={true}>
+				<PanelBody
+					title={__("Layout Settings", "hog-scaffold")}
+					initialOpen={true}
+				>
 					<SelectControl
-						label={__("Layout", "hog")}
+						label={__("Layout", "hog-scaffold")}
 						value={layout}
 						options={[
-							{ label: __("Centered", "hog"), value: "centered" },
-							{ label: __("Left Aligned", "hog"), value: "left-aligned" },
-							{ label: __("Split", "hog"), value: "split" },
-							{ label: __("Minimal", "hog"), value: "minimal" },
+							{ label: __("Centered", "hog-scaffold"), value: "centered" },
+							{
+								label: __("Left Aligned", "hog-scaffold"),
+								value: "left-aligned",
+							},
+							{ label: __("Split", "hog-scaffold"), value: "split" },
+							{ label: __("Minimal", "hog-scaffold"), value: "minimal" },
 						]}
 						onChange={(value) => setAttributes({ layout: value })}
 					/>
 					<TextControl
-						label={__("Minimum Height", "hog")}
+						label={__("Minimum Height", "hog-scaffold")}
 						value={minHeight}
 						onChange={(value) => setAttributes({ minHeight: value })}
-						help={__("CSS value (e.g., 60vh, 500px)", "hog")}
+						help={__("CSS value (e.g., 60vh, 500px)", "hog-scaffold")}
 					/>
 				</PanelBody>
 
-				<PanelBody title={__("Background Settings", "hog")} initialOpen={false}>
+				<PanelBody
+					title={__("Background Settings", "hog-scaffold")}
+					initialOpen={false}
+				>
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={onSelectImage}
@@ -128,12 +137,12 @@ const HeroBlockEdit = ({ attributes, setAttributes }) => {
 												isDestructive
 												style={{ marginTop: "10px" }}
 											>
-												{__("Remove Image", "hog")}
+												{__("Remove Image", "hog-scaffold")}
 											</Button>
 										</div>
 									) : (
 										<Button onClick={open} isPrimary>
-											{__("Select Background Image", "hog")}
+											{__("Select Background Image", "hog-scaffold")}
 										</Button>
 									)}
 								</div>
@@ -142,21 +151,21 @@ const HeroBlockEdit = ({ attributes, setAttributes }) => {
 					</MediaUploadCheck>
 
 					<TextControl
-						label={__("Background Video URL", "hog")}
+						label={__("Background Video URL", "hog-scaffold")}
 						value={backgroundVideo}
 						onChange={(value) => setAttributes({ backgroundVideo: value })}
-						help={__("MP4 video URL for background", "hog")}
+						help={__("MP4 video URL for background", "hog-scaffold")}
 					/>
 
 					<ToggleControl
-						label={__("Show Overlay", "hog")}
+						label={__("Show Overlay", "hog-scaffold")}
 						checked={showOverlay}
 						onChange={(value) => setAttributes({ showOverlay: value })}
 					/>
 
 					{showOverlay && (
 						<RangeControl
-							label={__("Overlay Opacity", "hog")}
+							label={__("Overlay Opacity", "hog-scaffold")}
 							value={overlayOpacity}
 							onChange={(value) => setAttributes({ overlayOpacity: value })}
 							min={0}
@@ -166,37 +175,43 @@ const HeroBlockEdit = ({ attributes, setAttributes }) => {
 					)}
 				</PanelBody>
 
-				<PanelBody title={__("Primary Button", "hog")} initialOpen={false}>
+				<PanelBody
+					title={__("Primary Button", "hog-scaffold")}
+					initialOpen={false}
+				>
 					<TextControl
-						label={__("Button Text", "hog")}
+						label={__("Button Text", "hog-scaffold")}
 						value={primaryButton.text}
 						onChange={(value) => updatePrimaryButton("text", value)}
 					/>
 					<TextControl
-						label={__("Button URL", "hog")}
+						label={__("Button URL", "hog-scaffold")}
 						value={primaryButton.url}
 						onChange={(value) => updatePrimaryButton("url", value)}
 					/>
 					<CheckboxControl
-						label={__("Open in new tab", "hog")}
+						label={__("Open in new tab", "hog-scaffold")}
 						checked={primaryButton.opensInNewTab}
 						onChange={(value) => updatePrimaryButton("opensInNewTab", value)}
 					/>
 				</PanelBody>
 
-				<PanelBody title={__("Secondary Button", "hog")} initialOpen={false}>
+				<PanelBody
+					title={__("Secondary Button", "hog-scaffold")}
+					initialOpen={false}
+				>
 					<TextControl
-						label={__("Button Text", "hog")}
+						label={__("Button Text", "hog-scaffold")}
 						value={secondaryButton.text}
 						onChange={(value) => updateSecondaryButton("text", value)}
 					/>
 					<TextControl
-						label={__("Button URL", "hog")}
+						label={__("Button URL", "hog-scaffold")}
 						value={secondaryButton.url}
 						onChange={(value) => updateSecondaryButton("url", value)}
 					/>
 					<CheckboxControl
-						label={__("Open in new tab", "hog")}
+						label={__("Open in new tab", "hog-scaffold")}
 						checked={secondaryButton.opensInNewTab}
 						onChange={(value) => updateSecondaryButton("opensInNewTab", value)}
 					/>
@@ -220,14 +235,14 @@ const HeroBlockEdit = ({ attributes, setAttributes }) => {
 					<RichText
 						tagName="h1"
 						className="wp-block-hero__title"
-						placeholder={__("Enter hero heading...", "hog")}
+						placeholder={__("Enter hero heading...", "hog-scaffold")}
 						value={heading}
 						onChange={(value) => setAttributes({ heading: value })}
 					/>
 					<RichText
 						tagName="p"
 						className="wp-block-hero__subtitle"
-						placeholder={__("Enter hero subheading...", "hog")}
+						placeholder={__("Enter hero subheading...", "hog-scaffold")}
 						value={subheading}
 						onChange={(value) => setAttributes({ subheading: value })}
 					/>

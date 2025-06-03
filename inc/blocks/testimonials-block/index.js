@@ -1,3 +1,11 @@
+/**
+ * Testimonials Block
+ * Display customer testimonials with quotes, attribution, photos, and optional carousel functionality
+ */
+
+/**
+ * WordPress dependencies
+ */
 import { registerBlockType } from "@wordpress/blocks";
 
 /**
@@ -11,10 +19,10 @@ import metadata from "./block.json";
 // import "./index.css";
 
 /**
- * Block Registration
+ * Register block
+ * All metadata is defined in block.json
  */
 registerBlockType(metadata.name, {
-	...metadata,
 	edit: Edit,
 	save,
 });

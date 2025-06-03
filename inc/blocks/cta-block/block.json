@@ -1,19 +1,54 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "hog-scaffold/cta",
 	"title": "Call to Action",
-	"category": "design",
+	"category": "hog-scaffold-blocks",
 	"icon": "megaphone",
 	"description": "A compelling call-to-action section with heading, text, button, and background options.",
 	"keywords": ["cta", "call-to-action", "button", "conversion", "action"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:./editor.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
 	"supports": {
 		"html": false,
 		"anchor": true,
+		"ariaLabel": true,
 		"align": ["wide", "full"],
+		"color": {
+			"gradients": true,
+			"background": true,
+			"text": true,
+			"link": true
+		},
+		"customClassName": true,
+		"dimensions": {
+			"minHeight": true
+		},
+		"lock": false,
+		"multiple": true,
+		"position": {
+			"sticky": true
+		},
+		"reusable": true,
 		"spacing": {
 			"margin": true,
-			"padding": true
+			"padding": true,
+			"blockGap": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
 		}
 	},
 	"attributes": {
@@ -100,7 +135,46 @@
 			"enum": ["small", "medium", "large", "extra-large"]
 		}
 	},
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css"
+	"example": {
+		"attributes": {
+			"heading": "Transform Your Business Today",
+			"text": "Join thousands of satisfied customers who have already transformed their business with our solutions.",
+			"buttonText": "Start Your Journey",
+			"layout": "centered"
+		}
+	},
+	"variations": [
+		{
+			"name": "cta-minimal",
+			"title": "Minimal CTA",
+			"description": "A clean, minimal call-to-action",
+			"attributes": {
+				"layout": "centered",
+				"backgroundType": "none",
+				"buttonStyle": "outline"
+			},
+			"isDefault": false
+		},
+		{
+			"name": "cta-gradient",
+			"title": "Gradient CTA",
+			"description": "Call-to-action with gradient background",
+			"attributes": {
+				"layout": "centered",
+				"backgroundType": "gradient",
+				"buttonStyle": "primary"
+			},
+			"isDefault": false
+		},
+		{
+			"name": "cta-split",
+			"title": "Split Layout CTA",
+			"description": "Call-to-action with split layout design",
+			"attributes": {
+				"layout": "split",
+				"backgroundType": "color"
+			},
+			"isDefault": false
+		}
+	]
 }

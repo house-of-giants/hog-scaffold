@@ -1,19 +1,54 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "hog-scaffold/testimonials",
 	"title": "Testimonials",
-	"category": "design",
+	"category": "hog-scaffold-blocks",
 	"icon": "format-quote",
 	"description": "Display customer testimonials with quotes, attribution, photos, and optional carousel functionality.",
 	"keywords": ["testimonials", "quotes", "reviews", "feedback", "customers"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:./editor.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
 	"supports": {
 		"html": false,
 		"anchor": true,
+		"ariaLabel": true,
 		"align": ["wide", "full"],
+		"color": {
+			"gradients": true,
+			"background": true,
+			"text": true,
+			"link": true
+		},
+		"customClassName": true,
+		"dimensions": {
+			"minHeight": true
+		},
+		"lock": false,
+		"multiple": true,
+		"position": {
+			"sticky": true
+		},
+		"reusable": true,
 		"spacing": {
 			"margin": true,
-			"padding": true
+			"padding": true,
+			"blockGap": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
 		}
 	},
 	"attributes": {
@@ -74,7 +109,64 @@
 			"default": 5000
 		}
 	},
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css"
+	"example": {
+		"attributes": {
+			"testimonials": [
+				{
+					"id": 1,
+					"quote": "Working with this team has been an absolute game-changer for our business. Their expertise and dedication are unmatched.",
+					"author": "Emily Rodriguez",
+					"position": "Marketing Director",
+					"company": "Innovation Corp",
+					"rating": 5
+				},
+				{
+					"id": 2,
+					"quote": "The results speak for themselves. Our conversion rate increased by 150% within the first month.",
+					"author": "Michael Chen",
+					"position": "Founder",
+					"company": "TechStart",
+					"rating": 5
+				}
+			],
+			"layout": "grid",
+			"columns": 2
+		}
+	},
+	"variations": [
+		{
+			"name": "testimonials-carousel",
+			"title": "Testimonials Carousel",
+			"description": "Testimonials displayed in a carousel format",
+			"attributes": {
+				"layout": "carousel",
+				"autoRotate": true,
+				"quoteStyle": "large-quote"
+			},
+			"isDefault": false
+		},
+		{
+			"name": "testimonials-minimal",
+			"title": "Minimal Testimonials",
+			"description": "Clean, minimal testimonial display",
+			"attributes": {
+				"layout": "grid",
+				"quoteStyle": "minimal",
+				"showRating": false,
+				"showImage": false
+			},
+			"isDefault": false
+		},
+		{
+			"name": "testimonials-cards",
+			"title": "Card Style Testimonials",
+			"description": "Testimonials displayed as cards",
+			"attributes": {
+				"layout": "grid",
+				"quoteStyle": "card",
+				"columns": 3
+			},
+			"isDefault": false
+		}
+	]
 }

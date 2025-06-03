@@ -1,13 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { RichText } from '@wordpress/block-editor';
+import { __ } from "@wordpress/i18n";
+import { RichText } from "@wordpress/block-editor";
 
 /**
  * Internal dependencies
  */
-import { editPropsShape } from './props-shape.js';
+import { editPropsShape } from "./props-shape.js";
 
 /**
  * Edit component.
@@ -30,7 +30,7 @@ const ExampleBockEdit = ({
 			<RichText
 				className="wp-block-example-block__title"
 				tagName="h2"
-				placeholder={__('Custom Title')}
+				placeholder={__("Custom Title", "hog-scaffold")}
 				value={currentTitle}
 				onChange={(customTitle) => setAttributes({ customTitle })}
 			/>

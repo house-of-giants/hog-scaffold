@@ -15,3 +15,6 @@
 
 /* Components - reusable UI components */
 @import url("components");
+
+/* Blocks - custom and core block styles */
+@import url("../blocks");

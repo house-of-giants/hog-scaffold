@@ -6,7 +6,6 @@
 /**
  * WordPress dependencies
  */
-import { __ } from "@wordpress/i18n";
 import { registerBlockType } from "@wordpress/blocks";
 
 /**
@@ -14,20 +13,13 @@ import { registerBlockType } from "@wordpress/blocks";
  */
 import edit from "./edit.js";
 import save from "./save.js";
-import block from "./block.json";
-
-/* Import CSS for the block */
-import "./index.css";
+import metadata from "./block.json";
 
 /**
  * Register block
+ * All metadata is defined in block.json
  */
-registerBlockType(block.name, {
-	title: __("Hero Section", "hog"),
-	description: __(
-		"A hero section with multiple layout options, background support, and call-to-action buttons",
-		"hog"
-	),
+registerBlockType(metadata.name, {
 	edit,
 	save,
 });

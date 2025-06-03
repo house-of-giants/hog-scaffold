@@ -1,10 +1,16 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hog-scaffold/hero-section",
 	"title": "Hero Section",
-	"description": "A hero section with multiple layout options, background support, and call-to-action buttons",
-	"text-domain": "hog",
-	"name": "hog/hero-section",
-	"icon": "cover-image",
 	"category": "hog-scaffold-blocks",
+	"icon": "cover-image",
+	"description": "A hero section with multiple layout options, background support, and call-to-action buttons",
+	"keywords": ["hero", "banner", "header", "cta", "background"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:./editor.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
 	"attributes": {
 		"heading": {
 			"type": "string",
@@ -67,20 +73,62 @@
 		"align": true,
 		"alignWide": true,
 		"anchor": true,
+		"ariaLabel": true,
 		"color": {
 			"gradients": true,
 			"background": true,
-			"text": true
+			"text": true,
+			"link": true
 		},
 		"customClassName": true,
+		"dimensions": {
+			"minHeight": true
+		},
 		"html": false,
 		"inserter": true,
+		"lock": false,
 		"multiple": true,
+		"position": {
+			"sticky": true
+		},
 		"reusable": true,
 		"spacing": {
 			"padding": true,
-			"margin": true
+			"margin": true,
+			"blockGap": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
 		}
 	},
-	"editorScript": "file:../../../dist/blocks/hero-block/editor.js"
+	"variations": [
+		{
+			"name": "hero-minimal",
+			"title": "Minimal Hero",
+			"description": "A clean, minimal hero section",
+			"attributes": {
+				"layout": "minimal"
+			},
+			"isDefault": false
+		},
+		{
+			"name": "hero-split",
+			"title": "Split Hero",
+			"description": "Hero section with split layout",
+			"attributes": {
+				"layout": "split"
+			},
+			"isDefault": false
+		}
+	]
 }

@@ -1,30 +1,28 @@
 /**
- * Example-block
- * Custom title block -- feel free to delete
+ * Example Block
+ * An example block for demonstrating block development patterns and best practices
  */
 
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from "@wordpress/blocks";
 
 /**
  * Internal dependencies
  */
-import edit from './edit.js';
-import save from './save.js';
-import block from './block.json';
+import edit from "./edit.js";
+import save from "./save.js";
+import metadata from "./block.json";
 
 /* Uncomment for CSS overrides in the admin */
 // import './index.css';
 
 /**
  * Register block
+ * All metadata is defined in block.json
  */
-registerBlockType(block.name, {
-	title: __('Example Block'),
-	description: __('An Example Block'),
+registerBlockType(metadata.name, {
 	edit,
 	save,
 });

@@ -1,5 +1,12 @@
+/**
+ * Team Profiles Block
+ * Display team member profiles with photos, names, positions, and social links
+ */
+
+/**
+ * WordPress dependencies
+ */
 import { registerBlockType } from "@wordpress/blocks";
-import { __ } from "@wordpress/i18n";
 
 /**
  * Internal dependencies
@@ -12,15 +19,10 @@ import metadata from "./block.json";
 // import "./index.css";
 
 /**
- * Block Registration
+ * Register block
+ * All metadata is defined in block.json
  */
 registerBlockType(metadata.name, {
-	...metadata,
-	title: __("Team Profiles", "hog-scaffold"),
-	description: __(
-		"Display team member profiles with photos, names, positions, and social links.",
-		"hog-scaffold"
-	),
 	edit: Edit,
 	save,
 });

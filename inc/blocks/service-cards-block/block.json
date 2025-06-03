@@ -1,10 +1,58 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hog-scaffold/service-cards",
 	"title": "Service Cards",
-	"description": "Display service or feature cards with icons, titles, descriptions, and links in a responsive grid layout",
-	"text-domain": "hog",
-	"name": "hog/service-cards",
-	"icon": "grid-view",
 	"category": "hog-scaffold-blocks",
+	"icon": "grid-view",
+	"description": "Display service or feature cards with icons, titles, descriptions, and links in a responsive grid layout",
+	"keywords": ["services", "cards", "features", "grid", "icons"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:./editor.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"supports": {
+		"align": true,
+		"alignWide": true,
+		"anchor": true,
+		"ariaLabel": true,
+		"color": {
+			"gradients": true,
+			"background": true,
+			"text": true,
+			"link": true
+		},
+		"customClassName": true,
+		"dimensions": {
+			"minHeight": true
+		},
+		"html": false,
+		"inserter": true,
+		"lock": false,
+		"multiple": true,
+		"position": {
+			"sticky": true
+		},
+		"reusable": true,
+		"spacing": {
+			"padding": true,
+			"margin": true,
+			"blockGap": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
+		}
+	},
 	"attributes": {
 		"cards": {
 			"type": "array",
@@ -88,24 +136,38 @@
 			"layout": "grid"
 		}
 	},
-	"supports": {
-		"align": true,
-		"alignWide": true,
-		"anchor": true,
-		"color": {
-			"gradients": true,
-			"background": true,
-			"text": true
+	"variations": [
+		{
+			"name": "service-cards-minimal",
+			"title": "Minimal Service Cards",
+			"description": "Clean, minimal service cards without borders",
+			"attributes": {
+				"cardStyle": "minimal",
+				"showIcons": false,
+				"layout": "grid"
+			},
+			"isDefault": false
 		},
-		"customClassName": true,
-		"html": false,
-		"inserter": true,
-		"multiple": true,
-		"reusable": true,
-		"spacing": {
-			"padding": true,
-			"margin": true
+		{
+			"name": "service-cards-shadow",
+			"title": "Shadow Service Cards",
+			"description": "Service cards with shadow effect",
+			"attributes": {
+				"cardStyle": "shadow",
+				"layout": "grid",
+				"columns": 3
+			},
+			"isDefault": false
+		},
+		{
+			"name": "service-cards-list",
+			"title": "Service List",
+			"description": "Services displayed in a list format",
+			"attributes": {
+				"layout": "list",
+				"cardStyle": "bordered"
+			},
+			"isDefault": false
 		}
-	},
-	"editorScript": "file:../../../dist/blocks/service-cards-block/editor.js"
+	]
 }

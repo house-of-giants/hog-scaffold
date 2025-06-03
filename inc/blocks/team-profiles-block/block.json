@@ -1,19 +1,54 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "hog-scaffold/team-profiles",
 	"title": "Team Profiles",
-	"category": "design",
+	"category": "hog-scaffold-blocks",
 	"icon": "groups",
 	"description": "Display team member profiles with photos, names, positions, and social links.",
 	"keywords": ["team", "staff", "people", "profiles", "members"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:./editor.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
 	"supports": {
 		"html": false,
 		"anchor": true,
+		"ariaLabel": true,
 		"align": ["wide", "full"],
+		"color": {
+			"gradients": true,
+			"background": true,
+			"text": true,
+			"link": true
+		},
+		"customClassName": true,
+		"dimensions": {
+			"minHeight": true
+		},
+		"lock": false,
+		"multiple": true,
+		"position": {
+			"sticky": true
+		},
+		"reusable": true,
 		"spacing": {
 			"margin": true,
-			"padding": true
+			"padding": true,
+			"blockGap": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
 		}
 	},
 	"attributes": {
@@ -73,7 +108,86 @@
 			"enum": ["left", "center", "right"]
 		}
 	},
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css"
+	"example": {
+		"attributes": {
+			"members": [
+				{
+					"id": 1,
+					"name": "Sarah Mitchell",
+					"position": "Creative Director",
+					"bio": "Sarah brings 12 years of design expertise and leads our creative team with passion and innovation.",
+					"image": {
+						"url": "",
+						"alt": "",
+						"id": 0
+					},
+					"socialLinks": [
+						{
+							"platform": "linkedin",
+							"url": "#",
+							"label": "LinkedIn Profile"
+						}
+					]
+				},
+				{
+					"id": 2,
+					"name": "David Rodriguez",
+					"position": "Lead Developer",
+					"bio": "David specializes in full-stack development and has built scalable solutions for Fortune 500 companies.",
+					"image": {
+						"url": "",
+						"alt": "",
+						"id": 0
+					},
+					"socialLinks": [
+						{
+							"platform": "github",
+							"url": "#",
+							"label": "GitHub Profile"
+						}
+					]
+				}
+			],
+			"columns": 2,
+			"layout": "grid"
+		}
+	},
+	"variations": [
+		{
+			"name": "team-minimal",
+			"title": "Minimal Team Profiles",
+			"description": "Clean, minimal team member profiles",
+			"attributes": {
+				"layout": "grid",
+				"showBio": false,
+				"showSocialLinks": false,
+				"imageShape": "square",
+				"textAlignment": "center"
+			},
+			"isDefault": false
+		},
+		{
+			"name": "team-carousel",
+			"title": "Team Carousel",
+			"description": "Team profiles displayed in a carousel",
+			"attributes": {
+				"layout": "carousel",
+				"imageShape": "circle",
+				"textAlignment": "center"
+			},
+			"isDefault": false
+		},
+		{
+			"name": "team-list",
+			"title": "Team List",
+			"description": "Team members in a list format",
+			"attributes": {
+				"layout": "list",
+				"imageShape": "rounded",
+				"textAlignment": "left",
+				"columns": 1
+			},
+			"isDefault": false
+		}
+	]
 }

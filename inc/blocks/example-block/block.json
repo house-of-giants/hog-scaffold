@@ -1,40 +1,99 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hog-scaffold/example",
 	"title": "Example Block",
-	"description": "An Example Block",
-	"text-domain": "hog",
-	"name": "hog/example",
-	"icon": "feedback",
 	"category": "hog-scaffold-blocks",
+	"icon": "feedback",
+	"description": "An example block for demonstrating block development patterns and best practices.",
+	"keywords": ["example", "demo", "template", "sample"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:./editor.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"supports": {
+		"align": false,
+		"alignWide": false,
+		"anchor": true,
+		"ariaLabel": true,
+		"color": {
+			"gradients": true,
+			"background": true,
+			"text": true,
+			"link": true
+		},
+		"customClassName": true,
+		"dimensions": {
+			"minHeight": false
+		},
+		"html": false,
+		"inserter": true,
+		"lock": false,
+		"multiple": true,
+		"position": {
+			"sticky": false
+		},
+		"reusable": true,
+		"spacing": {
+			"padding": true,
+			"margin": true,
+			"blockGap": false
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
+		}
+	},
 	"attributes": {
 		"customTitle": {
-			"type": "string"
+			"type": "string",
+			"default": "Example Block Title"
+		},
+		"customContent": {
+			"type": "string",
+			"default": "This is example content to demonstrate block functionality."
+		},
+		"showAdvanced": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"example": {
 		"attributes": {
-			"customTitle": "Example Block"
+			"customTitle": "Example Block Demo",
+			"customContent": "This example shows how the block appears in the editor.",
+			"showAdvanced": true
 		}
 	},
-	"supports": {
-		"align": false,
-		"alignWide": false,
-		"anchor": false,
-		"color": {
-			"gradients": false,
-			"background": false,
-			"text": false
+	"variations": [
+		{
+			"name": "example-simple",
+			"title": "Simple Example",
+			"description": "A simple example block configuration",
+			"attributes": {
+				"customTitle": "Simple Title",
+				"showAdvanced": false
+			},
+			"isDefault": true
 		},
-		"customClassName": false,
-		"defaultStylePicker": false,
-		"fontSize": false,
-		"html": false,
-		"inserter": true,
-		"lineHeight": true,
-		"multiple": true,
-		"reusable": false,
-		"spacing": {
-			"padding": false
+		{
+			"name": "example-advanced",
+			"title": "Advanced Example",
+			"description": "An advanced example block with all features",
+			"attributes": {
+				"customTitle": "Advanced Configuration",
+				"showAdvanced": true
+			},
+			"isDefault": false
 		}
-	},
-	"editorScript": "file:../../../dist/blocks/example-block/editor.js"
+	]
 }
