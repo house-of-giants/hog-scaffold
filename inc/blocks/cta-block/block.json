@@ -1,0 +1,106 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "hog-scaffold/cta",
+	"title": "Call to Action",
+	"category": "design",
+	"icon": "megaphone",
+	"description": "A compelling call-to-action section with heading, text, button, and background options.",
+	"keywords": ["cta", "call-to-action", "button", "conversion", "action"],
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "Ready to Get Started?"
+		},
+		"text": {
+			"type": "string",
+			"default": "Join thousands of satisfied customers and take the next step towards achieving your goals."
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Get Started Now"
+		},
+		"buttonUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonStyle": {
+			"type": "string",
+			"default": "primary",
+			"enum": ["primary", "secondary", "outline", "link"]
+		},
+		"buttonSize": {
+			"type": "string",
+			"default": "medium",
+			"enum": ["small", "medium", "large"]
+		},
+		"buttonOpenInNewTab": {
+			"type": "boolean",
+			"default": false
+		},
+		"layout": {
+			"type": "string",
+			"default": "centered",
+			"enum": ["centered", "left", "right", "split"]
+		},
+		"backgroundType": {
+			"type": "string",
+			"default": "color",
+			"enum": ["none", "color", "gradient", "image"]
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundGradient": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundImage": {
+			"type": "object",
+			"default": {
+				"url": "",
+				"alt": "",
+				"id": 0
+			}
+		},
+		"backgroundPosition": {
+			"type": "string",
+			"default": "center center"
+		},
+		"backgroundSize": {
+			"type": "string",
+			"default": "cover"
+		},
+		"backgroundOverlay": {
+			"type": "boolean",
+			"default": false
+		},
+		"backgroundOverlayColor": {
+			"type": "string",
+			"default": "rgba(0, 0, 0, 0.5)"
+		},
+		"width": {
+			"type": "string",
+			"default": "normal",
+			"enum": ["normal", "wide", "full"]
+		},
+		"spacing": {
+			"type": "string",
+			"default": "medium",
+			"enum": ["small", "medium", "large", "extra-large"]
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

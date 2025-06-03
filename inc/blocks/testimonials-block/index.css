@@ -1,0 +1,224 @@
+/* Testimonials Block Editor Styles */
+
+.wp-block-hog-scaffold-testimonials {
+	margin: 1rem 0;
+}
+
+/* Container Layouts */
+.wp-block-hog-scaffold-testimonials .wp-block-testimonials__container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.wp-block-hog-scaffold-testimonials.is-layout-grid .wp-block-testimonials__container {
+	display: grid;
+	gap: 1rem;
+}
+
+.wp-block-hog-scaffold-testimonials.columns-1 .wp-block-testimonials__container {
+	grid-template-columns: 1fr;
+}
+
+.wp-block-hog-scaffold-testimonials.columns-2 .wp-block-testimonials__container {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.wp-block-hog-scaffold-testimonials.columns-3 .wp-block-testimonials__container {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.wp-block-hog-scaffold-testimonials.columns-4 .wp-block-testimonials__container {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+/* Individual Testimonial */
+.wp-block-testimonials__testimonial {
+	margin-bottom: 1rem;
+}
+
+/* Preview Styles */
+.wp-block-testimonials__testimonial-preview {
+	align-items: flex-start;
+	display: flex;
+	gap: 1rem;
+}
+
+.wp-block-testimonials__image {
+	flex-shrink: 0;
+	height: 80px;
+	width: 80px;
+}
+
+.wp-block-testimonials__image-button {
+	align-items: center;
+	background: transparent;
+	border: 2px dashed #cccccc;
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	transition: border-color 0.2s ease;
+	width: 100%;
+}
+
+.wp-block-testimonials__image-button:hover {
+	border-color: #007cba;
+}
+
+.wp-block-testimonials__image-button.has-image {
+	border: none;
+	padding: 0;
+}
+
+.wp-block-testimonials__image-preview {
+	border-radius: 50%;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+.wp-block-testimonials__image-placeholder {
+	color: #666666;
+	font-size: 12px;
+	text-align: center;
+}
+
+.wp-block-testimonials__content {
+	flex: 1;
+}
+
+/* Quote Styles */
+.wp-block-testimonials__quote {
+	border: none;
+	font-size: 16px;
+	font-style: italic;
+	line-height: 1.6;
+	margin: 0 0 1rem 0;
+	padding: 0;
+}
+
+.wp-block-testimonials__quote::before {
+	color: #666666;
+	content: "\201C";
+	font-size: 1.5em;
+	margin-right: 0.25rem;
+}
+
+.wp-block-testimonials__quote::after {
+	color: #666666;
+	content: "\201D";
+	font-size: 1.5em;
+	margin-left: 0.25rem;
+}
+
+/* Attribution */
+.wp-block-testimonials__attribution {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin-bottom: 1rem;
+}
+
+.wp-block-testimonials__author {
+	color: #333333;
+	font-style: normal;
+	font-weight: 700;
+}
+
+.wp-block-testimonials__position,
+.wp-block-testimonials__company {
+	color: #666666;
+	font-size: 14px;
+}
+
+/* Rating */
+.wp-block-testimonials__rating {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.wp-block-testimonials__stars {
+	display: flex;
+	gap: 0.25rem;
+}
+
+.wp-block-testimonials__star {
+	background: none;
+	border: none;
+	color: #cccccc;
+	cursor: pointer;
+	padding: 0;
+	transition: color 0.2s ease;
+}
+
+.wp-block-testimonials__star.is-filled {
+	color: #ffb900;
+}
+
+.wp-block-testimonials__star:hover {
+	color: #ffb900;
+}
+
+/* Empty State */
+.wp-block-testimonials__empty {
+	border: 2px dashed #cccccc;
+	border-radius: 8px;
+	color: #666666;
+	padding: 2rem;
+	text-align: center;
+}
+
+.wp-block-testimonials__empty p {
+	margin: 0 0 1rem 0;
+}
+
+/* Add Testimonial Button */
+.wp-block-testimonials__add-testimonial {
+	justify-content: center;
+	width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 782px) {
+	.wp-block-hog-scaffold-testimonials.columns-2 .wp-block-testimonials__container,
+	.wp-block-hog-scaffold-testimonials.columns-3 .wp-block-testimonials__container,
+	.wp-block-hog-scaffold-testimonials.columns-4 .wp-block-testimonials__container {
+		grid-template-columns: 1fr;
+	}
+
+	.wp-block-testimonials__testimonial-preview {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.wp-block-testimonials__image {
+		align-self: center;
+	}
+}
+
+/* Quote Style Variations */
+.wp-block-hog-scaffold-testimonials.quote-style-large-quote .wp-block-testimonials__quote {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.wp-block-hog-scaffold-testimonials.quote-style-large-quote .wp-block-testimonials__quote::before,
+.wp-block-hog-scaffold-testimonials.quote-style-large-quote .wp-block-testimonials__quote::after {
+	color: #007cba;
+	font-size: 2em;
+}
+
+.wp-block-hog-scaffold-testimonials.quote-style-minimal .wp-block-testimonials__quote::before,
+.wp-block-hog-scaffold-testimonials.quote-style-minimal .wp-block-testimonials__quote::after {
+	display: none;
+}
+
+.wp-block-hog-scaffold-testimonials.quote-style-card .wp-block-testimonials__testimonial-preview {
+	background: #f9f9f9;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	padding: 1.5rem;
+} 

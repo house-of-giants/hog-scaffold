@@ -7,7 +7,8 @@
 	align-items: center;
 	display: flex;
 	min-height: 60vh;
-	padding: var(--wp--preset--spacing--xl) var(--wp--preset--spacing--base);
+	overflow: hidden;
+	padding: var(--wp--preset--spacing--xl, 3rem) var(--wp--preset--spacing--base, 1rem);
 	position: relative;
 }
 
@@ -17,6 +18,16 @@
 	background-size: cover;
 	height: 100%;
 	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: -2;
+}
+
+.wp-block-hero__video {
+	height: 100%;
+	left: 0;
+	object-fit: cover;
 	position: absolute;
 	top: 0;
 	width: 100%;
@@ -34,48 +45,85 @@
 }
 
 .wp-block-hero__content {
-	max-width: var(--wp--style--global--content-size);
+	margin: 0 auto;
+	max-width: var(--wp--style--global--content-size, 1200px);
+	position: relative;
 	text-align: center;
 	width: 100%;
 	z-index: 1;
 }
 
 .wp-block-hero__title {
-	color: var(--wp--preset--color--white);
-	font-family: var(--wp--preset--font-family--heading);
-	font-size: var(--wp--preset--font-size--3xl);
+	color: var(--wp--preset--color--white, #ffffff);
+	font-family: var(--wp--preset--font-family--heading, inherit);
+	font-size: var(--wp--preset--font-size--3xl, 3rem);
 	font-weight: 700;
 	line-height: 1.2;
-	margin-bottom: var(--wp--preset--spacing--base);
+	margin-bottom: var(--wp--preset--spacing--base, 1rem);
 }
 
 .wp-block-hero__subtitle {
-	color: var(--wp--preset--color--neutral-200);
-	font-size: var(--wp--preset--font-size--large);
+	color: var(--wp--preset--color--neutral-200, #f0f0f0);
+	font-size: var(--wp--preset--font-size--large, 1.25rem);
 	font-weight: 400;
 	line-height: 1.4;
-	margin-bottom: var(--wp--preset--spacing--large);
+	margin-bottom: var(--wp--preset--spacing--large, 2rem);
 }
 
 .wp-block-hero__actions {
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--wp--preset--spacing--base);
+	gap: var(--wp--preset--spacing--base, 1rem);
 	justify-content: center;
 }
 
-/* Hero Variants */
+.wp-block-hero__actions .wp-block-button__link {
+	border-radius: var(--wp--preset--border-radius--medium, 6px);
+	display: inline-block;
+	font-weight: 600;
+	padding: 0.875rem 2rem;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.wp-block-hero__actions .wp-block-button__link--primary {
+	background-color: var(--wp--preset--color--primary, #007cba);
+	color: var(--wp--preset--color--white, #ffffff);
+}
+
+.wp-block-hero__actions .wp-block-button__link--primary:hover {
+	background-color: var(--wp--preset--color--primary-dark, #005a87);
+	transform: translateY(-2px);
+}
+
+.wp-block-hero__actions .wp-block-button__link--secondary {
+	background-color: transparent;
+	border: 2px solid var(--wp--preset--color--white, #ffffff);
+	color: var(--wp--preset--color--white, #ffffff);
+}
+
+.wp-block-hero__actions .wp-block-button__link--secondary:hover {
+	background-color: var(--wp--preset--color--white, #ffffff);
+	color: var(--wp--preset--color--primary, #007cba);
+}
+
+/* Hero Layout Variants */
 .wp-block-hero.is-style-minimal {
-	background-color: var(--wp--preset--color--neutral-100);
+	background-color: var(--wp--preset--color--neutral-100, #f8f9fa);
 	min-height: 40vh;
 }
 
 .wp-block-hero.is-style-minimal .wp-block-hero__title {
-	color: var(--wp--preset--color--neutral-900);
+	color: var(--wp--preset--color--neutral-900, #333333);
 }
 
 .wp-block-hero.is-style-minimal .wp-block-hero__subtitle {
-	color: var(--wp--preset--color--neutral-600);
+	color: var(--wp--preset--color--neutral-600, #666666);
+}
+
+.wp-block-hero.is-style-minimal .wp-block-hero__actions .wp-block-button__link--secondary {
+	border-color: var(--wp--preset--color--primary, #007cba);
+	color: var(--wp--preset--color--primary, #007cba);
 }
 
 .wp-block-hero.is-style-split {
@@ -86,14 +134,14 @@
 .wp-block-hero.is-style-split .wp-block-hero__content {
 	align-items: center;
 	display: grid;
-	gap: var(--wp--preset--spacing--large);
+	gap: var(--wp--preset--spacing--large, 2rem);
 	grid-template-columns: 1fr 1fr;
-	max-width: var(--wp--style--global--wide-size);
+	max-width: var(--wp--style--global--wide-size, 1400px);
 	text-align: left;
 }
 
 .wp-block-hero.is-style-split .wp-block-hero__text {
-	padding: var(--wp--preset--spacing--large);
+	padding: var(--wp--preset--spacing--large, 2rem);
 }
 
 .wp-block-hero.is-style-split .wp-block-hero__media {
@@ -103,8 +151,8 @@
 }
 
 .wp-block-hero.is-style-split .wp-block-hero__media img {
-	border-radius: var(--wp--preset--border-radius--medium);
-	box-shadow: var(--wp--preset--shadow--large);
+	border-radius: var(--wp--preset--border-radius--medium, 6px);
+	box-shadow: var(--wp--preset--shadow--large, 0 10px 25px rgba(0, 0, 0, 0.15));
 	height: auto;
 	max-width: 100%;
 }
@@ -132,15 +180,15 @@
 @media (min-width: 768px) {
 	.wp-block-hero {
 		min-height: 80vh;
-		padding: var(--wp--preset--spacing--2xl) var(--wp--preset--spacing--medium);
+		padding: var(--wp--preset--spacing--2xl, 4rem) var(--wp--preset--spacing--medium, 2rem);
 	}
 
 	.wp-block-hero__title {
-		font-size: clamp(var(--wp--preset--font-size--2xl), 5vw, 4rem);
+		font-size: clamp(var(--wp--preset--font-size--2xl, 2rem), 5vw, 4rem);
 	}
 
 	.wp-block-hero__subtitle {
-		font-size: var(--wp--preset--font-size--xl);
+		font-size: var(--wp--preset--font-size--xl, 1.5rem);
 	}
 }
 
@@ -158,9 +206,50 @@
 	.wp-block-hero.is-style-left-aligned .wp-block-hero__actions {
 		justify-content: center;
 	}
+
+	.wp-block-hero__actions {
+		align-items: center;
+		flex-direction: column;
+	}
+
+	.wp-block-hero__actions .wp-block-button__link {
+		max-width: 280px;
+		text-align: center;
+		width: 100%;
+	}
 }
 
 /* Editor Specific Styles */
 .editor-styles-wrapper .wp-block-hero {
-	margin-bottom: var(--wp--preset--spacing--large);
+	margin-bottom: var(--wp--preset--spacing--large, 2rem);
+}
+
+/* Accessibility Improvements */
+.wp-block-hero__actions .wp-block-button__link:focus {
+	outline: 2px solid var(--wp--preset--color--primary, #007cba);
+	outline-offset: 2px;
+}
+
+/* Animation for better UX */
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-hero__title,
+	.wp-block-hero__subtitle {
+		animation: fadeInUp 0.8s ease-out;
+	}
+
+	.wp-block-hero__actions {
+		animation: fadeInUp 0.8s ease-out 0.2s both;
+	}
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

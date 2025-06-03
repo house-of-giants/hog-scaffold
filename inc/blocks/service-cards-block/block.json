@@ -1,0 +1,111 @@
+{
+	"title": "Service Cards",
+	"description": "Display service or feature cards with icons, titles, descriptions, and links in a responsive grid layout",
+	"text-domain": "hog",
+	"name": "hog/service-cards",
+	"icon": "grid-view",
+	"category": "hog-scaffold-blocks",
+	"attributes": {
+		"cards": {
+			"type": "array",
+			"default": [
+				{
+					"id": 1,
+					"title": "Service One",
+					"description": "Description of your first service or feature",
+					"icon": "",
+					"link": {
+						"url": "#",
+						"opensInNewTab": false
+					}
+				},
+				{
+					"id": 2,
+					"title": "Service Two",
+					"description": "Description of your second service or feature",
+					"icon": "",
+					"link": {
+						"url": "#",
+						"opensInNewTab": false
+					}
+				},
+				{
+					"id": 3,
+					"title": "Service Three",
+					"description": "Description of your third service or feature",
+					"icon": "",
+					"link": {
+						"url": "#",
+						"opensInNewTab": false
+					}
+				}
+			]
+		},
+		"columns": {
+			"type": "number",
+			"default": 3
+		},
+		"layout": {
+			"type": "string",
+			"default": "grid",
+			"enum": ["grid", "list", "carousel"]
+		},
+		"showIcons": {
+			"type": "boolean",
+			"default": true
+		},
+		"cardStyle": {
+			"type": "string",
+			"default": "default",
+			"enum": ["default", "bordered", "shadow", "minimal"]
+		}
+	},
+	"example": {
+		"attributes": {
+			"cards": [
+				{
+					"id": 1,
+					"title": "Web Design",
+					"description": "Beautiful, responsive websites that convert visitors into customers",
+					"icon": "🎨",
+					"link": {
+						"url": "#",
+						"opensInNewTab": false
+					}
+				},
+				{
+					"id": 2,
+					"title": "Development",
+					"description": "Custom web applications built with modern technologies",
+					"icon": "💻",
+					"link": {
+						"url": "#",
+						"opensInNewTab": false
+					}
+				}
+			],
+			"columns": 2,
+			"layout": "grid"
+		}
+	},
+	"supports": {
+		"align": true,
+		"alignWide": true,
+		"anchor": true,
+		"color": {
+			"gradients": true,
+			"background": true,
+			"text": true
+		},
+		"customClassName": true,
+		"html": false,
+		"inserter": true,
+		"multiple": true,
+		"reusable": true,
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
+	},
+	"editorScript": "file:../../../dist/blocks/service-cards-block/editor.js"
+}

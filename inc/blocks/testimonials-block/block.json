@@ -1,0 +1,80 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "hog-scaffold/testimonials",
+	"title": "Testimonials",
+	"category": "design",
+	"icon": "format-quote",
+	"description": "Display customer testimonials with quotes, attribution, photos, and optional carousel functionality.",
+	"keywords": ["testimonials", "quotes", "reviews", "feedback", "customers"],
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"testimonials": {
+			"type": "array",
+			"default": [
+				{
+					"id": 1,
+					"quote": "This company exceeded our expectations in every way. Their attention to detail and customer service is unmatched.",
+					"author": "Sarah Johnson",
+					"position": "CEO, Tech Innovations",
+					"company": "Tech Innovations",
+					"image": {
+						"url": "",
+						"alt": "",
+						"id": 0
+					},
+					"rating": 5
+				}
+			]
+		},
+		"layout": {
+			"type": "string",
+			"default": "grid",
+			"enum": ["grid", "carousel", "single"]
+		},
+		"columns": {
+			"type": "number",
+			"default": 2
+		},
+		"showRating": {
+			"type": "boolean",
+			"default": true
+		},
+		"showImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPosition": {
+			"type": "boolean",
+			"default": true
+		},
+		"showCompany": {
+			"type": "boolean",
+			"default": true
+		},
+		"quoteStyle": {
+			"type": "string",
+			"default": "standard",
+			"enum": ["standard", "large-quote", "minimal", "card"]
+		},
+		"autoRotate": {
+			"type": "boolean",
+			"default": false
+		},
+		"rotationSpeed": {
+			"type": "number",
+			"default": 5000
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

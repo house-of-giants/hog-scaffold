@@ -1,0 +1,398 @@
+/* ==========================================================================
+   Testimonials Block Styles
+   Multi-testimonial block with grid, carousel, and single layouts
+   ========================================================================== */
+
+/* Testimonials Block Frontend Styles */
+
+:root {
+	--testimonials-border-radius: 8px;
+	--testimonials-padding-base: 1.5rem;
+	--testimonials-gap-base: 1.5rem;
+	--testimonials-transition: all 0.3s ease;
+	--testimonials-star-color: #fbbf24;
+	--testimonials-star-empty: #e5e7eb;
+}
+
+/* Base Testimonials Block */
+.wp-block-hog-scaffold-testimonials {
+	margin: var(--wp--preset--spacing--large, 2rem) 0;
+	position: relative;
+}
+
+/* Container Layouts */
+.wp-block-testimonials__container {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--medium, 1.5rem);
+}
+
+/* Grid Layout */
+.wp-block-hog-scaffold-testimonials.is-layout-grid .wp-block-testimonials__container {
+	display: grid;
+	gap: var(--testimonials-gap-base);
+}
+
+.wp-block-hog-scaffold-testimonials.columns-1 .wp-block-testimonials__container {
+	grid-template-columns: 1fr;
+}
+
+.wp-block-hog-scaffold-testimonials.columns-2 .wp-block-testimonials__container {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.wp-block-hog-scaffold-testimonials.columns-3 .wp-block-testimonials__container {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.wp-block-hog-scaffold-testimonials.columns-4 .wp-block-testimonials__container {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+/* Carousel Layout */
+.wp-block-hog-scaffold-testimonials.is-layout-carousel .wp-block-testimonials__container {
+	display: flex;
+	overflow: hidden;
+	position: relative;
+}
+
+.wp-block-hog-scaffold-testimonials.is-layout-carousel .wp-block-testimonials__testimonial {
+	flex: 0 0 100%;
+	transition: transform var(--testimonials-transition);
+}
+
+.wp-block-hog-scaffold-testimonials.is-layout-carousel .wp-block-testimonials__testimonial:not(.is-active) {
+	opacity: 0;
+	transform: translateX(100%);
+}
+
+.wp-block-hog-scaffold-testimonials.is-layout-carousel .wp-block-testimonials__testimonial.is-active {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+/* Single Layout */
+.wp-block-hog-scaffold-testimonials.is-layout-single .wp-block-testimonials__container {
+	display: flex;
+	justify-content: center;
+}
+
+.wp-block-hog-scaffold-testimonials.is-layout-single .wp-block-testimonials__testimonial {
+	max-width: 600px;
+	width: 100%;
+}
+
+/* Individual Testimonial */
+.wp-block-testimonials__testimonial {
+	background: var(--wp--preset--color--white, #ffffff);
+	border-radius: var(--testimonials-border-radius);
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	padding: var(--testimonials-padding-base);
+	transition: var(--testimonials-transition);
+}
+
+.wp-block-testimonials__testimonial:hover {
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	transform: translateY(-2px);
+}
+
+.wp-block-testimonials__testimonial-content {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	text-align: center;
+}
+
+/* Image Styles */
+.wp-block-testimonials__image {
+	flex-shrink: 0;
+	height: 60px;
+	overflow: hidden;
+	width: 60px;
+}
+
+.wp-block-testimonials__image-photo {
+	border-radius: 50%;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+/* Content Styles */
+.wp-block-testimonials__content {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+/* Quote Styles */
+.wp-block-testimonials__quote {
+	font-size: 1rem;
+	line-height: 1.6;
+	margin: 0;
+}
+
+/* Quote Style Variations */
+.wp-block-hog-scaffold-testimonials.quote-style-large-quote .wp-block-testimonials__quote {
+	font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+	font-style: italic;
+}
+
+.wp-block-hog-scaffold-testimonials.quote-style-large-quote .wp-block-testimonials__quote::before {
+	content: '"';
+	font-size: 2em;
+	line-height: 0.1;
+	margin-right: 0.25em;
+	vertical-align: -0.4em;
+}
+
+.wp-block-hog-scaffold-testimonials.quote-style-minimal .wp-block-testimonials__testimonial {
+	background: transparent;
+	border-left: 4px solid var(--wp--preset--color--primary, #0073aa);
+	border-radius: 0;
+	box-shadow: none;
+	padding-left: calc(var(--testimonials-padding-base) + 0.5rem);
+}
+
+.wp-block-hog-scaffold-testimonials.quote-style-card .wp-block-testimonials__testimonial {
+	border: 1px solid var(--wp--preset--color--light-gray, #f0f0f0);
+}
+
+/* Star Rating */
+.wp-block-testimonials__rating {
+	display: flex;
+	gap: 0.25rem;
+	justify-content: center;
+}
+
+.wp-block-testimonials__star {
+	color: var(--testimonials-star-empty);
+	transition: color 0.2s ease;
+}
+
+.wp-block-testimonials__star.is-filled {
+	color: var(--testimonials-star-color);
+}
+
+.wp-block-testimonials__star svg {
+	display: block;
+	height: 16px;
+	width: 16px;
+}
+
+/* Attribution */
+.wp-block-testimonials__attribution {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.wp-block-testimonials__author {
+	font-size: 0.875rem;
+	font-style: normal;
+	font-weight: 600;
+	margin: 0;
+}
+
+.wp-block-testimonials__position,
+.wp-block-testimonials__company {
+	color: var(--wp--preset--color--gray, #666666);
+	font-size: 0.75rem;
+}
+
+/* Navigation Controls */
+.wp-block-testimonials__navigation {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-top: 1.5rem;
+}
+
+.wp-block-testimonials__nav-button {
+	align-items: center;
+	background: var(--wp--preset--color--white, #ffffff);
+	border: 2px solid var(--wp--preset--color--light-gray, #e5e7eb);
+	border-radius: 50%;
+	color: var(--wp--preset--color--dark-gray, #374151);
+	cursor: pointer;
+	display: flex;
+	height: 44px;
+	justify-content: center;
+	transition: var(--testimonials-transition);
+	width: 44px;
+}
+
+.wp-block-testimonials__nav-button:hover,
+.wp-block-testimonials__nav-button:focus {
+	background: var(--wp--preset--color--primary, #0073aa);
+	border-color: var(--wp--preset--color--primary, #0073aa);
+	color: var(--wp--preset--color--white, #ffffff);
+	outline: none;
+}
+
+/* Enhanced Focus Management */
+.wp-block-testimonials__nav-button:focus-visible {
+	box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.3);
+	outline: 2px solid var(--wp--preset--color--primary, #0073aa);
+	outline-offset: 2px;
+}
+
+.wp-block-testimonials__testimonial:focus-within {
+	box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.3);
+	outline: 2px solid var(--wp--preset--color--primary, #0073aa);
+	outline-offset: 2px;
+}
+
+/* Navigation Button Container */
+.wp-block-testimonials__nav-buttons {
+	display: flex;
+	gap: 1rem;
+}
+
+/* Indicators */
+.wp-block-testimonials__indicators {
+	display: flex;
+	gap: 0.5rem;
+	justify-content: center;
+}
+
+.wp-block-testimonials__indicator {
+	background: var(--wp--preset--color--light-gray, #e5e7eb);
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	height: 12px;
+	transition: var(--testimonials-transition);
+	width: 12px;
+}
+
+.wp-block-testimonials__indicator:hover,
+.wp-block-testimonials__indicator:focus,
+.wp-block-testimonials__indicator.is-active {
+	background: var(--wp--preset--color--primary, #0073aa);
+	outline: none;
+}
+
+.wp-block-testimonials__indicator:focus-visible {
+	box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.5);
+	outline: 1px solid var(--wp--preset--color--primary, #0073aa);
+	outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+	.wp-block-hog-scaffold-testimonials.columns-4 .wp-block-testimonials__container {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (max-width: 768px) {
+	.wp-block-hog-scaffold-testimonials.columns-2 .wp-block-testimonials__container,
+	.wp-block-hog-scaffold-testimonials.columns-3 .wp-block-testimonials__container,
+	.wp-block-hog-scaffold-testimonials.columns-4 .wp-block-testimonials__container {
+		grid-template-columns: 1fr;
+	}
+
+	.wp-block-testimonials__testimonial {
+		padding: 1rem;
+	}
+
+	.wp-block-testimonials__testimonial-content {
+		gap: 0.75rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.wp-block-testimonials__image {
+		height: 50px;
+		width: 50px;
+	}
+
+	.wp-block-testimonials__quote {
+		font-size: 0.875rem;
+	}
+
+	.wp-block-hog-scaffold-testimonials.quote-style-large-quote .wp-block-testimonials__quote {
+		font-size: 1rem;
+	}
+}
+
+/* Accessibility: High Contrast Mode */
+@media (prefers-contrast: more) {
+	.wp-block-testimonials__nav-button {
+		border-width: 3px;
+	}
+
+	.wp-block-testimonials__testimonial {
+		border: 2px solid var(--wp--preset--color--dark-gray, #374151);
+	}
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-testimonials__testimonial,
+	.wp-block-testimonials__nav-button,
+	.wp-block-testimonials__indicator,
+	.wp-block-testimonials__star {
+		transition: none;
+	}
+
+	.wp-block-hog-scaffold-testimonials.is-layout-carousel .wp-block-testimonials__testimonial {
+		transition: none;
+	}
+}
+
+/* Print Styles */
+@media print {
+	.wp-block-testimonials__navigation {
+		display: none;
+	}
+
+	.wp-block-hog-scaffold-testimonials.is-layout-carousel .wp-block-testimonials__testimonial {
+		opacity: 1 !important;
+		position: static !important;
+		transform: none !important;
+	}
+
+	.wp-block-hog-scaffold-testimonials.is-layout-carousel .wp-block-testimonials__container {
+		display: block;
+	}
+
+	.wp-block-testimonials__testimonial {
+		break-inside: avoid;
+		margin-bottom: 1rem;
+		page-break-inside: avoid;
+	}
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+	.wp-block-testimonials__testimonial {
+		background: var(--wp--preset--color--dark-gray, #1f2937);
+		color: var(--wp--preset--color--white, #ffffff);
+	}
+
+	.wp-block-testimonials.quote-style-minimal .wp-block-testimonials__testimonial {
+		background: transparent;
+		border-left-color: var(--wp--preset--color--primary, #3b82f6);
+	}
+
+	.wp-block-testimonials__position,
+	.wp-block-testimonials__company {
+		color: var(--wp--preset--color--light-gray, #d1d5db);
+	}
+
+	.wp-block-testimonials__nav-button {
+		background: var(--wp--preset--color--dark-gray, #374151);
+		border-color: var(--wp--preset--color--gray, #6b7280);
+		color: var(--wp--preset--color--white, #ffffff);
+	}
+
+	.wp-block-testimonials__indicator {
+		background: var(--wp--preset--color--gray, #6b7280);
+	}
+} 

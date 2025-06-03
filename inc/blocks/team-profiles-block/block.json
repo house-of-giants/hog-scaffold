@@ -1,0 +1,79 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "hog-scaffold/team-profiles",
+	"title": "Team Profiles",
+	"category": "design",
+	"icon": "groups",
+	"description": "Display team member profiles with photos, names, positions, and social links.",
+	"keywords": ["team", "staff", "people", "profiles", "members"],
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"members": {
+			"type": "array",
+			"default": [
+				{
+					"id": 1,
+					"name": "John Doe",
+					"position": "CEO & Founder",
+					"bio": "John has over 15 years of experience in leading innovative teams and driving business growth.",
+					"image": {
+						"url": "",
+						"alt": "",
+						"id": 0
+					},
+					"socialLinks": [
+						{
+							"platform": "linkedin",
+							"url": "",
+							"label": "LinkedIn Profile"
+						},
+						{
+							"platform": "twitter",
+							"url": "",
+							"label": "Twitter Profile"
+						}
+					]
+				}
+			]
+		},
+		"columns": {
+			"type": "number",
+			"default": 3
+		},
+		"layout": {
+			"type": "string",
+			"default": "grid",
+			"enum": ["grid", "list", "carousel"]
+		},
+		"showBio": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSocialLinks": {
+			"type": "boolean",
+			"default": true
+		},
+		"imageShape": {
+			"type": "string",
+			"default": "circle",
+			"enum": ["circle", "square", "rounded"]
+		},
+		"textAlignment": {
+			"type": "string",
+			"default": "center",
+			"enum": ["left", "center", "right"]
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

@@ -1,0 +1,166 @@
+/* Service Cards Block Editor Styles */
+.wp-block-service-cards {
+	border: 2px dashed #cccccc;
+	padding: 2rem;
+}
+
+.wp-block-service-cards__container {
+	display: grid;
+	gap: 2rem;
+}
+
+/* Grid Layout */
+.wp-block-service-cards.is-layout-grid .wp-block-service-cards__container {
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.wp-block-service-cards.columns-1 .wp-block-service-cards__container {
+	grid-template-columns: 1fr;
+}
+
+.wp-block-service-cards.columns-2 .wp-block-service-cards__container {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.wp-block-service-cards.columns-3 .wp-block-service-cards__container {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.wp-block-service-cards.columns-4 .wp-block-service-cards__container {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.wp-block-service-cards.columns-5 .wp-block-service-cards__container {
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.wp-block-service-cards.columns-6 .wp-block-service-cards__container {
+	grid-template-columns: repeat(6, 1fr);
+}
+
+/* List Layout */
+.wp-block-service-cards.is-layout-list .wp-block-service-cards__container {
+	grid-template-columns: 1fr;
+}
+
+.wp-block-service-cards.is-layout-list .wp-block-service-cards__card {
+	align-items: flex-start;
+	display: flex;
+	gap: 1.5rem;
+}
+
+/* Card Styles */
+.wp-block-service-cards__card {
+	background: #ffffff;
+	border-radius: 8px;
+	padding: 1.5rem;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wp-block-service-cards.is-style-bordered .wp-block-service-cards__card {
+	border: 1px solid #e0e0e0;
+}
+
+.wp-block-service-cards.is-style-shadow .wp-block-service-cards__card {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.wp-block-service-cards.is-style-shadow .wp-block-service-cards__card:hover {
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+	transform: translateY(-4px);
+}
+
+.wp-block-service-cards.is-style-minimal .wp-block-service-cards__card {
+	background: transparent;
+	border: none;
+	padding: 1rem;
+}
+
+/* Icon Styles */
+.wp-block-service-cards__icon {
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+.wp-block-service-cards.is-layout-list .wp-block-service-cards__icon {
+	align-items: center;
+	background: #f8f9fa;
+	border-radius: 50%;
+	display: flex;
+	flex-shrink: 0;
+	font-size: 1.5rem;
+	height: 60px;
+	justify-content: center;
+	margin-bottom: 0;
+	width: 60px;
+}
+
+/* Content Styles */
+.wp-block-service-cards__content {
+	text-align: center;
+}
+
+.wp-block-service-cards.is-layout-list .wp-block-service-cards__content {
+	flex: 1;
+	text-align: left;
+}
+
+.wp-block-service-cards__title {
+	color: #333333;
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-bottom: 0.75rem;
+}
+
+.wp-block-service-cards__description {
+	color: #666666;
+	line-height: 1.6;
+	margin-bottom: 1rem;
+}
+
+.wp-block-service-cards__link a {
+	color: #007cba;
+	font-weight: 500;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.wp-block-service-cards__link a:hover {
+	color: #005a87;
+	text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.wp-block-service-cards.columns-3 .wp-block-service-cards__container,
+	.wp-block-service-cards.columns-4 .wp-block-service-cards__container,
+	.wp-block-service-cards.columns-5 .wp-block-service-cards__container,
+	.wp-block-service-cards.columns-6 .wp-block-service-cards__container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.wp-block-service-cards.is-layout-list .wp-block-service-cards__card {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.wp-block-service-cards.is-layout-list .wp-block-service-cards__content {
+		text-align: center;
+	}
+
+	.wp-block-service-cards.is-layout-list .wp-block-service-cards__icon {
+		align-self: center;
+	}
+}
+
+@media (max-width: 480px) {
+	.wp-block-service-cards .wp-block-service-cards__container {
+		gap: 1.5rem;
+		grid-template-columns: 1fr;
+	}
+
+	.wp-block-service-cards__card {
+		padding: 1rem;
+	}
+} 

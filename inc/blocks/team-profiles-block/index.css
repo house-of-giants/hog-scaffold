@@ -1,0 +1,177 @@
+/* ==========================================================================
+   Team Profiles Block - Editor Styles
+   ========================================================================== */
+
+.wp-block-team-profiles {
+	margin: 1rem 0;
+}
+
+.wp-block-team-profiles__container {
+	display: grid;
+	gap: 1rem;
+}
+
+.wp-block-team-profiles.is-layout-grid .wp-block-team-profiles__container {
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.wp-block-team-profiles.columns-1 .wp-block-team-profiles__container {
+	grid-template-columns: 1fr;
+}
+
+.wp-block-team-profiles.columns-2 .wp-block-team-profiles__container {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.wp-block-team-profiles.columns-3 .wp-block-team-profiles__container {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.wp-block-team-profiles.columns-4 .wp-block-team-profiles__container {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.wp-block-team-profiles.columns-5 .wp-block-team-profiles__container {
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.wp-block-team-profiles.columns-6 .wp-block-team-profiles__container {
+	grid-template-columns: repeat(6, 1fr);
+}
+
+.wp-block-team-profiles.is-layout-list .wp-block-team-profiles__container {
+	grid-template-columns: 1fr;
+}
+
+.wp-block-team-profiles.is-layout-carousel .wp-block-team-profiles__container {
+	display: flex;
+	overflow-x: auto;
+}
+
+.wp-block-team-profiles__member {
+	margin-bottom: 1rem;
+}
+
+.wp-block-team-profiles__member-preview {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	text-align: center;
+}
+
+.wp-block-team-profiles.text-align-left .wp-block-team-profiles__member-preview {
+	align-items: flex-start;
+	text-align: left;
+}
+
+.wp-block-team-profiles.text-align-right .wp-block-team-profiles__member-preview {
+	align-items: flex-end;
+	text-align: right;
+}
+
+.wp-block-team-profiles.is-layout-list .wp-block-team-profiles__member-preview {
+	align-items: flex-start;
+	flex-direction: row;
+	text-align: left;
+}
+
+.wp-block-team-profiles__image-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+}
+
+.wp-block-team-profiles__image-preview,
+.wp-block-team-profiles__image-placeholder {
+	align-items: center;
+	background: #f0f0f0;
+	color: #666666;
+	display: flex;
+	font-size: 14px;
+	height: 120px;
+	justify-content: center;
+	object-fit: cover;
+	width: 120px;
+}
+
+.wp-block-team-profiles__image-preview.is-shape-circle,
+.wp-block-team-profiles__image-placeholder.is-shape-circle {
+	border-radius: 50%;
+}
+
+.wp-block-team-profiles__image-preview.is-shape-rounded,
+.wp-block-team-profiles__image-placeholder.is-shape-rounded {
+	border-radius: 8px;
+}
+
+.wp-block-team-profiles__image-preview.is-shape-square,
+.wp-block-team-profiles__image-placeholder.is-shape-square {
+	border-radius: 0;
+}
+
+.wp-block-team-profiles__content {
+	flex: 1;
+}
+
+.wp-block-team-profiles__name {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin: 0 0 0.5rem 0;
+}
+
+.wp-block-team-profiles__position {
+	color: #666666;
+	font-style: italic;
+	margin: 0 0 0.75rem 0;
+}
+
+.wp-block-team-profiles__bio {
+	line-height: 1.5;
+	margin: 0 0 1rem 0;
+}
+
+.wp-block-team-profiles__social h4 {
+	font-size: 14px;
+	font-weight: 600;
+	margin: 0 0 0.5rem 0;
+}
+
+.wp-block-team-profiles__social-link {
+	margin-bottom: 0.5rem;
+}
+
+.wp-block-team-profiles__empty {
+	border: 2px dashed #dddddd;
+	border-radius: 8px;
+	padding: 2rem;
+	text-align: center;
+}
+
+.wp-block-team-profiles__add-member {
+	margin-bottom: 1rem;
+	width: 100%;
+}
+
+/* Responsive adjustments for editor */
+@media (max-width: 768px) {
+	.wp-block-team-profiles.columns-3 .wp-block-team-profiles__container,
+	.wp-block-team-profiles.columns-4 .wp-block-team-profiles__container,
+	.wp-block-team-profiles.columns-5 .wp-block-team-profiles__container,
+	.wp-block-team-profiles.columns-6 .wp-block-team-profiles__container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 480px) {
+	.wp-block-team-profiles .wp-block-team-profiles__container {
+		grid-template-columns: 1fr !important;
+	}
+	
+	.wp-block-team-profiles__image-preview,
+	.wp-block-team-profiles__image-placeholder {
+		height: 80px;
+		width: 80px;
+	}
+} 

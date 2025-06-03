@@ -1,0 +1,306 @@
+/* ==========================================================================
+   Custom Service Cards Block Styles
+   Service cards block styling using custom properties
+   ========================================================================== */
+
+.wp-block-service-cards {
+	margin-bottom: var(--wp--preset--spacing--large, 2rem);
+	padding: var(--wp--preset--spacing--medium, 1.5rem) 0;
+}
+
+.wp-block-service-cards__container {
+	display: grid;
+	gap: var(--wp--preset--spacing--large, 2rem);
+	margin: 0 auto;
+	max-width: var(--wp--style--global--content-size, 1200px);
+}
+
+/* Grid Layout */
+.wp-block-service-cards.is-layout-grid .wp-block-service-cards__container {
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.wp-block-service-cards.columns-1 .wp-block-service-cards__container {
+	grid-template-columns: 1fr;
+	max-width: 600px;
+}
+
+.wp-block-service-cards.columns-2 .wp-block-service-cards__container {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.wp-block-service-cards.columns-3 .wp-block-service-cards__container {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.wp-block-service-cards.columns-4 .wp-block-service-cards__container {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.wp-block-service-cards.columns-5 .wp-block-service-cards__container {
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.wp-block-service-cards.columns-6 .wp-block-service-cards__container {
+	grid-template-columns: repeat(6, 1fr);
+}
+
+/* List Layout */
+.wp-block-service-cards.is-layout-list .wp-block-service-cards__container {
+	gap: var(--wp--preset--spacing--medium, 1.5rem);
+	grid-template-columns: 1fr;
+}
+
+.wp-block-service-cards.is-layout-list .wp-block-service-cards__card {
+	align-items: flex-start;
+	display: flex;
+	gap: var(--wp--preset--spacing--medium, 1.5rem);
+}
+
+/* Carousel Layout */
+.wp-block-service-cards.is-layout-carousel .wp-block-service-cards__container {
+	display: flex;
+	gap: var(--wp--preset--spacing--medium, 1.5rem);
+	overflow-x: auto;
+	padding-bottom: var(--wp--preset--spacing--small, 0.5rem);
+	scroll-snap-type: x mandatory;
+}
+
+.wp-block-service-cards.is-layout-carousel .wp-block-service-cards__card {
+	flex: 0 0 300px;
+	scroll-snap-align: start;
+}
+
+/* Card Base Styles */
+.wp-block-service-cards__card {
+	background: var(--wp--preset--color--white, #ffffff);
+	border-radius: var(--wp--preset--border-radius--medium, 8px);
+	overflow: hidden;
+	padding: var(--wp--preset--spacing--medium, 1.5rem);
+	position: relative;
+	transition: all 0.3s ease;
+}
+
+/* Card Style Variants */
+.wp-block-service-cards.is-style-default .wp-block-service-cards__card {
+	background: var(--wp--preset--color--neutral-50, #f9f9f9);
+	border: 1px solid var(--wp--preset--color--neutral-200, #e5e5e5);
+}
+
+.wp-block-service-cards.is-style-bordered .wp-block-service-cards__card {
+	background: var(--wp--preset--color--white, #ffffff);
+	border: 2px solid var(--wp--preset--color--neutral-300, #d1d5db);
+}
+
+.wp-block-service-cards.is-style-bordered .wp-block-service-cards__card:hover {
+	border-color: var(--wp--preset--color--primary, #007cba);
+}
+
+.wp-block-service-cards.is-style-shadow .wp-block-service-cards__card {
+	background: var(--wp--preset--color--white, #ffffff);
+	border: 1px solid var(--wp--preset--color--neutral-100, #f3f4f6);
+	box-shadow: var(--wp--preset--shadow--medium, 0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.wp-block-service-cards.is-style-shadow .wp-block-service-cards__card:hover {
+	box-shadow: var(--wp--preset--shadow--large, 0 10px 25px rgba(0, 0, 0, 0.15));
+	transform: translateY(-4px);
+}
+
+.wp-block-service-cards.is-style-minimal .wp-block-service-cards__card {
+	background: transparent;
+	border: none;
+	padding: var(--wp--preset--spacing--small, 1rem);
+}
+
+/* Icon Styles */
+.wp-block-service-cards__icon {
+	color: var(--wp--preset--color--primary, #007cba);
+	font-size: var(--wp--preset--font-size--2xl, 2.5rem);
+	line-height: 1;
+	margin-bottom: var(--wp--preset--spacing--small, 1rem);
+	text-align: center;
+}
+
+.wp-block-service-cards.is-layout-list .wp-block-service-cards__icon {
+	align-items: center;
+	background: var(--wp--preset--color--primary-light, rgba(0, 124, 186, 0.1));
+	border-radius: 50%;
+	display: flex;
+	flex-shrink: 0;
+	font-size: var(--wp--preset--font-size--large, 1.5rem);
+	height: 60px;
+	justify-content: center;
+	margin-bottom: 0;
+	width: 60px;
+}
+
+/* Content Styles */
+.wp-block-service-cards__content {
+	text-align: center;
+}
+
+.wp-block-service-cards.is-layout-list .wp-block-service-cards__content {
+	flex: 1;
+	text-align: left;
+}
+
+.wp-block-service-cards__title {
+	color: var(--wp--preset--color--neutral-900, #1f2937);
+	font-family: var(--wp--preset--font-family--heading, inherit);
+	font-size: var(--wp--preset--font-size--large, 1.25rem);
+	font-weight: 600;
+	line-height: 1.3;
+	margin-bottom: var(--wp--preset--spacing--small, 0.75rem);
+}
+
+.wp-block-service-cards__description {
+	color: var(--wp--preset--color--neutral-600, #6b7280);
+	font-size: var(--wp--preset--font-size--medium, 1rem);
+	line-height: 1.6;
+	margin-bottom: var(--wp--preset--spacing--small, 1rem);
+}
+
+.wp-block-service-cards__link {
+	margin-top: auto;
+}
+
+.wp-block-service-cards__link a {
+	color: var(--wp--preset--color--primary, #007cba);
+	font-weight: 500;
+	position: relative;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.wp-block-service-cards__link a:hover {
+	color: var(--wp--preset--color--primary-dark, #005a87);
+}
+
+.wp-block-service-cards__link a::after {
+	content: '→';
+	margin-left: 0.5rem;
+	transition: transform 0.3s ease;
+}
+
+.wp-block-service-cards__link a:hover::after {
+	transform: translateX(4px);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+	.wp-block-service-cards {
+		padding: var(--wp--preset--spacing--large, 2rem) 0;
+	}
+
+	.wp-block-service-cards__container {
+		gap: var(--wp--preset--spacing--xl, 2.5rem);
+	}
+
+	.wp-block-service-cards__card {
+		padding: var(--wp--preset--spacing--large, 2rem);
+	}
+}
+
+@media (max-width: 767px) {
+	.wp-block-service-cards.columns-3 .wp-block-service-cards__container,
+	.wp-block-service-cards.columns-4 .wp-block-service-cards__container,
+	.wp-block-service-cards.columns-5 .wp-block-service-cards__container,
+	.wp-block-service-cards.columns-6 .wp-block-service-cards__container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.wp-block-service-cards.is-layout-list .wp-block-service-cards__card {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.wp-block-service-cards.is-layout-list .wp-block-service-cards__content {
+		text-align: center;
+	}
+
+	.wp-block-service-cards.is-layout-list .wp-block-service-cards__icon {
+		align-self: center;
+	}
+}
+
+@media (max-width: 480px) {
+	.wp-block-service-cards .wp-block-service-cards__container {
+		gap: var(--wp--preset--spacing--medium, 1.5rem);
+		grid-template-columns: 1fr;
+	}
+
+	.wp-block-service-cards__card {
+		padding: var(--wp--preset--spacing--medium, 1rem);
+	}
+
+	.wp-block-service-cards.is-layout-carousel .wp-block-service-cards__card {
+		flex: 0 0 280px;
+	}
+}
+
+/* Accessibility Improvements */
+.wp-block-service-cards__link a:focus {
+	outline: 2px solid var(--wp--preset--color--primary, #007cba);
+	outline-offset: 2px;
+}
+
+/* Animation for better UX */
+@media (prefers-reduced-motion: no-preference) {
+	.wp-block-service-cards__card {
+		animation: fadeInUp 0.6s ease-out;
+	}
+
+	.wp-block-service-cards__card:nth-child(2) {
+		animation-delay: 0.1s;
+	}
+
+	.wp-block-service-cards__card:nth-child(3) {
+		animation-delay: 0.2s;
+	}
+
+	.wp-block-service-cards__card:nth-child(4) {
+		animation-delay: 0.3s;
+	}
+
+	.wp-block-service-cards__card:nth-child(5) {
+		animation-delay: 0.4s;
+	}
+
+	.wp-block-service-cards__card:nth-child(6) {
+		animation-delay: 0.5s;
+	}
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+	.wp-block-service-cards.is-style-default .wp-block-service-cards__card {
+		background: var(--wp--preset--color--neutral-800, #374151);
+		border-color: var(--wp--preset--color--neutral-700, #4b5563);
+	}
+
+	.wp-block-service-cards.is-style-shadow .wp-block-service-cards__card {
+		background: var(--wp--preset--color--neutral-800, #374151);
+		border-color: var(--wp--preset--color--neutral-700, #4b5563);
+	}
+
+	.wp-block-service-cards__title {
+		color: var(--wp--preset--color--white, #ffffff);
+	}
+
+	.wp-block-service-cards__description {
+		color: var(--wp--preset--color--neutral-300, #d1d5db);
+	}
+} 

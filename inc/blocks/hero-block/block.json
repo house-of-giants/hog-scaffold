@@ -1,0 +1,86 @@
+{
+	"title": "Hero Section",
+	"description": "A hero section with multiple layout options, background support, and call-to-action buttons",
+	"text-domain": "hog",
+	"name": "hog/hero-section",
+	"icon": "cover-image",
+	"category": "hog-scaffold-blocks",
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "Welcome to our website"
+		},
+		"subheading": {
+			"type": "string",
+			"default": "Create something amazing with us"
+		},
+		"layout": {
+			"type": "string",
+			"default": "centered",
+			"enum": ["centered", "left-aligned", "split", "minimal"]
+		},
+		"backgroundImage": {
+			"type": "object",
+			"default": {}
+		},
+		"backgroundVideo": {
+			"type": "string",
+			"default": ""
+		},
+		"showOverlay": {
+			"type": "boolean",
+			"default": true
+		},
+		"overlayOpacity": {
+			"type": "number",
+			"default": 0.4
+		},
+		"primaryButton": {
+			"type": "object",
+			"default": {
+				"text": "Get Started",
+				"url": "#",
+				"opensInNewTab": false
+			}
+		},
+		"secondaryButton": {
+			"type": "object",
+			"default": {
+				"text": "",
+				"url": "#",
+				"opensInNewTab": false
+			}
+		},
+		"minHeight": {
+			"type": "string",
+			"default": "60vh"
+		}
+	},
+	"example": {
+		"attributes": {
+			"heading": "Hero Section Example",
+			"subheading": "This is how your hero section will look",
+			"layout": "centered"
+		}
+	},
+	"supports": {
+		"align": true,
+		"alignWide": true,
+		"anchor": true,
+		"color": {
+			"gradients": true,
+			"background": true,
+			"text": true
+		},
+		"customClassName": true,
+		"html": false,
+		"inserter": true,
+		"multiple": true,
+		"reusable": true,
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
+	},
+	"editorScript": "file:../../../dist/blocks/hero-block/editor.js"
+}
