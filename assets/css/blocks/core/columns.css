@@ -1,0 +1,75 @@
+/* ==========================================================================
+   Core Columns Block Styles
+   WordPress core columns block styling using custom properties
+   ========================================================================== */
+
+.wp-block-columns {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--base);
+}
+
+.wp-block-column {
+	flex: 1;
+	min-width: 0;
+}
+
+/* Responsive Behavior */
+@media (max-width: 781px) {
+	.wp-block-columns:not(.is-not-stacked-on-mobile) {
+		flex-direction: column;
+	}
+
+	.wp-block-columns:not(.is-not-stacked-on-mobile) .wp-block-column {
+		flex-basis: auto !important;
+	}
+}
+
+/* Column Variations */
+.wp-block-columns.is-style-no-gap {
+	gap: 0;
+}
+
+.wp-block-columns.is-style-wide-gap {
+	gap: var(--wp--preset--spacing--large);
+}
+
+.wp-block-columns.is-style-bordered .wp-block-column {
+	border: 2px solid var(--wp--preset--color--neutral-200);
+	border-radius: var(--wp--preset--border-radius--small);
+	padding: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-columns.is-style-cards .wp-block-column {
+	background-color: var(--wp--preset--color--white);
+	border-radius: var(--wp--preset--border-radius--medium);
+	box-shadow: var(--wp--preset--shadow--small);
+	padding: var(--wp--preset--spacing--large);
+	transition: box-shadow var(--transition-fast);
+}
+
+.wp-block-columns.is-style-cards .wp-block-column:hover {
+	box-shadow: var(--wp--preset--shadow--medium);
+}
+
+/* Column Width Classes */
+.wp-block-column.is-vertically-aligned-top {
+	align-self: flex-start;
+}
+
+.wp-block-column.is-vertically-aligned-center {
+	align-self: center;
+}
+
+.wp-block-column.is-vertically-aligned-bottom {
+	align-self: flex-end;
+}
+
+/* Editor Specific Styles */
+.editor-styles-wrapper .wp-block-columns {
+	margin-bottom: var(--wp--preset--spacing--base);
+}
+
+.editor-styles-wrapper .wp-block-column {
+	margin-bottom: 0;
+}

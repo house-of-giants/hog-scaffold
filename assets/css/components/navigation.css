@@ -1,0 +1,266 @@
+/* ==========================================================================
+   Navigation Components
+   Reusable navigation styles using BEM methodology and custom properties
+   ========================================================================== */
+
+/* Base Navigation */
+.nav {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.nav__item {
+	position: relative;
+}
+
+.nav__link {
+	color: var(--wp--preset--color--neutral-900);
+	display: block;
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--base);
+	font-weight: 500;
+	padding: var(--wp--preset--spacing--small) var(--wp--preset--spacing--base);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+
+.nav__link:hover,
+.nav__link:focus {
+	color: var(--wp--preset--color--accent);
+	text-decoration: none;
+}
+
+.nav__link--active {
+	color: var(--wp--preset--color--accent);
+}
+
+/* Navigation Variants */
+.nav--horizontal {
+	flex-direction: row;
+}
+
+.nav--vertical {
+	flex-direction: column;
+}
+
+.nav--center {
+	justify-content: center;
+}
+
+.nav--right {
+	justify-content: flex-end;
+}
+
+.nav--spaced {
+	gap: var(--wp--preset--spacing--base);
+}
+
+/* Primary Navigation */
+.nav--primary {
+	align-items: center;
+	background-color: var(--wp--preset--color--white);
+	box-shadow: var(--wp--preset--shadow--small);
+	padding: var(--wp--preset--spacing--base) 0;
+}
+
+.nav--primary .nav__link {
+	font-weight: 600;
+	padding: var(--wp--preset--spacing--base) var(--wp--preset--spacing--medium);
+}
+
+/* Mobile Navigation */
+.nav--mobile {
+	background-color: var(--wp--preset--color--white);
+	box-shadow: var(--wp--preset--shadow--large);
+	display: none;
+	flex-direction: column;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 100%;
+	z-index: var(--z-index-dropdown);
+}
+
+.nav--mobile.is-open {
+	display: flex;
+}
+
+.nav--mobile .nav__link {
+	border-bottom: 1px solid var(--wp--preset--color--neutral-200);
+	padding: var(--wp--preset--spacing--base) var(--wp--preset--spacing--medium);
+}
+
+/* Dropdown Navigation */
+.nav__item--has-dropdown {
+	position: relative;
+}
+
+.nav__dropdown {
+	background-color: var(--wp--preset--color--white);
+	border-radius: var(--wp--preset--border-radius--small);
+	box-shadow: var(--wp--preset--shadow--large);
+	display: none;
+	left: 0;
+	list-style: none;
+	margin: 0;
+	min-width: 200px;
+	padding: var(--wp--preset--spacing--xs) 0;
+	position: absolute;
+	top: 100%;
+	z-index: var(--z-index-dropdown);
+}
+
+.nav__item--has-dropdown:hover .nav__dropdown,
+.nav__item--has-dropdown:focus-within .nav__dropdown {
+	display: block;
+}
+
+.nav__dropdown .nav__link {
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--base);
+	white-space: nowrap;
+}
+
+.nav__dropdown .nav__link:hover {
+	background-color: var(--wp--preset--color--neutral-100);
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--xs);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.breadcrumb__item {
+	align-items: center;
+	display: flex;
+	gap: var(--wp--preset--spacing--xs);
+}
+
+.breadcrumb__item:not(:last-child)::after {
+	color: var(--wp--preset--color--neutral-500);
+	content: "/";
+}
+
+.breadcrumb__link {
+	color: var(--wp--preset--color--neutral-600);
+	text-decoration: none;
+}
+
+.breadcrumb__link:hover {
+	color: var(--wp--preset--color--accent);
+	text-decoration: underline;
+}
+
+.breadcrumb__item:last-child .breadcrumb__link {
+	color: var(--wp--preset--color--neutral-900);
+	font-weight: 500;
+}
+
+/* Pagination */
+.pagination {
+	align-items: center;
+	display: flex;
+	gap: var(--wp--preset--spacing--xs);
+	justify-content: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pagination__item {
+	display: flex;
+}
+
+.pagination__link {
+	align-items: center;
+	border: 2px solid var(--wp--preset--color--neutral-300);
+	border-radius: var(--wp--preset--border-radius--small);
+	color: var(--wp--preset--color--neutral-900);
+	display: flex;
+	font-weight: 500;
+	height: 44px;
+	justify-content: center;
+	min-width: 44px;
+	padding: 0 var(--wp--preset--spacing--small);
+	text-decoration: none;
+	transition: all var(--transition-fast);
+}
+
+.pagination__link:hover,
+.pagination__link:focus {
+	background-color: var(--wp--preset--color--accent);
+	border-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--white);
+	text-decoration: none;
+}
+
+.pagination__link--current {
+	background-color: var(--wp--preset--color--accent);
+	border-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--white);
+}
+
+.pagination__link--disabled {
+	color: var(--wp--preset--color--neutral-400);
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.pagination__link--disabled:hover {
+	background-color: transparent;
+	border-color: var(--wp--preset--color--neutral-300);
+	color: var(--wp--preset--color--neutral-400);
+}
+
+/* WordPress Navigation Block Overrides */
+.wp-block-navigation .wp-block-navigation__container {
+	gap: var(--wp--preset--spacing--base);
+}
+
+.wp-block-navigation .wp-block-navigation-item__content {
+	font-family: var(--wp--preset--font-family--body);
+	font-weight: 500;
+	padding: var(--wp--preset--spacing--small) var(--wp--preset--spacing--base);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+	background: none;
+	border: 2px solid var(--wp--preset--color--neutral-300);
+	border-radius: var(--wp--preset--border-radius--small);
+	color: var(--wp--preset--color--neutral-900);
+	cursor: pointer;
+	display: none;
+	font-size: var(--wp--preset--font-size--base);
+	padding: var(--wp--preset--spacing--small);
+}
+
+@media (max-width: 767px) {
+	.menu-toggle {
+		display: block;
+	}
+
+	.nav--primary .nav {
+		display: none;
+	}
+
+	.nav--primary .nav.is-open {
+		background-color: var(--wp--preset--color--white);
+		box-shadow: var(--wp--preset--shadow--large);
+		display: flex;
+		flex-direction: column;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 100%;
+	}
+}

@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Core Group Block Styles
+   WordPress core group block styling using custom properties
+   ========================================================================== */
+
+.wp-block-group {
+	padding: var(--wp--preset--spacing--base);
+}
+
+.wp-block-group.has-background {
+	padding: var(--wp--preset--spacing--large);
+}
+
+.wp-block-group__inner-container {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: var(--wp--style--global--wide-size);
+}
+
+/* Group Variations */
+.wp-block-group.is-style-full-height {
+	align-items: center;
+	display: flex;
+	min-height: 100vh;
+}
+
+.wp-block-group.is-style-container {
+	border-radius: var(--wp--preset--border-radius--medium);
+	box-shadow: var(--wp--preset--shadow--small);
+	padding: var(--wp--preset--spacing--large);
+}
+
+.wp-block-group.is-style-section {
+	padding: var(--wp--preset--spacing--xl) var(--wp--preset--spacing--base);
+}
+
+@media (min-width: 768px) {
+	.wp-block-group.is-style-section {
+		padding: var(--wp--preset--spacing--2xl) var(--wp--preset--spacing--medium);
+	}
+}
+
+/* Editor Specific Styles */
+.editor-styles-wrapper .wp-block-group {
+	margin-bottom: var(--wp--preset--spacing--base);
+}
+
+.editor-styles-wrapper .wp-block-group:last-child {
+	margin-bottom: 0;
+}

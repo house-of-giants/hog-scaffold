@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Main CSS Entry Point
+   Imports all styles in proper order for WordPress block theme
+   ========================================================================== */
+
+/* Global Foundation */
+@import "global/variables.css";
+@import "global/base.css";
+
+/* Components */
+@import "components/buttons.css";
+@import "components/forms.css";
+@import "components/navigation.css";
+@import "components/cards.css";
+
+/* Blocks */
+@import "blocks/core/group.css";
+@import "blocks/core/columns.css";
+@import "blocks/core/cover.css";
+@import "blocks/core/heading.css";
+@import "blocks/core/paragraph.css";
+@import "blocks/core/list.css";
+@import "blocks/core/image.css";
+@import "blocks/core/button.css";
+
+/* Custom Blocks */
+@import "blocks/custom/hero.css";
+@import "blocks/custom/testimonial.css";
+@import "blocks/custom/cta.css";
+
+/* Templates */
+@import "templates/header.css";
+@import "templates/footer.css";
+@import "templates/single.css";
+@import "templates/archive.css";
+@import "templates/page.css";
+
+/* Utilities */
+@import "utilities/spacing.css";
+@import "utilities/typography.css";
+@import "utilities/layout.css";
+@import "utilities/visibility.css";
+
+/* Print Styles */
+@import "print.css" print;

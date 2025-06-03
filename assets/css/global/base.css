@@ -1,0 +1,236 @@
+/* ==========================================================================
+   Base Styles & CSS Reset
+   Modern CSS reset and foundational styles for WordPress theme
+   ========================================================================== */
+
+/* Modern CSS Reset */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+}
+
+html {
+	height: 100%;
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: var(--wp--preset--color--white);
+	color: var(--wp--preset--color--neutral-900);
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--base);
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	height: 100%;
+	line-height: 1.5;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	height: auto;
+	max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	hyphens: auto;
+	overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--wp--preset--font-family--heading);
+	line-height: 1.25;
+	margin-block-end: var(--wp--preset--spacing--small);
+}
+
+h1 {
+	font-size: var(--wp--preset--font-size--3xl);
+}
+
+h2 {
+	font-size: var(--wp--preset--font-size--2xl);
+}
+
+h3 {
+	font-size: var(--wp--preset--font-size--xl);
+}
+
+h4 {
+	font-size: var(--wp--preset--font-size--large);
+}
+
+h5 {
+	font-size: var(--wp--preset--font-size--medium);
+}
+
+h6 {
+	font-size: var(--wp--preset--font-size--base);
+}
+
+p {
+	margin-block-end: var(--wp--preset--spacing--base);
+}
+
+ul,
+ol {
+	margin-block-end: var(--wp--preset--spacing--base);
+	padding-inline-start: var(--wp--preset--spacing--medium);
+}
+
+li {
+	margin-block-end: var(--wp--preset--spacing--xs);
+}
+
+a {
+	color: var(--wp--preset--color--accent);
+	text-decoration: underline;
+	transition: color var(--transition-fast);
+}
+
+a:hover,
+a:focus {
+	color: var(--wp--preset--color--primary);
+	text-decoration: none;
+}
+
+/* Focus styles for accessibility */
+:focus {
+	outline: 2px solid var(--wp--preset--color--accent);
+	outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+	background: var(--wp--preset--color--primary);
+	border-radius: var(--wp--preset--border-radius--small);
+	color: var(--wp--preset--color--white);
+	left: -9999px;
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--small);
+	position: absolute;
+	text-decoration: none;
+	z-index: var(--z-index-tooltip);
+}
+
+.skip-link:focus {
+	left: var(--wp--preset--spacing--small);
+	top: var(--wp--preset--spacing--small);
+}
+
+/* WordPress alignment classes */
+.alignnone {
+	margin: var(--wp--preset--spacing--base) 0;
+}
+
+.aligncenter,
+.alignleft,
+.alignright {
+	margin-bottom: var(--wp--preset--spacing--base);
+}
+
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: var(--wp--preset--spacing--base);
+}
+
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: var(--wp--preset--spacing--base);
+}
+
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* WordPress caption styles */
+.wp-caption {
+	margin-bottom: var(--wp--preset--spacing--base);
+	max-width: 100%;
+}
+
+.wp-caption img[class*="wp-image-"] {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wp-caption .wp-caption-text {
+	color: var(--wp--preset--color--neutral-600);
+	font-size: var(--wp--preset--font-size--small);
+	margin: var(--wp--preset--spacing--xs) 0 0 0;
+	text-align: center;
+}
+
+/* Screen reader text */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+	background-color: var(--wp--preset--color--neutral-100);
+	border-radius: var(--wp--preset--border-radius--small);
+	box-shadow: var(--wp--preset--shadow--medium);
+	clip: auto !important;
+	clip-path: none;
+	color: var(--wp--preset--color--neutral-900);
+	display: block;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 700;
+	height: auto;
+	left: var(--wp--preset--spacing--small);
+	line-height: normal;
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--medium)
+		var(--wp--preset--spacing--xs) var(--wp--preset--spacing--small);
+	text-decoration: none;
+	top: var(--wp--preset--spacing--small);
+	width: auto;
+	z-index: var(--z-index-tooltip);
+}
+
+strong,
+b {
+	font-weight: 700;
+}
