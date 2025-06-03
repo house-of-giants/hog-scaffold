@@ -13,6 +13,7 @@ use HoGScaffold\Blocks\ServiceCardsBlock;
 use HoGScaffold\Blocks\TeamProfilesBlock;
 use HoGScaffold\Blocks\TestimonialsBlock;
 use HoGScaffold\Blocks\CtaBlock;
+use HoGScaffold\Blocks\InteractiveTabs;
 
 /**
  * Set up blocks
@@ -51,14 +52,16 @@ function register_theme_blocks()
   require_once HOG_SCAFFOLD_BLOCK_DIR . '/team-profiles-block/register.php';
   require_once HOG_SCAFFOLD_BLOCK_DIR . '/testimonials-block/register.php';
   require_once HOG_SCAFFOLD_BLOCK_DIR . '/cta-block/register.php';
+  require_once HOG_SCAFFOLD_BLOCK_DIR . '/interactive-tabs-block/register.php';
 
   // Call block register functions for each block.
   Example\register();
   HeroBlock\register();
   ServiceCardsBlock\register();
   TeamProfilesBlock\register();
-  TestimonialsBlock\register_testimonials_block();
-  CtaBlock\register_cta_block();
+  TestimonialsBlock\register();
+  CtaBlock\register();
+  InteractiveTabs\register();
 
   // Remove the filter after we register the blocks
   remove_filter('plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2);

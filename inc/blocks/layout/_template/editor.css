@@ -1,0 +1,54 @@
+/**
+ * Template Block Editor Styles
+ * 
+ * @package HoGScaffold\Blocks\Layout
+ */
+
+/* Import the frontend styles */
+@import './style.css';
+
+/* Editor-specific styles */
+.editor-styles-wrapper .hog-template-block {
+  border: 2px dashed #dddddd;
+  min-height: 50px;
+  transition: border-color 0.2s ease;
+}
+
+.editor-styles-wrapper .hog-template-block:hover {
+  border-color: #007cba;
+}
+
+.editor-styles-wrapper .hog-template-block.is-selected {
+  border-color: #007cba;
+  border-style: solid;
+}
+
+/* Visual indicator for the block type */
+.editor-styles-wrapper .hog-template-block::before {
+  background: #f0f0f0;
+  border-radius: 3px;
+  color: #666666;
+  content: 'Template Block';
+  font-size: 12px;
+  left: 0;
+  padding: 2px 6px;
+  position: absolute;
+  top: -20px;
+  z-index: 10;
+}
+
+/* Overlay visualization in editor */
+.editor-styles-wrapper .hog-template-block__overlay {
+  opacity: 0.7;
+}
+
+/* Better spacing visualization in editor */
+.editor-styles-wrapper .hog-template-block[class*="padding-"] {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 124, 186, 0.1) 2px,
+    rgba(0, 124, 186, 0.1) 4px
+  );
+} 

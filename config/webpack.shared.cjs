@@ -107,6 +107,28 @@ module.exports = {
 				],
 			},
 
+			// Block CSS files
+			{
+				test: /\.css$/i,
+				include: path.resolve(process.cwd(), "inc/blocks"),
+				use: [
+					MiniCssExtractPlugin.loader,
+					{
+						loader: "css-loader",
+						options: {
+							importLoaders: 1,
+							sourceMap: process.env.NODE_ENV === "development",
+						},
+					},
+					{
+						loader: "postcss-loader",
+						options: {
+							sourceMap: process.env.NODE_ENV === "development",
+						},
+					},
+				],
+			},
+
 			// Images - Modern approach with asset modules
 			{
 				test: /\.(jpe?g|png|gif|webp)$/i,

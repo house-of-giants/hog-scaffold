@@ -3,50 +3,44 @@
  * Service Cards Block Registration
  *
  * @package HoGScaffold\Blocks\ServiceCardsBlock
+ * @since 1.0.0
  */
 
 namespace HoGScaffold\Blocks\ServiceCardsBlock;
 
-/**
- * Register the service cards block
- */
-function register()
-{
-  $n = function ($function) {
-    return __NAMESPACE__ . "\\$function";
-  };
-
-  // Register the block.
-  register_block_type_from_metadata(
-    HOG_SCAFFOLD_BLOCK_DIR . '/service-cards-block', // this is the directory where the block.json is found.
-    array(
-      'render_callback' => $n('render_block_callback'),
-    )
-  );
+// Prevent direct access
+if (!defined('ABSPATH')) {
+  exit;
 }
 
 /**
- * Render callback method for the service cards block
+ * Register the service cards block
  *
- * @param array  $attributes The blocks attributes
- * @param string $content    Data returned from InnerBlocks.Content
- * @param array  $block      Block information such as context.
+ * Registers the block using metadata from block.json for static rendering.
+ * This function should be called during the 'init' action.
  *
- * @return string The rendered block markup.
+ * @since 1.0.0
+ * @return void
  */
-function render_block_callback($attributes, $content, $block)
+function register()
 {
-  ob_start();
-  get_template_part(
-    'inc/blocks/service-cards-block/markup',
-    null,
-    array(
-      'class_name' => 'wp-block-service-cards',
-      'attributes' => $attributes,
-      'content' => $content,
-      'block' => $block,
-    )
-  );
+  // Ensure the block directory constant exists
+  if (!defined('HOG_SCAFFOLD_BLOCK_DIR')) {
+    return;
+  }
 
-  return ob_get_clean();
+  $block_dir = HOG_SCAFFOLD_BLOCK_DIR . '/service-cards-block';
+  $block_json_file = $block_dir . '/block.json';
+
+  // Ensure block.json exists before registration
+  if (!file_exists($block_json_file)) {
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+      error_log('Service Cards Block: block.json not found at ' . $block_json_file);
+    }
+    return;
+  }
+
+  // Register the block using static rendering (no render callback)
+  // Content is rendered via save.js for optimal SEO performance
+  register_block_type_from_metadata($block_dir);
 }

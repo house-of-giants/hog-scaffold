@@ -1,0 +1,92 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hog-scaffold/divider",
+	"title": "Divider",
+	"category": "hog-scaffold-blocks",
+	"icon": "minus",
+	"description": "Add a visual divider line between content sections.",
+	"keywords": ["divider", "separator", "line", "hr"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:../../../js/layout-divider-editor.js",
+	"editorStyle": "file:../../../css/layout-divider-style.css",
+	"style": "file:../../../css/layout-divider-style.css",
+	"supports": {
+		"align": ["wide", "full"],
+		"alignWide": true,
+		"anchor": true,
+		"customClassName": true,
+		"html": false,
+		"inserter": true,
+		"lock": false,
+		"multiple": true,
+		"reusable": true,
+		"color": {
+			"background": true
+		}
+	},
+	"attributes": {
+		"style": {
+			"type": "string",
+			"default": "solid"
+		},
+		"width": {
+			"type": "string",
+			"default": "100"
+		},
+		"height": {
+			"type": "number",
+			"default": 1
+		},
+		"color": {
+			"type": "string",
+			"default": "#ddd"
+		},
+		"spacing": {
+			"type": "object",
+			"default": {
+				"marginTop": "medium",
+				"marginBottom": "medium"
+			}
+		}
+	},
+	"example": {
+		"attributes": {
+			"style": "solid",
+			"width": "50",
+			"height": 2
+		}
+	},
+	"variations": [
+		{
+			"name": "divider-thin",
+			"title": "Thin Divider",
+			"description": "A thin horizontal divider",
+			"attributes": {
+				"height": 1,
+				"width": "100"
+			},
+			"scope": ["inserter"]
+		},
+		{
+			"name": "divider-thick",
+			"title": "Thick Divider",
+			"description": "A thick horizontal divider",
+			"attributes": {
+				"height": 4,
+				"width": "100"
+			},
+			"scope": ["inserter"]
+		},
+		{
+			"name": "divider-short",
+			"title": "Short Divider",
+			"description": "A short centered divider",
+			"attributes": {
+				"width": "30",
+				"height": 2
+			},
+			"scope": ["inserter"]
+		}
+	]
+}

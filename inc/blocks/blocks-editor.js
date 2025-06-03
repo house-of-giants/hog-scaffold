@@ -3,9 +3,15 @@
  * used in editor only
  */
 
-import "./example-block/index.js";
-import "./hero-block/index.js";
-import "./service-cards-block/index.js";
-import "./team-profiles-block/index.js";
-import "./testimonials-block/index.js";
-import "./cta-block/index.js";
+import "./example-block/editor.js";
+import "./hero-block/editor.js";
+import "./service-cards-block/editor.js";
+import "./team-profiles-block/editor.js";
+import "./testimonials-block/editor.js";
+import "./cta-block/editor.js";
+
+// Layout blocks
+import "./layout/index.js";
+
+// Interactive blocks
+import "./interactive-tabs-block/index.js";

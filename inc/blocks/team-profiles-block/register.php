@@ -2,66 +2,45 @@
 /**
  * Team Profiles Block Registration
  *
- * @package HoG_Scaffold
+ * @package HoGScaffold\Blocks\TeamProfilesBlock
+ * @since 1.0.0
  */
 
 namespace HoGScaffold\Blocks\TeamProfilesBlock;
 
-// Prevent direct access.
+// Prevent direct access
 if (!defined('ABSPATH')) {
   exit;
 }
 
 /**
- * Register the Team Profiles block.
+ * Register the team profiles block
+ *
+ * Registers the block using metadata from block.json for static rendering.
+ * This function should be called during the 'init' action.
+ *
+ * @since 1.0.0
+ * @return void
  */
 function register()
 {
-  register_block_type(
-    __DIR__ . '/block.json',
-    array(
-      'render_callback' => __NAMESPACE__ . '\render_team_profiles_block',
-    )
-  );
-}
+  // Ensure the block directory constant exists
+  if (!defined('HOG_SCAFFOLD_BLOCK_DIR')) {
+    return;
+  }
 
-/**
- * Render the Team Profiles block.
- *
- * @param array $attributes Block attributes.
- * @return string Block HTML.
- */
-function render_team_profiles_block($attributes)
-{
-  // Set default attributes.
-  $attributes = wp_parse_args(
-    $attributes,
-    array(
-      'members' => array(),
-      'columns' => 3,
-      'layout' => 'grid',
-      'showBio' => true,
-      'showSocialLinks' => true,
-      'imageShape' => 'circle',
-      'textAlignment' => 'center',
-    )
-  );
+  $block_dir = HOG_SCAFFOLD_BLOCK_DIR . '/team-profiles-block';
+  $block_json_file = $block_dir . '/block.json';
 
-  // Generate block classes.
-  $classes = array(
-    'wp-block-team-profiles',
-    'is-layout-' . esc_attr($attributes['layout']),
-    'columns-' . esc_attr($attributes['columns']),
-    'text-align-' . esc_attr($attributes['textAlignment']),
-    'image-shape-' . esc_attr($attributes['imageShape']),
-  );
+  // Ensure block.json exists before registration
+  if (!file_exists($block_json_file)) {
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+      error_log('Team Profiles Block: block.json not found at ' . $block_json_file);
+    }
+    return;
+  }
 
-  // Start output buffering.
-  ob_start();
-
-  // Include the markup template.
-  include __DIR__ . '/markup.php';
-
-  // Return the buffered content.
-  return ob_get_clean();
+  // Register the block using static rendering (no render callback)
+  // Content is rendered via save.js for optimal SEO performance
+  register_block_type_from_metadata($block_dir);
 }

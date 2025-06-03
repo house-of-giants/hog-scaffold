@@ -1,0 +1,55 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hog-scaffold/interactive-tabs",
+	"title": "Interactive Tabs",
+	"category": "hog-scaffold-blocks",
+	"description": "A customizable tabbed content block with interactive functionality and accessibility features.",
+	"keywords": ["tabs", "interactive", "content", "navigation"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"tabs": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Tab 1",
+					"content": "Content for tab 1"
+				},
+				{
+					"title": "Tab 2",
+					"content": "Content for tab 2"
+				}
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"content": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"activeTab": {
+			"type": "number",
+			"default": 0
+		},
+		"tabStyle": {
+			"type": "string",
+			"default": "horizontal"
+		}
+	},
+	"editorScript": "file:../../../js/interactive-tabs-editor.js",
+	"editorStyle": "file:../../../css/interactive-tabs-editor-style.css",
+	"style": "file:../../../css/interactive-tabs-style.css",
+	"viewScript": "file:../../../js/interactive-tabs-view.js"
+}

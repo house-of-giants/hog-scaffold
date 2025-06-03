@@ -1,0 +1,68 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hog-scaffold/spacer",
+	"title": "Spacer",
+	"category": "hog-scaffold-blocks",
+	"icon": "minus",
+	"description": "Add vertical spacing between content blocks.",
+	"keywords": ["spacer", "space", "gap", "margin"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:../../../js/layout-spacer-editor.js",
+	"editorStyle": "file:../../../css/layout-spacer-style.css",
+	"style": "file:../../../css/layout-spacer-style.css",
+	"supports": {
+		"align": false,
+		"alignWide": false,
+		"anchor": true,
+		"customClassName": true,
+		"html": false,
+		"inserter": true,
+		"lock": false,
+		"multiple": true,
+		"reusable": true
+	},
+	"attributes": {
+		"height": {
+			"type": "string",
+			"default": "medium"
+		},
+		"customHeight": {
+			"type": "number",
+			"default": 50
+		},
+		"mobileHeight": {
+			"type": "string",
+			"default": "medium"
+		},
+		"customMobileHeight": {
+			"type": "number",
+			"default": 30
+		}
+	},
+	"example": {
+		"attributes": {
+			"height": "large"
+		}
+	},
+	"variations": [
+		{
+			"name": "spacer-small",
+			"title": "Small Spacer",
+			"description": "A small vertical spacer",
+			"attributes": {
+				"height": "small"
+			},
+			"scope": ["inserter"]
+		},
+		{
+			"name": "spacer-large",
+			"title": "Large Spacer",
+			"description": "A large vertical spacer",
+			"attributes": {
+				"height": "large"
+			},
+			"scope": ["inserter"]
+		}
+	]
+}

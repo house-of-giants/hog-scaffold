@@ -1,60 +1,46 @@
 <?php
 /**
- * Testimonials Block
+ * Testimonials Block Registration
  *
- * @package HoG Scaffold
+ * @package HoGScaffold\Blocks\TestimonialsBlock
+ * @since 1.0.0
  */
 
 namespace HoGScaffold\Blocks\TestimonialsBlock;
 
-/**
- * Register the testimonials block
- */
-function register_testimonials_block()
-{
-  register_block_type(
-    __DIR__ . '/block.json',
-    array(
-      'render_callback' => __NAMESPACE__ . '\render_testimonials_block',
-    )
-  );
+// Prevent direct access
+if (!defined('ABSPATH')) {
+  exit;
 }
 
 /**
- * Render the testimonials block
+ * Register the testimonials block
  *
- * @param array $attributes Block attributes.
- * @return string Block HTML.
+ * Registers the block using metadata from block.json for static rendering.
+ * This function should be called during the 'init' action.
+ *
+ * @since 1.0.0
+ * @return void
  */
-function render_testimonials_block($attributes)
+function register()
 {
-  $testimonials = $attributes['testimonials'] ?? array();
-  $layout = $attributes['layout'] ?? 'grid';
-  $columns = $attributes['columns'] ?? 2;
-  $show_rating = $attributes['showRating'] ?? true;
-  $show_image = $attributes['showImage'] ?? true;
-  $show_position = $attributes['showPosition'] ?? true;
-  $show_company = $attributes['showCompany'] ?? true;
-  $quote_style = $attributes['quoteStyle'] ?? 'standard';
-  $auto_rotate = $attributes['autoRotate'] ?? false;
-  $rotation_speed = $attributes['rotationSpeed'] ?? 5000;
-
-  if (empty($testimonials)) {
-    return '';
+  // Ensure the block directory constant exists
+  if (!defined('HOG_SCAFFOLD_BLOCK_DIR')) {
+    return;
   }
 
-  // Wrapper attributes
-  $wrapper_attributes = get_block_wrapper_attributes(
-    array(
-      'class' => "is-layout-{$layout} columns-{$columns} quote-style-{$quote_style}",
-    )
-  );
+  $block_dir = HOG_SCAFFOLD_BLOCK_DIR . '/testimonials-block';
+  $block_json_file = $block_dir . '/block.json';
 
-  ob_start();
-  ?>
-  <div <?php echo $wrapper_attributes; ?>>
-    <?php include __DIR__ . '/markup.php'; ?>
-  </div>
-  <?php
-  return ob_get_clean();
+  // Ensure block.json exists before registration
+  if (!file_exists($block_json_file)) {
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+      error_log('Testimonials Block: block.json not found at ' . $block_json_file);
+    }
+    return;
+  }
+
+  // Register the block using static rendering (no render callback)
+  // Content is rendered via save.js for optimal SEO performance
+  register_block_type_from_metadata($block_dir);
 }

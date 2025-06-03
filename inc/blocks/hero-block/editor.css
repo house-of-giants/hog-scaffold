@@ -1,0 +1,241 @@
+/* Hero Block Styles */
+.wp-block-hero {
+	align-items: center;
+	border: 2px dashed #cccccc;
+	display: flex;
+	min-height: 60vh;
+	padding: 2rem;
+	position: relative;
+}
+
+.wp-block-hero__background {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: -2;
+}
+
+.wp-block-hero__overlay {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+.wp-block-hero__content {
+	position: relative;
+	text-align: center;
+	width: 100%;
+	z-index: 1;
+}
+
+.wp-block-hero__title {
+	color: #ffffff;
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+}
+
+.wp-block-hero__subtitle {
+	color: #f0f0f0;
+	font-size: 1.25rem;
+	margin-bottom: 2rem;
+}
+
+.wp-block-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: center;
+}
+
+.wp-block-hero__actions .wp-block-button__link {
+	border-radius: 4px;
+	font-weight: 600;
+	padding: 0.75rem 1.5rem;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.wp-block-hero__actions .wp-block-button__link--primary {
+	background-color: #007cba;
+	color: #ffffff;
+}
+
+.wp-block-hero__actions .wp-block-button__link--primary:hover {
+	background-color: #005a8c;
+}
+
+.wp-block-hero__actions .wp-block-button__link--secondary {
+	background-color: transparent;
+	border: 2px solid #ffffff;
+	color: #ffffff;
+}
+
+.wp-block-hero__actions .wp-block-button__link--secondary:hover {
+	background-color: #ffffff;
+	color: #007cba;
+}
+
+/* Layout Variations */
+
+/* Centered Layout (Default) */
+.wp-block-hero.is-style-centered {
+	justify-content: center;
+}
+
+.wp-block-hero.is-style-centered .wp-block-hero__content {
+	text-align: center;
+}
+
+/* Left Aligned Layout */
+.wp-block-hero.is-style-left-aligned {
+	justify-content: flex-start;
+}
+
+.wp-block-hero.is-style-left-aligned .wp-block-hero__content {
+	max-width: 50%;
+	text-align: left;
+}
+
+.wp-block-hero.is-style-left-aligned .wp-block-hero__actions {
+	justify-content: flex-start;
+}
+
+/* Split Layout */
+.wp-block-hero.is-style-split {
+	display: grid;
+	gap: 2rem;
+	grid-template-columns: 1fr 1fr;
+}
+
+.wp-block-hero.is-style-split .wp-block-hero__content {
+	grid-column: 1;
+	text-align: left;
+}
+
+.wp-block-hero.is-style-split .wp-block-hero__actions {
+	justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+	.wp-block-hero.is-style-split {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.wp-block-hero.is-style-split .wp-block-hero__content {
+		text-align: center;
+	}
+	
+	.wp-block-hero.is-style-split .wp-block-hero__actions {
+		justify-content: center;
+	}
+}
+
+/* Minimal Layout */
+.wp-block-hero.is-style-minimal {
+	background-color: #f8f9fa;
+	border-color: #dee2e6;
+	min-height: 40vh;
+	padding: 3rem 2rem;
+}
+
+.wp-block-hero.is-style-minimal .wp-block-hero__title {
+	color: #333333;
+	font-size: 2rem;
+	margin-bottom: 0.75rem;
+}
+
+.wp-block-hero.is-style-minimal .wp-block-hero__subtitle {
+	color: #666666;
+	font-size: 1.125rem;
+	margin-bottom: 1.5rem;
+}
+
+.wp-block-hero.is-style-minimal .wp-block-hero__actions .wp-block-button__link--primary {
+	background-color: #333333;
+	color: #ffffff;
+}
+
+.wp-block-hero.is-style-minimal .wp-block-hero__actions .wp-block-button__link--primary:hover {
+	background-color: #555555;
+}
+
+.wp-block-hero.is-style-minimal .wp-block-hero__actions .wp-block-button__link--secondary {
+	border-color: #333333;
+	color: #333333;
+}
+
+.wp-block-hero.is-style-minimal .wp-block-hero__actions .wp-block-button__link--secondary:hover {
+	background-color: #333333;
+	color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.wp-block-hero {
+		min-height: 50vh;
+		padding: 1.5rem;
+	}
+	
+	.wp-block-hero__title {
+		font-size: 2rem;
+	}
+	
+	.wp-block-hero__subtitle {
+		font-size: 1.125rem;
+	}
+	
+	.wp-block-hero.is-style-left-aligned .wp-block-hero__content {
+		max-width: 100%;
+		text-align: center;
+	}
+	
+	.wp-block-hero.is-style-left-aligned .wp-block-hero__actions {
+		justify-content: center;
+	}
+}
+
+/* Hero Block Editor Styles */
+/* Styles that are only needed in the WordPress block editor */
+
+.editor-styles-wrapper .wp-block-hero {
+	margin-bottom: var(--wp--preset--spacing--large, 2rem);
+}
+
+/* Editor-specific visual indicators */
+.wp-block-hero[data-empty="true"] {
+	align-items: center;
+	border: 2px dashed #cccccc;
+	display: flex;
+	justify-content: center;
+	min-height: 200px;
+}
+
+.wp-block-hero[data-empty="true"]::before {
+	color: #666666;
+	content: "Hero Block - Add content to get started";
+	font-style: italic;
+}
+
+/* Editor preview improvements */
+.editor-styles-wrapper .wp-block-hero__background {
+	pointer-events: none;
+}
+
+.editor-styles-wrapper .wp-block-hero__video {
+	pointer-events: none;
+}
+
+/* Block controls visibility in editor */
+.wp-block-hero:hover .block-editor-block-list__block-edit {
+	outline: 1px solid var(--wp--preset--color--primary, #007cba);
+} 

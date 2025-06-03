@@ -1,0 +1,108 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hog-scaffold/template-block",
+	"title": "Template Block",
+	"category": "hog-scaffold-blocks",
+	"icon": "admin-generic",
+	"description": "A template block for creating new layout blocks.",
+	"keywords": ["template", "example", "layout"],
+	"textdomain": "hog-scaffold",
+	"editorScript": "file:../../../js/template-block-editor.js",
+	"editorStyle": "file:../../../css/template-block-editor-style.css",
+	"style": "file:../../../css/template-block-style.css",
+	"supports": {
+		"align": ["wide", "full"],
+		"alignWide": true,
+		"anchor": true,
+		"ariaLabel": true,
+		"color": {
+			"gradients": true,
+			"background": true,
+			"text": true,
+			"link": true
+		},
+		"customClassName": true,
+		"dimensions": {
+			"minHeight": true
+		},
+		"html": false,
+		"inserter": true,
+		"lock": false,
+		"multiple": true,
+		"position": {
+			"sticky": false
+		},
+		"reusable": true,
+		"spacing": {
+			"padding": true,
+			"margin": true,
+			"blockGap": false
+		},
+		"typography": {
+			"fontSize": false,
+			"lineHeight": false
+		}
+	},
+	"attributes": {
+		"exampleAttribute": {
+			"type": "string",
+			"default": "default-value"
+		},
+		"spacing": {
+			"type": "object",
+			"default": {
+				"marginTop": "medium",
+				"marginBottom": "medium",
+				"marginLeft": "none",
+				"marginRight": "none",
+				"paddingTop": "medium",
+				"paddingBottom": "medium",
+				"paddingLeft": "medium",
+				"paddingRight": "medium",
+				"customMarginTop": 0,
+				"customMarginBottom": 0,
+				"customMarginLeft": 0,
+				"customMarginRight": 0,
+				"customPaddingTop": 0,
+				"customPaddingBottom": 0,
+				"customPaddingLeft": 0,
+				"customPaddingRight": 0,
+				"linkSpacing": false
+			}
+		},
+		"background": {
+			"type": "object",
+			"default": {
+				"backgroundColor": "",
+				"backgroundImage": null,
+				"backgroundSize": "cover",
+				"backgroundPosition": "center",
+				"backgroundRepeat": "no-repeat",
+				"backgroundAttachment": "scroll",
+				"overlay": false,
+				"overlayColor": "",
+				"overlayOpacity": 50
+			}
+		}
+	},
+	"providesContext": {
+		"hog-scaffold/exampleContext": "exampleAttribute"
+	},
+	"example": {
+		"attributes": {
+			"exampleAttribute": "Example value"
+		}
+	},
+	"variations": [
+		{
+			"name": "template-variation",
+			"title": "Template Variation",
+			"description": "An example variation of the template block",
+			"attributes": {
+				"exampleAttribute": "variation-value"
+			},
+			"scope": ["inserter"]
+		}
+	]
+}
