@@ -1,0 +1,477 @@
+# Copyright (C) 2025 House of Giants
+# This file is distributed under the same license as the HoG Scaffold package.
+msgid ""
+msgstr ""
+"Project-Id-Version: HoG Scaffold 1.2.0\n"
+"Report-Msgid-Bugs-To: https://github.com/your-repo/issues\n"
+"POT-Creation-Date: 2025-06-03 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: WordPress\n"
+"X-Domain: hog-scaffold\n"
+
+#: inc/blocks/example-block/edit.js:32
+#: inc/blocks/example-block/markup.php:20
+msgid "Custom Title"
+msgstr ""
+
+#: inc/blocks/example-block/markup.php:20
+msgid "Custom title default"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:91
+msgid "Layout Settings"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:95
+msgid "Layout"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:98
+msgid "Centered"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:100
+msgid "Left Aligned"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:103
+msgid "Split"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:104
+msgid "Minimal"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:109
+msgid "Minimum Height"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:112
+msgid "CSS value (e.g., 60vh, 500px)"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:117
+msgid "Background Settings"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:139
+msgid "Remove Image"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:144
+msgid "Select Background Image"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:153
+msgid "Background Video URL"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:156
+msgid "MP4 video URL for background"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:160
+msgid "Show Overlay"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:167
+msgid "Overlay Opacity"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:178
+msgid "Primary Button"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:182
+msgid "Button Text"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:187
+msgid "Button URL"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:192
+#: inc/blocks/hero-block/edit.js:213
+msgid "Open in new tab"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:199
+msgid "Secondary Button"
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:237
+msgid "Enter hero heading..."
+msgstr ""
+
+#: inc/blocks/hero-block/edit.js:244
+msgid "Enter hero subheading..."
+msgstr ""
+
+#: inc/blocks/cta-block/edit.js:145
+msgid "Enter URL..."
+msgstr ""
+
+#: inc/blocks/cta-block/edit.js:309
+msgid "Enter heading..."
+msgstr ""
+
+#: inc/blocks/cta-block/edit.js:317
+msgid "Enter description..."
+msgstr ""
+
+#: inc/blocks/cta-block/edit.js:327
+msgid "Button text..."
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:47
+msgid "New Service"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:48
+msgid "Description of your service"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:90
+msgid "Grid"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:91
+msgid "List"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:92
+msgid "Carousel"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:99
+msgid "Columns"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:108
+msgid "Card Style"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:111
+msgid "Default"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:112
+msgid "Bordered"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:113
+msgid "Shadow"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:120
+msgid "Show Icons"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:127
+msgid "Cards Management"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:131
+msgid "Add New Card"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:144
+msgid "Card"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:153
+msgid "Remove"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:158
+msgid "Title"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:164
+msgid "Description"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:171
+msgid "Icon (emoji or text)"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:174
+msgid "Use emoji or short text for icons"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:179
+msgid "Link URL"
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:206
+msgid "Enter card title..."
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:213
+msgid "Enter card description..."
+msgstr ""
+
+#: inc/blocks/service-cards-block/edit.js:224
+msgid "Learn More"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:52
+msgid "Enter your testimonial quote here..."
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:53
+msgid "Customer Name"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:54
+msgid "Position"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:55
+msgid "Company Name"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:117
+msgid "Quote Style"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:141
+msgid "Standard"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:143
+msgid "Large Quote"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:147
+msgid "Card"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:154
+msgid "Display Options"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:158
+msgid "Show Ratings"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:164
+msgid "Show Images"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:170
+msgid "Show Position"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:176
+msgid "Show Company"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:184
+msgid "Carousel Settings"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:188
+msgid "Auto Rotate"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:195
+msgid "Rotation Speed (seconds)"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:209
+msgid "Testimonials Management"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:218
+msgid "Add Testimonial"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:236
+msgid "Unnamed Testimonial"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:245
+msgid "Move up"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:252
+msgid "Move down"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:258
+msgid "Remove testimonial"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:294
+msgid "Add Image"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:326
+msgid "Author name"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:337
+msgid "Position/Title"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:349
+msgid "Company name"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:356
+msgid "Rating:"
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:372
+msgid "No testimonials added yet."
+msgstr ""
+
+#: inc/blocks/testimonials-block/edit.js:374
+msgid "Add Your First Testimonial"
+msgstr ""
+
+#: inc/blocks/testimonials-block/markup.php:33
+#, php-format
+msgid "%d out of 5 stars"
+msgstr ""
+
+#: inc/blocks/testimonials-block/markup.php:94
+#, php-format
+msgid "Show testimonial %d"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:43
+msgid "New Team Member"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:45
+msgid "Brief bio about this team member..."
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:55
+msgid "LinkedIn Profile"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:60
+msgid "Twitter Profile"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:105
+msgid "Website"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:119
+msgid "LinkedIn"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:120
+msgid "Twitter"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:121
+msgid "Facebook"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:122
+msgid "Instagram"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:123
+msgid "GitHub"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:125
+msgid "Email"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:148
+msgid "Text Alignment"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:160
+msgid "Left"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:161
+msgid "Center"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:162
+msgid "Right"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:168
+msgid "Image Shape"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:171
+msgid "Circle"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:172
+msgid "Square"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:173
+msgid "Rounded"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:184
+msgid "Show Bio"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:190
+msgid "Show Social Links"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:197
+msgid "Team Members"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:206
+msgid "Add Team Member"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:220
+msgid "Unnamed Member"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:242
+msgid "Remove member"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:294
+msgid "Team member name"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:315
+msgid "Brief bio..."
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:321
+msgid "Social Links"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:353
+msgid "URL"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:374
+msgid "Add Social Link"
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:388
+msgid "No team members added yet."
+msgstr ""
+
+#: inc/blocks/team-profiles-block/edit.js:390
+msgid "Add Your First Team Member"
+msgstr "" 
