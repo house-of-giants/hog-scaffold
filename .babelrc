@@ -1,3 +1,35 @@
 {
-	"presets": ["@babel/preset-env", "@babel/preset-react", "@wordpress/default"]
+	"presets": [
+		[
+			"@babel/preset-env",
+			{
+				"useBuiltIns": "usage",
+				"corejs": 3,
+				"targets": {
+					"browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+				}
+			}
+		],
+		[
+			"@babel/preset-react",
+			{
+				"runtime": "automatic",
+				"development": false
+			}
+		],
+		"@wordpress/babel-preset-default"
+	],
+	"env": {
+		"development": {
+			"presets": [
+				[
+					"@babel/preset-react",
+					{
+						"runtime": "automatic",
+						"development": true
+					}
+				]
+			]
+		}
+	}
 }

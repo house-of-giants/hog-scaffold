@@ -1,0 +1,21 @@
+{
+	"env": {
+		"node": true,
+		"es2021": true
+	},
+	"extends": ["eslint:recommended"],
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "commonjs"
+	},
+	"globals": {
+		"require": "readonly",
+		"module": "readonly",
+		"__dirname": "readonly",
+		"process": "readonly"
+	},
+	"rules": {
+		"no-console": "off",
+		"no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+	}
+} 

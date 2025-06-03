@@ -1,16 +1,16 @@
-/* global process, module, require */
+/* global process, __dirname, __filename */
 
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-const WebpackBar = require('webpackbar');
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
-const CleanExtractedDeps = require('./clean-extracted-deps.cjs');
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
+const StyleLintPlugin = require("stylelint-webpack-plugin");
+const WebpackBar = require("webpackbar");
+const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
+const CleanExtractedDeps = require("./clean-extracted-deps.cjs");
 
 // Config files.
-const settings = require('./webpack.settings.cjs');
+const settings = require("./webpack.settings.cjs");
 
 /**
  * Configure entries.
@@ -32,8 +32,8 @@ module.exports = {
 		filename: settings.filename.js,
 		// Add asset module filename for better organization
 		assetModuleFilename: (pathData) => {
-			const filepath = path.dirname(pathData.filename).split('/').slice(1);
-			return `${filepath.join('/')} / [name].[hash][ext][query]`;
+			const filepath = path.dirname(pathData.filename).split("/").slice(1);
+			return `${filepath.join("/")} / [name].[hash][ext][query]`;
 		},
 	},
 
@@ -49,24 +49,35 @@ module.exports = {
 	// Build rules to handle asset files.
 	module: {
 		rules: [
-			// Scripts.
+			// Modern JavaScript and JSX
 			{
-				test: /\.js$/,
+				test: /\.(js|jsx)$/,
 				exclude: /(node_modules)/,
 				use: [
 					{
-						loader: 'babel-loader',
+						loader: "babel-loader",
 						options: {
 							presets: [
 								[
-									'@babel/preset-env',
+									"@babel/preset-env",
 									{
-										useBuiltIns: 'usage',
-										targets: 'defaults',
+										useBuiltIns: "usage",
+										targets: "defaults",
 										corejs: 3,
 									},
 								],
+								[
+									"@babel/preset-react",
+									{
+										runtime: "automatic", // Use new JSX transform
+										development: process.env.NODE_ENV === "development",
+									},
+								],
 							],
+							plugins: [
+								// Add support for WordPress specific features
+								process.env.NODE_ENV === "development" && "react-refresh/babel",
+							].filter(Boolean),
 							cacheDirectory: true,
 							cacheCompression: false, // Faster builds
 						},
@@ -81,16 +92,16 @@ module.exports = {
 				use: [
 					MiniCssExtractPlugin.loader,
 					{
-						loader: 'css-loader',
+						loader: "css-loader",
 						options: {
 							importLoaders: 1,
-							sourceMap: process.env.NODE_ENV === 'development',
+							sourceMap: process.env.NODE_ENV === "development",
 						},
 					},
 					{
-						loader: 'postcss-loader',
+						loader: "postcss-loader",
 						options: {
-							sourceMap: process.env.NODE_ENV === 'development',
+							sourceMap: process.env.NODE_ENV === "development",
 						},
 					},
 				],
@@ -100,14 +111,14 @@ module.exports = {
 			{
 				test: /\.(jpe?g|png|gif|webp)$/i,
 				include: path.resolve(process.cwd(), settings.paths.src.images),
-				type: 'asset',
+				type: "asset",
 				parser: {
 					dataUrlCondition: {
 						maxSize: 8 * 1024, // 8kb - inline smaller images
 					},
 				},
 				generator: {
-					filename: 'images/[name].[hash:8][ext]',
+					filename: "images/[name].[hash:8][ext]",
 				},
 			},
 
@@ -115,32 +126,36 @@ module.exports = {
 			{
 				test: /\.svg$/i,
 				include: path.resolve(process.cwd(), settings.paths.src.images),
-				type: 'asset/resource',
+				type: "asset/resource",
 				generator: {
-					filename: 'images/[name].[hash:8][ext]',
+					filename: "images/[name].[hash:8][ext]",
 				},
 			},
 
 			// Fonts
 			{
 				test: /\.(woff|woff2|eot|ttf|otf)$/i,
-				type: 'asset/resource',
+				type: "asset/resource",
 				generator: {
-					filename: 'fonts/[name].[hash:8][ext]',
+					filename: "fonts/[name].[hash:8][ext]",
 				},
 			},
 		],
 	},
 
-	// Resolve configuration
+	// Enhanced resolve configuration for modern JavaScript
 	resolve: {
-		extensions: ['.js', '.jsx', '.json'],
+		extensions: [".js", ".jsx", ".json"],
 		alias: {
-			'@': path.resolve(process.cwd(), 'assets'),
-			'@js': path.resolve(process.cwd(), 'assets/js'),
-			'@css': path.resolve(process.cwd(), 'assets/css'),
-			'@images': path.resolve(process.cwd(), 'assets/images'),
+			"@": path.resolve(process.cwd(), "assets"),
+			"@js": path.resolve(process.cwd(), "assets/js"),
+			"@css": path.resolve(process.cwd(), "assets/css"),
+			"@images": path.resolve(process.cwd(), "assets/images"),
+			"@blocks": path.resolve(process.cwd(), "inc/blocks"),
 		},
+		// Enable better module resolution
+		symlinks: false,
+		cacheWithContext: false,
 	},
 
 	plugins: [
@@ -148,7 +163,8 @@ module.exports = {
 			failOnError: false,
 			fix: false,
 			cache: true,
-			cacheLocation: path.resolve(process.cwd(), 'node_modules/.cache/eslint'),
+			cacheLocation: path.resolve(process.cwd(), "node_modules/.cache/eslint"),
+			extensions: ["js", "jsx"], // Support JSX files
 		}),
 
 		// Extract CSS into individual files.
@@ -158,7 +174,7 @@ module.exports = {
 					? settings.filename.blockCSS
 					: settings.filename.css;
 			},
-			chunkFilename: '[id].[contenthash:8].css',
+			chunkFilename: "[id].[contenthash:8].css",
 		}),
 
 		// Copy static assets to the `dist` folder.
@@ -171,7 +187,7 @@ module.exports = {
 					noErrorOnMissing: true,
 					// Add globOptions to exclude certain files
 					globOptions: {
-						ignore: ['**/.DS_Store', '**/Thumbs.db'],
+						ignore: ["**/.DS_Store", "**/Thumbs.db"],
 					},
 				},
 			],
@@ -180,38 +196,78 @@ module.exports = {
 		// Lint CSS.
 		new StyleLintPlugin({
 			context: path.resolve(process.cwd(), settings.paths.src.css),
-			files: '**/*.css',
+			files: "**/*.css",
 			allowEmptyInput: true,
-			configFile: path.join(path.dirname(__dirname), '.stylelintrc.json'),
+			configFile: path.join(path.dirname(__dirname), ".stylelintrc.json"),
 			cache: true,
 			cacheLocation: path.resolve(
 				process.cwd(),
-				'node_modules/.cache/stylelint',
+				"node_modules/.cache/stylelint"
 			),
 		}),
 
 		// Fancy WebpackBar.
 		new WebpackBar({
-			name: 'Theme Assets',
-			color: '#2196F3',
+			name: "Theme Assets",
+			color: "#2196F3",
 		}),
 
-		// dependecyExternals variable controls whether scripts' assets get
-		// generated, and the default externals set.
+		// WordPress dependency extraction with enhanced configuration
 		new DependencyExtractionWebpackPlugin({
 			injectPolyfill: true,
 			combineAssets: true,
+			// Enhanced externals for WordPress
+			requestToExternal: (request) => {
+				// Handle WordPress packages
+				if (request.startsWith("@wordpress/")) {
+					return [
+						"wp",
+						request.substring("@wordpress/".length).replace(/[/-]/g, ""),
+					];
+				}
+				// Handle React
+				if (request === "react") {
+					return "React";
+				}
+				if (request === "react-dom") {
+					return "ReactDOM";
+				}
+			},
+			requestToHandle: (request) => {
+				// Handle WordPress packages
+				if (request.startsWith("@wordpress/")) {
+					return "wp-" + request.substring("@wordpress/".length);
+				}
+				// Handle React
+				if (request === "react") {
+					return "react";
+				}
+				if (request === "react-dom") {
+					return "react-dom";
+				}
+			},
 		}),
 
 		new CleanExtractedDeps(),
 	],
 
-	// Cache configuration for faster builds
+	// Enhanced cache configuration for faster builds
 	cache: {
-		type: 'filesystem',
-		cacheDirectory: path.resolve(process.cwd(), 'node_modules/.cache/webpack'),
+		type: "filesystem",
+		cacheDirectory: path.resolve(process.cwd(), "node_modules/.cache/webpack"),
 		buildDependencies: {
 			config: [__filename],
 		},
+		// Enhanced cache optimization
+		compression: "gzip",
+		hashAlgorithm: "xxhash64",
+	},
+
+	// Optimization settings for modern JavaScript
+	optimization: {
+		moduleIds: "deterministic",
+		// Better tree shaking
+		usedExports: true,
+		sideEffects: false,
 	},
 };
