@@ -13,6 +13,7 @@
 @import "components/navigation.css";
 @import "components/cards.css";
 @import "components/skip-link.css";
+@import "components/accessibility.css";
 @import "components/newsletter-form.css";
 @import "components/security-messages.css";
 
@@ -45,6 +46,7 @@
 @import "utilities/typography.css";
 @import "utilities/layout.css";
 @import "utilities/visibility.css";
+@import "utilities/contrast.css";
 @import "utilities/interactive-blocks.css";
 
 /* Print Styles */

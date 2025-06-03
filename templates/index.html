@@ -1,7 +1,7 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group" id="main">
+<main class="wp-block-group" id="main" role="main" aria-label="Main content">
 	<!-- wp:group {"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group">
 		<!-- wp:heading {"level":1} -->
@@ -18,28 +18,38 @@
 	<!-- /wp:group -->
 
 	<!-- wp:query {"queryId":0,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
-	<div class="wp-block-query">
+	<div class="wp-block-query" role="region" aria-label="Blog posts">
 		<!-- wp:post-template -->
-		<!-- wp:post-title {"isLink":true,"level":2} /-->
-		<!-- wp:post-excerpt /-->
-		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|base"}}} -->
-		<div class="wp-block-group">
-			<!-- wp:post-date {"format":"M j, Y"} /-->
-			<!-- wp:post-author {"showAvatar":false,"showBio":false,"byline":"By"} /-->
-			<!-- wp:post-terms {"term":"category"} /-->
-		</div>
+		<!-- wp:group {"tagName":"article","layout":{"type":"constrained"}} -->
+		<article class="wp-block-group">
+			<!-- wp:post-title {"isLink":true,"level":2} /-->
+			<!-- wp:post-excerpt /-->
+			<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|base"}}} -->
+			<div class="wp-block-group" role="group" aria-label="Post metadata">
+				<!-- wp:post-date {"format":"M j, Y"} /-->
+				<!-- wp:post-author {"showAvatar":false,"showBio":false,"byline":"By"} /-->
+				<!-- wp:post-terms {"term":"category"} /-->
+			</div>
+			<!-- /wp:group -->
+		</article>
 		<!-- /wp:group -->
 		<!-- /wp:post-template -->
 
 		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
-		<!-- wp:query-pagination-previous /-->
-		<!-- wp:query-pagination-numbers /-->
-		<!-- wp:query-pagination-next /-->
+		<nav
+			class="wp-block-query-pagination"
+			role="navigation"
+			aria-label="Posts pagination"
+		>
+			<!-- wp:query-pagination-previous /-->
+			<!-- wp:query-pagination-numbers /-->
+			<!-- wp:query-pagination-next /-->
+		</nav>
 		<!-- /wp:query-pagination -->
 
 		<!-- wp:query-no-results -->
 		<!-- wp:group {"layout":{"type":"constrained"}} -->
-		<div class="wp-block-group">
+		<div class="wp-block-group" role="status" aria-live="polite">
 			<!-- wp:heading {"level":2} -->
 			<h2>No posts found</h2>
 			<!-- /wp:heading -->

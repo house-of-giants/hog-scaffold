@@ -1,9 +1,9 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group" id="main">
-	<!-- wp:group {"layout":{"type":"constrained"}} -->
-	<div class="wp-block-group">
+<main class="wp-block-group" id="main" role="main" aria-label="Main content">
+	<!-- wp:group {"tagName":"article","layout":{"type":"constrained"}} -->
+	<article class="wp-block-group">
 		<!-- wp:post-title {"level":1} /-->
 
 		<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|base","margin":{"top":"var:preset|spacing|base","bottom":"var:preset|spacing|large"}}}} -->
@@ -13,6 +13,8 @@
 				margin-top: var(--wp--preset--spacing--base);
 				margin-bottom: var(--wp--preset--spacing--large);
 			"
+			role="group"
+			aria-label="Post metadata"
 		>
 			<!-- wp:post-date {"format":"F j, Y"} /-->
 			<!-- wp:post-author {"showAvatar":true,"showBio":false,"byline":"By"} /-->
@@ -20,27 +22,29 @@
 			<!-- wp:post-terms {"term":"post_tag"} /-->
 		</div>
 		<!-- /wp:group -->
-	</div>
+
+		<!-- wp:post-featured-image {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|large"}}}} /-->
+
+		<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+	</article>
 	<!-- /wp:group -->
 
-	<!-- wp:post-featured-image {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|large"}}}} /-->
-
-	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
-
 	<!-- wp:group {"layout":{"type":"constrained"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|3xl"}}}} -->
-	<div
+	<nav
 		class="wp-block-group"
 		style="margin-top: var(--wp--preset--spacing--3xl)"
+		role="navigation"
+		aria-label="Post navigation"
 	>
-		<!-- wp:separator /-->
+		<!-- wp:separator {"ariaHidden":"true"} /-->
 
 		<!-- wp:post-navigation-link {"type":"previous","showTitle":true,"linkLabel":true,"arrow":"arrow"} /-->
 		<!-- wp:post-navigation-link {"type":"next","showTitle":true,"linkLabel":true,"arrow":"arrow"} /-->
-	</div>
+	</nav>
 	<!-- /wp:group -->
 
 	<!-- wp:comments -->
-	<div class="wp-block-comments">
+	<section class="wp-block-comments" aria-label="Comments section">
 		<!-- wp:comments-title /-->
 		<!-- wp:comment-template -->
 		<!-- wp:columns -->
@@ -55,7 +59,12 @@
 			<div class="wp-block-column">
 				<!-- wp:comment-author-name {"fontSize":"small"} /-->
 				<!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex"}} -->
-				<div class="wp-block-group" style="margin-top: 0; margin-bottom: 0">
+				<div
+					class="wp-block-group"
+					style="margin-top: 0; margin-bottom: 0"
+					role="group"
+					aria-label="Comment metadata"
+				>
 					<!-- wp:comment-date {"fontSize":"small"} /-->
 					<!-- wp:comment-edit-link {"fontSize":"small"} /-->
 				</div>
@@ -69,13 +78,19 @@
 		<!-- /wp:comment-template -->
 
 		<!-- wp:comments-pagination -->
-		<!-- wp:comments-pagination-previous /-->
-		<!-- wp:comments-pagination-numbers /-->
-		<!-- wp:comments-pagination-next /-->
+		<nav
+			class="wp-block-comments-pagination"
+			role="navigation"
+			aria-label="Comments pagination"
+		>
+			<!-- wp:comments-pagination-previous /-->
+			<!-- wp:comments-pagination-numbers /-->
+			<!-- wp:comments-pagination-next /-->
+		</nav>
 		<!-- /wp:comments-pagination -->
 
 		<!-- wp:post-comments-form /-->
-	</div>
+	</section>
 	<!-- /wp:comments -->
 </main>
 <!-- /wp:group -->

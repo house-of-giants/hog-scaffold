@@ -1,0 +1,305 @@
+/* ==========================================================================
+   Accessibility Component
+   Comprehensive accessibility styles for WCAG 2.1 AA compliance
+   ========================================================================== */
+
+/* Focus Management */
+:focus {
+	border-radius: 2px;
+	outline: 2px solid var(--wp--preset--color--primary, #005cee);
+	outline-offset: 2px;
+}
+
+/* Remove outline for mouse users but keep for keyboard users */
+:focus:not(:focus-visible) {
+	outline: none;
+}
+
+:focus-visible {
+	border-radius: 2px;
+	outline: 2px solid var(--wp--preset--color--primary, #005cee);
+	outline-offset: 2px;
+}
+
+/* Enhanced focus for interactive elements */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+[tabindex]:focus {
+	box-shadow: 0 0 0 4px rgba(0, 92, 238, 0.15);
+	outline: 2px solid var(--wp--preset--color--primary, #005cee);
+	outline-offset: 2px;
+	transition: box-shadow 0.15s ease-in-out;
+}
+
+/* Focus for navigation links */
+.wp-block-navigation a:focus {
+	background-color: var(--wp--preset--color--primary, #005cee);
+	color: var(--wp--preset--color--white, #ffffff);
+	text-decoration: none;
+}
+
+/* Focus for buttons */
+.wp-block-button__link:focus,
+button:focus {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(0, 92, 238, 0.15);
+	transform: translateY(-1px);
+}
+
+/* Keyboard Navigation Indicators */
+.keyboard-navigation .wp-block-navigation-item > a:focus {
+	background-color: var(--wp--preset--color--primary, #005cee);
+	color: var(--wp--preset--color--white, #ffffff);
+}
+
+/* Windows High Contrast Mode Support */
+@media screen and (-ms-high-contrast: active) {
+	:focus {
+		outline: 3px solid;
+		outline-color: ButtonText;
+	}
+	
+	.wp-block-navigation a:focus {
+		background-color: ButtonText;
+		color: ButtonFace;
+	}
+	
+	.skip-link:focus,
+	.screen-reader-text:focus {
+		background-color: ButtonText;
+		color: ButtonFace;
+		outline: 2px solid ButtonText;
+	}
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* Screen Reader Only Text */
+.sr-only,
+.screen-reader-text {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	-webkit-clip-path: inset(50%) !important;
+	clip-path: inset(50%) !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	white-space: nowrap !important;
+	width: 1px !important;
+}
+
+.sr-only:focus,
+.screen-reader-text:focus {
+	background-color: var(--wp--preset--color--contrast, #000000);
+	border-radius: 4px;
+	clip: auto !important;
+	clip-path: none !important;
+	color: var(--wp--preset--color--base, #ffffff);
+	display: block;
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	font-weight: 600;
+	height: auto !important;
+	left: var(--wp--preset--spacing--xs, 0.5rem);
+	line-height: normal;
+	outline: 2px solid var(--wp--preset--color--primary, #005cee);
+	outline-offset: 2px;
+	padding: var(--wp--preset--spacing--xs, 0.5rem) var(--wp--preset--spacing--base, 1rem);
+	position: absolute !important;
+	text-decoration: none;
+	top: var(--wp--preset--spacing--xs, 0.5rem);
+	white-space: normal !important;
+	width: auto !important;
+	z-index: 100000;
+}
+
+/* Text Scaling Support */
+@media (min-width: 1200px) {
+	html {
+		font-size: calc(1rem + 0.5vw);
+	}
+}
+
+/* Ensure minimum target size for interactive elements */
+a, button, input, select, textarea, [role="button"], [role="link"] {
+	min-height: 44px;
+	min-width: 44px;
+}
+
+/* Form Accessibility */
+fieldset {
+	border: 1px solid var(--wp--preset--color--contrast-2, #cccccc);
+	border-radius: 4px;
+	margin: var(--wp--preset--spacing--base, 1rem) 0;
+	padding: var(--wp--preset--spacing--base, 1rem);
+}
+
+legend {
+	font-weight: 600;
+	padding: 0 var(--wp--preset--spacing--xs, 0.5rem);
+}
+
+/* Error states for forms */
+.has-error input,
+.has-error select,
+.has-error textarea {
+	border-color: var(--wp--preset--color--vivid-red, #cf2e2e);
+	outline-color: var(--wp--preset--color--vivid-red, #cf2e2e);
+}
+
+.error-message {
+	color: var(--wp--preset--color--vivid-red, #cf2e2e);
+	display: block;
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	margin-top: var(--wp--preset--spacing--xs, 0.5rem);
+}
+
+/* Required field indicators */
+.required::after {
+	color: var(--wp--preset--color--vivid-red, #cf2e2e);
+	content: " *";
+	font-weight: 600;
+}
+
+/* Color Contrast Utilities */
+.high-contrast {
+	background-color: var(--wp--preset--color--contrast, #000000);
+	color: var(--wp--preset--color--base, #ffffff);
+}
+
+.low-contrast {
+	background-color: var(--wp--preset--color--contrast-2, #f7f7f7);
+	color: var(--wp--preset--color--contrast, #000000);
+}
+
+/* Modal and Dialog Accessibility */
+.modal[aria-hidden="true"] {
+	display: none;
+}
+
+.modal-backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 999;
+}
+
+.modal-content {
+	background-color: var(--wp--preset--color--base, #ffffff);
+	border-radius: 8px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+	left: 50%;
+	max-height: 90vh;
+	overflow-y: auto;
+	position: fixed;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: min(90vw, 600px);
+	z-index: 1000;
+}
+
+/* Print Accessibility */
+@media print {
+	.skip-link,
+	.screen-reader-text {
+		display: none !important;
+	}
+	
+	abbr[title]::after {
+		content: " (" attr(title) ")";
+	}
+	
+	a[href^="http"]::after {
+		content: " (" attr(href) ")";
+	}
+}
+
+/* Custom Properties for Accessibility */
+:root {
+	--focus-color: var(--wp--preset--color--primary, #005cee);
+	--focus-outline-width: 2px;
+	--focus-outline-offset: 2px;
+	--min-target-size: 44px;
+	--error-color: var(--wp--preset--color--vivid-red, #cf2e2e);
+	--success-color: var(--wp--preset--color--vivid-green, #00a32a);
+	--warning-color: var(--wp--preset--color--vivid-orange, #f56e28);
+	--z-index-skip: 100000;
+	--z-index-modal: 1000;
+	--z-index-modal-backdrop: 999;
+}
+
+/* Landmark Role Enhancements */
+[role="banner"],
+[role="navigation"],
+[role="main"],
+[role="complementary"],
+[role="contentinfo"] {
+	position: relative;
+}
+
+/* Search Form Accessibility */
+.wp-block-search .wp-block-search__input {
+	min-height: var(--min-target-size);
+}
+
+.wp-block-search .wp-block-search__button {
+	min-height: var(--min-target-size);
+	min-width: var(--min-target-size);
+}
+
+/* Newsletter Form Accessibility */
+.newsletter-form input[type="email"] {
+	min-height: var(--min-target-size);
+}
+
+.newsletter-form button {
+	min-height: var(--min-target-size);
+	min-width: var(--min-target-size);
+}
+
+/* Social Links Accessibility */
+.wp-block-social-links a {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	min-height: var(--min-target-size);
+	min-width: var(--min-target-size);
+}
+
+/* Animation Control */
+.no-motion *,
+.no-motion *::before,
+.no-motion *::after {
+	animation-duration: 0.01ms !important;
+	animation-iteration-count: 1 !important;
+	transition-duration: 0.01ms !important;
+}
+
+/* Keyboard Navigation Detection */
+.keyboard-navigation .wp-block-button__link:focus {
+	outline: 2px solid var(--focus-color);
+	outline-offset: 2px;
+}
+
+.keyboard-navigation .wp-block-navigation-item a:focus {
+	background-color: var(--focus-color);
+	color: var(--wp--preset--color--white, #ffffff);
+	outline: 2px solid var(--focus-color);
+	outline-offset: 2px;
+} 

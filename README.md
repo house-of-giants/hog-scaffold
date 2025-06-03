@@ -2,6 +2,29 @@
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
 
+A modern, accessible WordPress theme scaffold built with WCAG 2.1 AA compliance and inclusive design principles.
+
+## Features
+
+- **Accessibility First**: WCAG 2.1 AA compliant with comprehensive accessibility features
+- **Modern Build Process**: Webpack-based asset pipeline with PostCSS and Babel
+- **Block Theme Ready**: Full Site Editing support with semantic block templates
+- **Performance Optimized**: Efficient asset loading and modern CSS/JS
+- **Developer Friendly**: ESLint, Stylelint, and comprehensive documentation
+
+## Accessibility
+
+This theme is built with accessibility as a core principle, including:
+
+- ✅ **Semantic HTML** with proper landmarks and ARIA labels
+- ✅ **Keyboard Navigation** with visible focus indicators and skip links
+- ✅ **Screen Reader Support** with live regions and descriptive text
+- ✅ **Color Contrast** meeting WCAG AA standards (4.5:1 ratio)
+- ✅ **Form Accessibility** with proper labels and error handling
+- ✅ **Responsive Design** that works at 200% zoom and on all devices
+
+For detailed accessibility information, see [ACCESSIBILITY.md](ACCESSIBILITY.md).
+
 ## Dependencies
 
 1. [Node & NPM](https://www.npmjs.com/get-npm) - Build packages and 3rd party dependencies are managed through NPM, so you will need that installed globally.
