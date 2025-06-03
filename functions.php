@@ -21,6 +21,8 @@ require_once HOG_SCAFFOLD_INC . 'blocks.php';
 require_once HOG_SCAFFOLD_INC . 'security.php';
 require_once HOG_SCAFFOLD_INC . 'performance.php';
 require_once HOG_SCAFFOLD_INC . 'cpt.php';
+require_once HOG_SCAFFOLD_INC . 'wpengine-config.php';
+require_once HOG_SCAFFOLD_PATH . 'config/environments.php';
 
 // Run the setup functions.
 HoGScaffold\Core\setup();

@@ -1,0 +1,154 @@
+version: "3.8"
+
+services:
+  # WordPress container
+  wordpress:
+    image: wordpress:php8.2-apache
+    container_name: hog-scaffold-wp
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "8443:443"
+    depends_on:
+      - db
+      - redis
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_DEBUG_LOG: 1
+      WORDPRESS_DEBUG_DISPLAY: 0
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_REDIS_HOST', 'redis');
+        define('WP_REDIS_PORT', 6379);
+        define('WP_ENVIRONMENT_TYPE', 'local');
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', false);
+        define('SCRIPT_DEBUG', true);
+        define('CONCATENATE_SCRIPTS', false);
+        define('COMPRESS_SCRIPTS', false);
+        define('COMPRESS_CSS', false);
+        define('WP_DISABLE_FATAL_ERROR_HANDLER', true);
+        ini_set('log_errors', 1);
+        ini_set('error_log', '/dev/stderr');
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./:/var/www/html/wp-content/themes/hog-scaffold
+      - ./docker/wordpress/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./docker/wordpress/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    networks:
+      - wordpress-network
+
+  # MariaDB database
+  db:
+    image: mariadb:10.11
+    container_name: hog-scaffold-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/mariadb/my.cnf:/etc/mysql/conf.d/custom.cnf
+    networks:
+      - wordpress-network
+
+  # Redis for object caching
+  redis:
+    image: redis:7-alpine
+    container_name: hog-scaffold-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - wordpress-network
+
+  # phpMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5
+    container_name: hog-scaffold-pma
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+      UPLOAD_LIMIT: 256M
+    networks:
+      - wordpress-network
+
+  # MailHog for email testing
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: hog-scaffold-mail
+    restart: unless-stopped
+    ports:
+      - "1025:1025" # SMTP server
+      - "8025:8025" # Web UI
+    networks:
+      - wordpress-network
+
+  # WP-CLI service
+  wpcli:
+    image: wordpress:cli-php8.2
+    container_name: hog-scaffold-wpcli
+    depends_on:
+      - db
+      - wordpress
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./:/var/www/html/wp-content/themes/hog-scaffold
+      - ./docker/wpcli:/home/www-data/.wp-cli
+    working_dir: /var/www/html
+    user: "33:33" # www-data user
+    networks:
+      - wordpress-network
+    profiles:
+      - cli
+
+  # Asset build service for development
+  node:
+    image: node:18-alpine
+    container_name: hog-scaffold-node
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    ports:
+      - "3000:3000" # For webpack dev server if needed
+    command: sh -c "npm install && npm run watch"
+    networks:
+      - wordpress-network
+    profiles:
+      - dev
+
+volumes:
+  wordpress_data:
+  db_data:
+  redis_data:
+  node_modules:
+
+networks:
+  wordpress-network:
+    driver: bridge

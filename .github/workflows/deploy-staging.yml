@@ -1,0 +1,92 @@
+name: Deploy to WP Engine Staging
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+    types: [closed]
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          composer install --no-dev --optimize-autoloader
+
+      - name: Lint PHP
+        run: |
+          composer run lint-php
+
+      - name: Lint JavaScript
+        run: |
+          npm run lint-js
+
+      - name: Lint CSS
+        run: |
+          npm run lint-css
+
+      - name: Build assets
+        run: |
+          npm run build
+
+      - name: Create deployment package
+        run: |
+          mkdir -p deploy-package
+
+          # Copy essential theme files
+          cp -R build deploy-package/
+          cp -R inc deploy-package/
+          cp -R parts deploy-package/
+          cp -R templates deploy-package/
+          cp -R config deploy-package/
+          cp style.css deploy-package/
+          cp functions.php deploy-package/
+          cp index.php deploy-package/
+          cp screenshot.png deploy-package/
+          cp theme.json deploy-package/ 2>/dev/null || true
+
+          # Copy composer vendor if exists
+          [ -d vendor ] && cp -R vendor deploy-package/
+
+      - name: Deploy to WP Engine Staging
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          WPE_ENV: ${{ secrets.WPE_STAGING_ENV }}
+          SRC_PATH: "deploy-package/"
+          REMOTE_PATH: "wp-content/themes/hog-scaffold/"
+          PHP_LINT: TRUE
+          FLAGS: -azvr --inplace --delete --exclude=".git*" --exclude="node_modules" --exclude="*.log" --exclude-from=.deployignore
+          SCRIPT: "wp-content/themes/hog-scaffold/scripts/post-deploy.sh"
+          CACHE_CLEAR: TRUE
+
+      - name: Notify deployment status
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          channel: "#deployments"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}

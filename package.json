@@ -45,7 +45,14 @@
 		"wp-packages-update": "wp-scripts packages-update",
 		"wp-plugin-zip": "wp-scripts plugin-zip",
 		"wp-test-e2e": "wp-scripts test-e2e",
-		"wp-test-unit-js": "wp-scripts test-unit-js"
+		"wp-test-unit-js": "wp-scripts test-unit-js",
+		"deploy:staging": "npm run build && chmod +x scripts/deploy-staging.sh && ./scripts/deploy-staging.sh",
+		"deploy:production": "npm run build && chmod +x scripts/deploy-production.sh && ./scripts/deploy-production.sh",
+		"clear:cache": "node scripts/clear-cache.cjs",
+		"clear:cache:object": "node scripts/clear-cache.cjs object",
+		"clear:cache:page": "node scripts/clear-cache.cjs page",
+		"clear:cache:cdn": "node scripts/clear-cache.cjs cdn",
+		"cache:warmup": "node scripts/clear-cache.cjs warmup"
 	},
 	"engines": {
 		"node": ">=18.0.0"

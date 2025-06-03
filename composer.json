@@ -1,19 +1,73 @@
 {
-	"name": "hog/project_name",
+	"name": "houseofgiants/hog-scaffold",
+	"description": "Modern WordPress theme scaffold with WPEngine deployment",
 	"type": "wordpress-theme",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "House of Giants",
 			"email": "hello@houseofgiants.com"
 		}
 	],
+	"minimum-stability": "stable",
+	"prefer-stable": true,
 	"require": {
-		"php": ">=8.0"
+		"php": ">=8.0",
+		"composer/installers": "^2.0",
+		"johnpbloch/wordpress-core": "^6.0",
+		"wpackagist-plugin/redis-cache": "^2.0",
+		"wpackagist-plugin/query-monitor": "^3.0",
+		"wpackagist-plugin/wp-mail-smtp": "^3.0",
+		"wpackagist-plugin/wordfence": "^7.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.0",
+		"squizlabs/php_codesniffer": "^3.6",
+		"wp-coding-standards/wpcs": "^2.3",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+		"wpackagist-plugin/debug-bar": "^1.0",
+		"wpackagist-plugin/debug-bar-console": "^0.3",
+		"wpackagist-plugin/log-deprecated-notices": "^0.4"
+	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org",
+			"only": [
+				"wpackagist-plugin/*",
+				"wpackagist-theme/*"
+			]
+		},
+		{
+			"type": "composer",
+			"url": "https://wp-languages.github.io"
+		}
+	],
+	"extra": {
+		"installer-paths": {
+			"../../plugins/{$name}/": [
+				"type:wordpress-plugin"
+			],
+			"../../themes/{$name}/": [
+				"type:wordpress-theme"
+			],
+			"../../mu-plugins/{$name}/": [
+				"type:wordpress-muplugin"
+			],
+			"../../languages/": [
+				"type:wordpress-language"
+			]
+		},
+		"wordpress-install-dir": "../../"
 	},
 	"autoload": {
 		"psr-4": {
-			"HoGScaffold\\": "inc/classes/"
-		}
+			"HogScaffold\\\\": "inc/classes/"
+		},
+		"files": [
+			"inc/autoloader.php"
+		]
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "^3.10",

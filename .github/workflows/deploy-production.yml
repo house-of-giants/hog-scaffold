@@ -1,0 +1,149 @@
+name: Deploy to WP Engine Production
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          composer install --no-dev --optimize-autoloader
+
+      - name: Run security audit
+        run: |
+          npm audit --audit-level moderate
+          composer audit --no-dev
+
+      - name: Lint PHP
+        run: |
+          composer run lint-php
+
+      - name: Lint JavaScript
+        run: |
+          npm run lint-js
+
+      - name: Lint CSS
+        run: |
+          npm run lint-css
+
+      - name: Run tests
+        run: |
+          npm run test
+          composer run test
+
+      - name: Build assets for production
+        run: |
+          npm run build
+
+      - name: Optimize assets
+        run: |
+          npm run optimize
+
+      - name: Create deployment package
+        run: |
+          mkdir -p deploy-package
+
+          # Copy essential theme files
+          cp -R build deploy-package/
+          cp -R inc deploy-package/
+          cp -R parts deploy-package/
+          cp -R templates deploy-package/
+          cp -R config deploy-package/
+          cp style.css deploy-package/
+          cp functions.php deploy-package/
+          cp index.php deploy-package/
+          cp screenshot.png deploy-package/
+          cp theme.json deploy-package/ 2>/dev/null || true
+          cp README.md deploy-package/ 2>/dev/null || true
+
+          # Copy composer vendor if exists
+          [ -d vendor ] && cp -R vendor deploy-package/
+
+      - name: Validate deployment package
+        run: |
+          # Check required files exist
+          test -f deploy-package/style.css || exit 1
+          test -f deploy-package/functions.php || exit 1
+          test -f deploy-package/index.php || exit 1
+
+          # Check for development artifacts
+          if [ -d deploy-package/node_modules ]; then
+            echo "❌ node_modules found in deployment package"
+            exit 1
+          fi
+
+          echo "✅ Deployment package validated"
+
+      - name: Deploy to WP Engine Production
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          WPE_ENV: ${{ secrets.WPE_PRODUCTION_ENV }}
+          SRC_PATH: "deploy-package/"
+          REMOTE_PATH: "wp-content/themes/hog-scaffold/"
+          PHP_LINT: TRUE
+          FLAGS: -azvr --inplace --delete --exclude=".git*" --exclude="node_modules" --exclude="*.log" --exclude-from=.deployignore
+          SCRIPT: "wp-content/themes/hog-scaffold/scripts/post-deploy.sh"
+          CACHE_CLEAR: TRUE
+
+      - name: Post-deployment verification
+        run: |
+          # Wait for deployment to propagate
+          sleep 30
+
+          # Basic health check (if URL is available)
+          if [ ! -z "${{ secrets.PRODUCTION_URL }}" ]; then
+            curl -f -s "${{ secrets.PRODUCTION_URL }}" > /dev/null || echo "⚠️  Health check failed"
+          fi
+
+      - name: Notify deployment success
+        if: success()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          channel: "#deployments"
+          text: "🚀 Production deployment successful!"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Notify deployment failure
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          channel: "#deployments"
+          text: "❌ Production deployment failed!"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}

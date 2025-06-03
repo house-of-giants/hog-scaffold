@@ -1,0 +1,92 @@
+# Development files
+.git/
+.github/
+node_modules/
+.npm/
+.cache/
+.parcel-cache/
+.sass-cache/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build tools and configuration
+webpack.config.js
+webpack.*.js
+config/webpack.*.js
+postcss.config.js
+.babelrc
+.browserslistrc
+.editorconfig
+.eslintrc*
+.eslintignore
+.stylelintrc*
+package.json
+package-lock.json
+composer.json
+composer.lock
+
+# Source files (only built assets should be deployed)
+assets/
+src/
+
+# Development documentation
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+docs/
+.github/
+
+# Testing files
+tests/
+test/
+*.test.js
+*.spec.js
+phpunit.xml
+.phpunit.result.cache
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+.atom/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# WordPress specific development files
+wp-config-local.php
+local-config.php
+.wp-cli/
+
+# Task Master files
+.taskmaster/
+tasks.json
+
+# Deployment packages
+staging-package/
+production-package/
+deploy-package/
+
+# Other common development files
+*.map
+*.orig
+backup/
+backups/ 

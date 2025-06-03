@@ -94,6 +94,18 @@ function scripts()
 
 	// Add defer attribute for non-critical JavaScript
 	wp_script_add_data('frontend', 'script_execution', 'defer');
+
+	// Enqueue lazy loading script for enhanced browser support
+	wp_enqueue_script(
+		'lazy-loading',
+		HOG_SCAFFOLD_TEMPLATE_URL . '/assets/js/frontend/lazy-loading.js',
+		array(),
+		HOG_SCAFFOLD_VERSION,
+		true
+	);
+
+	// Add defer attribute for lazy loading script
+	wp_script_add_data('lazy-loading', 'script_execution', 'defer');
 }
 
 /**
