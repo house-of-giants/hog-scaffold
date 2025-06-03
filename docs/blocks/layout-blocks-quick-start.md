@@ -1,3 +1,5 @@
+[Documentation](../README.md) > [Blocks](README.md) > Layout Blocks Quick Start
+
 # Quick Start Guide: Layout Blocks
 
 Get up and running with the WordPress layout blocks system in minutes.
@@ -265,7 +267,7 @@ export default function Edit({ attributes, setAttributes }) {
 
 ## Next Steps
 
-1. **Read the full documentation** in `README.md`
+1. **Read the full documentation** in [Layout Blocks System](layout-blocks-system.md)
 2. **Explore existing blocks** for more complex examples
 3. **Customize the utility components** for your needs
 4. **Add your own CSS utility classes**
@@ -273,9 +275,22 @@ export default function Edit({ attributes, setAttributes }) {
 
 ## Getting Help
 
-- Check the main `README.md` for detailed documentation
+- Check the [Layout Blocks System](layout-blocks-system.md) for detailed documentation
 - Look at existing block code for examples
 - Review WordPress Block Editor Handbook
 - Test thoroughly across different browsers and devices
 
 Happy block building! 🎉
+
+---
+
+## See Also
+
+- [Layout Blocks System](layout-blocks-system.md) - Comprehensive system documentation
+- [Interactive Block Patterns](interactive-block-patterns.md) - Advanced interactive patterns
+- [Block Development Guide](block-development-guide.md) - General block development
+- [Getting Started Guide](../getting-started/README.md) - Theme setup and installation
+
+---
+
+**[⬅️ Back to Blocks](README.md)** | **[➡️ Next: Layout Blocks System](layout-blocks-system.md)**

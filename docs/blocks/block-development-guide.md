@@ -1,3 +1,5 @@
+[Documentation](../README.md) > [Blocks](README.md) > Block Development Guide
+
 # WordPress Block Development Guide - HoG Scaffold
 
 This guide documents the modern WordPress block development standards and practices implemented in the HoG Scaffold theme, following 2025 WordPress best practices.
@@ -428,3 +430,12 @@ When developing or updating blocks:
 - [ ] Performance is acceptable
 
 This guide represents the current state of block development in the HoG Scaffold theme, following WordPress 6.0+ best practices and modern development standards.
+
+## See Also
+
+- [Blocks Overview](README.md) - Overview of block development
+- [Block Patterns Documentation](block-patterns.md) - Available block patterns
+- [Block Patterns Testing](block-patterns-testing.md) - Testing procedures
+- [Build System Guide](../getting-started/build-system.md) - Development workflow
+
+**[⬅️ Back to Documentation Index](../README.md)** | **[➡️ Next: Block Patterns](block-patterns.md)**

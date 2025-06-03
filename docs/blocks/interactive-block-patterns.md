@@ -1,3 +1,5 @@
+[Documentation](../README.md) > [Blocks](README.md) > Interactive Block Patterns
+
 # Interactive Block Development Patterns
 
 This document outlines the established patterns for developing interactive blocks in the HoG Scaffold theme.
@@ -796,7 +798,7 @@ All interactive blocks should use the theme's centralized CSS custom properties 
 3. **Performance**: Reduces CSS duplication and bundle size
 4. **Accessibility**: Inherits theme accessibility improvements
 5. **Theme Compatibility**: Works seamlessly with theme customizer changes
-6. **Dark Mode**: Automatic dark mode support through theme system
+6. **Dark Mode**: Automatic dark mode support
 
 ### Available Theme Design Tokens
 
@@ -828,8 +830,6 @@ All interactive blocks should use the theme's centralized CSS custom properties 
 - `--breakpoint-sm|md|lg|xl|2xl`
 
 For a complete list of available design tokens, see `assets/css/global/variables.css`.
-
-This pattern documentation serves as the foundation for all interactive block development in the theme.
 
 ### Interactive Blocks Utilities
 
@@ -1014,3 +1014,18 @@ Even then, always reference theme design tokens:
 	padding: var(--wp--preset--spacing--large);
 }
 ```
+
+This pattern documentation serves as the foundation for all interactive block development in the theme.
+
+---
+
+## See Also
+
+- [Block Development Guide](block-development-guide.md) - General block development
+- [Quick Start Guide](layout-blocks-quick-start.md) - Getting started with layout blocks
+- [Layout Blocks System](layout-blocks-system.md) - Layout-specific documentation
+- [Security Guide](../security/security-guide.md) - Security best practices
+
+---
+
+**[⬅️ Back to Blocks](README.md)** | **[➡️ Next: Layout Blocks Quick Start](layout-blocks-quick-start.md)**

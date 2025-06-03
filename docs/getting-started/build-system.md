@@ -1,3 +1,5 @@
+[Documentation](../README.md) > [Getting Started](README.md) > Build System
+
 # Build System Documentation
 
 This document explains the build system for the WordPress theme scaffold, including available scripts, configuration, and development workflow.
@@ -325,3 +327,11 @@ config/                # Build configuration
 - Check webpack documentation: https://webpack.js.org/
 - Check @wordpress/scripts documentation: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/
 - Review configuration files in `config/` directory
+
+## See Also
+
+- [Getting Started Overview](README.md) - Getting started with the theme
+- [Customization Guide](../customization/README.md) - Customizing theme functionality
+- [Block Development Guide](../blocks/block-development-guide.md) - Creating custom blocks
+
+**[⬅️ Back to Documentation Index](../README.md)** | **[➡️ Next: Customization](../customization/README.md)**
