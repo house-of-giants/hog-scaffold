@@ -1,0 +1,70 @@
+/**
+ * Core List Block Styles
+ * 
+ * @package HoGScaffold
+ */
+
+.wp-block-list {
+	margin: 0 0 var(--wp--preset--spacing--medium, 1.5rem) 0;
+	padding-left: var(--wp--preset--spacing--medium, 1.5rem);
+}
+
+.wp-block-list:last-child {
+	margin-bottom: 0;
+}
+
+.wp-block-list li {
+	line-height: 1.6;
+	margin-bottom: var(--wp--preset--spacing--xs, 0.5rem);
+}
+
+.wp-block-list li:last-child {
+	margin-bottom: 0;
+}
+
+/* Nested lists */
+.wp-block-list ul,
+.wp-block-list ol {
+	margin-bottom: 0;
+	margin-top: var(--wp--preset--spacing--xs, 0.5rem);
+}
+
+/* Ordered list styles */
+.wp-block-list ol {
+	list-style-type: decimal;
+}
+
+.wp-block-list ol ol {
+	list-style-type: lower-alpha;
+}
+
+.wp-block-list ol ol ol {
+	list-style-type: lower-roman;
+}
+
+/* Unordered list styles */
+.wp-block-list ul {
+	list-style-type: disc;
+}
+
+.wp-block-list ul ul {
+	list-style-type: circle;
+}
+
+.wp-block-list ul ul ul {
+	list-style-type: square;
+}
+
+/* No markers variant */
+.wp-block-list.is-style-no-markers {
+	list-style: none;
+	padding-left: 0;
+}
+
+/* Checkmark list variant */
+.wp-block-list.is-style-checkmark li::before {
+	color: var(--wp--preset--color--primary, #0073aa);
+	content: "✓";
+	font-weight: 700;
+	margin-right: var(--wp--preset--spacing--xs, 0.5rem);
+} 

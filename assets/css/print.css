@@ -1,0 +1,117 @@
+/**
+ * Print Styles
+ * 
+ * @package HoGScaffold
+ */
+
+/* Hide non-essential elements when printing */
+@media print {
+	/* Navigation and interactive elements */
+	.wp-block-navigation,
+	.wp-site-blocks > header,
+	.wp-site-blocks > footer,
+	.wp-block-search,
+	.skip-link,
+	button,
+	input[type="submit"],
+	input[type="button"],
+	.newsletter-form,
+	.wp-block-social-links {
+		display: none !important;
+	}
+
+	/* Ensure good typography for print */
+	body {
+		background: #ffffff;
+		color: #000000;
+		font-family: "Times New Roman", serif;
+		font-size: 12pt;
+		line-height: 1.5;
+	}
+
+	/* Headings */
+	h1, h2, h3, h4, h5, h6 {
+		color: #000000;
+		font-weight: 700;
+		page-break-after: avoid;
+	}
+
+	h1 { font-size: 18pt; }
+
+	h2 { font-size: 16pt; }
+
+	h3 { font-size: 14pt; }
+
+	h4 { font-size: 13pt; }
+
+	h5 { font-size: 12pt; }
+
+	h6 { font-size: 11pt; }
+
+	/* Paragraphs and text */
+	p {
+		margin-bottom: 12pt;
+		orphans: 3;
+		widows: 3;
+	}
+
+	/* Links */
+	a {
+		color: #000000;
+		text-decoration: underline;
+	}
+
+	a[href^="http"]::after {
+		color: #666666;
+		content: " (" attr(href) ")";
+		font-size: 10pt;
+	}
+
+	/* Images */
+	img {
+		height: auto;
+		max-width: 100%;
+		page-break-inside: avoid;
+	}
+
+	/* Blocks */
+	.wp-block-group,
+	.wp-block-columns {
+		margin-bottom: 12pt;
+		page-break-inside: avoid;
+	}
+
+	/* Lists */
+	ul, ol {
+		margin-bottom: 12pt;
+	}
+
+	/* Tables */
+	table {
+		border-collapse: collapse;
+		margin-bottom: 12pt;
+		width: 100%;
+	}
+
+	th, td {
+		border: 1px solid #cccccc;
+		padding: 6pt;
+		text-align: left;
+	}
+
+	th {
+		background-color: #f5f5f5;
+		font-weight: 700;
+	}
+
+	/* Page breaks */
+	.page-break {
+		page-break-before: always;
+	}
+
+	/* Ensure content fits well */
+	.wp-site-blocks {
+		margin: 0;
+		padding: 20pt;
+	}
+} 

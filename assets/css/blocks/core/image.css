@@ -1,0 +1,82 @@
+/**
+ * Core Image Block Styles
+ * 
+ * @package HoGScaffold
+ */
+
+.wp-block-image {
+	margin: 0 0 var(--wp--preset--spacing--medium, 1.5rem) 0;
+}
+
+.wp-block-image:last-child {
+	margin-bottom: 0;
+}
+
+.wp-block-image img {
+	display: block;
+	height: auto;
+	margin: 0 auto;
+	max-width: 100%;
+}
+
+.wp-block-image figcaption {
+	color: var(--wp--preset--color--contrast-2, #757575);
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	font-style: italic;
+	margin-top: var(--wp--preset--spacing--xs, 0.5rem);
+	text-align: center;
+}
+
+/* Alignment styles */
+.wp-block-image.alignleft {
+	float: left;
+	margin-bottom: var(--wp--preset--spacing--medium, 1.5rem);
+	margin-right: var(--wp--preset--spacing--medium, 1.5rem);
+}
+
+.wp-block-image.alignright {
+	float: right;
+	margin-bottom: var(--wp--preset--spacing--medium, 1.5rem);
+	margin-left: var(--wp--preset--spacing--medium, 1.5rem);
+}
+
+.wp-block-image.aligncenter {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+/* Size variants */
+.wp-block-image.size-thumbnail {
+	max-width: 150px;
+}
+
+.wp-block-image.size-medium {
+	max-width: 300px;
+}
+
+.wp-block-image.size-large {
+	max-width: 1024px;
+}
+
+/* Rounded style */
+.wp-block-image.is-style-rounded img {
+	border-radius: 50%;
+}
+
+/* Border style */
+.wp-block-image.is-style-border img {
+	border: 1px solid var(--wp--preset--color--contrast-3, #e0e0e0);
+	padding: var(--wp--preset--spacing--xs, 0.5rem);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.wp-block-image.alignleft,
+	.wp-block-image.alignright {
+		display: block;
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+	}
+} 
