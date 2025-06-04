@@ -5,8 +5,6 @@
 		padding-top: var(--wp--preset--spacing--medium);
 		padding-bottom: var(--wp--preset--spacing--medium);
 	"
-	role="banner"
-	aria-label="Site header"
 >
 	<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group">
@@ -24,8 +22,8 @@
 
 				<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","orientation":"vertical"}} -->
 				<div class="wp-block-group">
-					<!-- wp:site-title {"level":1,"style":{"typography":{"fontWeight":"700"}},"fontSize":"large"} /-->
-					<!-- wp:site-tagline {"fontSize":"small","textColor":"contrast-2"} /-->
+					<!-- wp:site-title {"style":{"typography":{"fontWeight":"700"}},"fontSize":"large"} /-->
+					<!-- wp:site-tagline {"textColor":"contrast-2","fontSize":"small"} /-->
 				</div>
 				<!-- /wp:group -->
 			</div>
@@ -33,7 +31,7 @@
 
 			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group">
-				<!-- wp:navigation {"ref":4,"textColor":"contrast","layout":{"type":"flex","setCascadingProperties":true,"justifyContent":"right","flexWrap":"wrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|medium"},"typography":{"fontWeight":"500"}},"fontSize":"small","ariaLabel":"Primary navigation"} -->
+				<!-- wp:navigation {"textColor":"contrast","style":{"spacing":{"blockGap":"var:preset|spacing|medium"},"typography":{"fontWeight":"500"}},"fontSize":"small","layout":{"type":"flex","setCascadingProperties":true,"justifyContent":"right","flexWrap":"wrap"}} -->
 				<!-- wp:navigation-link {"label":"Home","url":"/"} /-->
 				<!-- wp:navigation-link {"label":"About","url":"/about"} /-->
 				<!-- wp:navigation-link {"label":"Services","url":"/services"} /-->
@@ -41,7 +39,7 @@
 				<!-- wp:navigation-link {"label":"Contact","url":"/contact"} /-->
 				<!-- /wp:navigation -->
 
-				<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search the website...","width":240,"widthUnit":"px","buttonText":"Search","buttonPosition":"button-inside","buttonUseIcon":true,"style":{"border":{"radius":"6px"}},"ariaLabel":"Search the website"} /-->
+				<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search the website...","width":240,"widthUnit":"px","buttonText":"Search","buttonPosition":"button-inside","buttonUseIcon":true,"style":{"border":{"radius":"6px"}}} /-->
 			</div>
 			<!-- /wp:group -->
 		</div>

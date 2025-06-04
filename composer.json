@@ -63,11 +63,8 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"HogScaffold\\\\": "inc/classes/"
-		},
-		"files": [
-			"inc/autoloader.php"
-		]
+			"HoGScaffold\\": "inc/classes/"
+		}
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "^3.10",

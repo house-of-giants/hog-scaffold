@@ -1,0 +1,12 @@
+# WP-CLI Configuration for Docker development environment
+# Disable SSL for database connections
+
+# Database connection settings
+core config:
+  extra_php: |
+    define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT);
+
+# Set MySQL SSL settings
+mysql:
+  ssl: false
+  ssl-verify-server-cert: false
