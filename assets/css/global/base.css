@@ -1,9 +1,7 @@
 /* ==========================================================================
 	Base Styles & CSS Reset
-	Modern CSS reset and foundational styles for WordPress theme
 	========================================================================== */
 
-/* Modern CSS Reset */
 *,
 *::before,
 *::after {
@@ -20,14 +18,16 @@ html {
 }
 
 body {
-	background-color: var(--wp--preset--color--white);
-	color: var(--wp--preset--color--neutral-900);
-	font-family: var(--wp--preset--font-family--body);
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	font-family: var(--wp--preset--font-family--sans);
 	font-size: var(--wp--preset--font-size--base);
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	height: 100%;
-	line-height: 1.5;
+	letter-spacing: -0.011em;
+	line-height: 1.6;
+	padding-inline: 0;
 }
 
 img,
@@ -58,39 +58,64 @@ h6 {
 	overflow-wrap: break-word;
 }
 
+/* Typography Hierarchy */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	font-family: var(--wp--preset--font-family--heading);
-	line-height: 1.25;
-	margin-block-end: var(--wp--preset--spacing--small);
+	font-family: var(--wp--preset--font-family--sans);
+	margin-block-end: var(--wp--preset--spacing--sm);
 }
 
 h1 {
-	font-size: var(--wp--preset--font-size--3xl);
+	font-size: var(--wp--preset--font-size--6xl);
+	font-weight: 800;
+	letter-spacing: -0.025em;
+	line-height: 1.1;
+	margin-block-end: var(--wp--preset--spacing--lg);
 }
 
 h2 {
-	font-size: var(--wp--preset--font-size--2xl);
+	font-size: var(--wp--preset--font-size--5xl);
+	font-weight: 700;
+	letter-spacing: -0.022em;
+	line-height: 1.2;
+	margin-block-end: var(--wp--preset--spacing--md);
 }
 
 h3 {
-	font-size: var(--wp--preset--font-size--xl);
+	font-size: var(--wp--preset--font-size--4xl);
+	font-weight: 600;
+	letter-spacing: -0.019em;
+	line-height: 1.25;
+	margin-block-end: var(--wp--preset--spacing--md);
 }
 
 h4 {
-	font-size: var(--wp--preset--font-size--large);
+	font-size: var(--wp--preset--font-size--3xl);
+	font-weight: 600;
+	letter-spacing: -0.016em;
+	line-height: 1.3;
+	margin-block-end: var(--wp--preset--spacing--sm);
 }
 
 h5 {
-	font-size: var(--wp--preset--font-size--medium);
+	font-size: var(--wp--preset--font-size--2xl);
+	font-weight: 600;
+	letter-spacing: -0.014em;
+	line-height: 1.375;
+	margin-block-end: var(--wp--preset--spacing--sm);
 }
 
 h6 {
-	font-size: var(--wp--preset--font-size--base);
+	font-size: var(--wp--preset--font-size--xl);
+	font-weight: 600;
+	letter-spacing: 0.025em;
+	line-height: 1.4;
+	margin-block-end: var(--wp--preset--spacing--sm);
+	text-transform: uppercase;
 }
 
 p {
@@ -100,28 +125,35 @@ p {
 ul,
 ol {
 	margin-block-end: var(--wp--preset--spacing--base);
-	padding-inline-start: var(--wp--preset--spacing--medium);
+	padding-inline-start: var(--wp--preset--spacing--md);
 }
 
-li {
+li:not(:last-child) {
 	margin-block-end: var(--wp--preset--spacing--xs);
 }
 
 a {
-	color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--primary);
 	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.125em;
 	transition: color var(--transition-fast);
 }
 
-a:hover,
-a:focus {
-	color: var(--wp--preset--color--primary);
+a:not(.wp-block-button__link):hover,
+a:not(.wp-block-button__link):focus {
+	color: var(--wp--preset--color--accent);
 	text-decoration: none;
+}
+
+strong,
+b {
+	font-weight: 700;
 }
 
 /* Focus styles for accessibility */
 :focus {
-	outline: 2px solid var(--wp--preset--color--accent);
+	outline: 2px solid var(--wp--preset--color--primary);
 	outline-offset: 2px;
 }
 
@@ -132,21 +164,24 @@ a:focus {
 /* Skip link for accessibility */
 .skip-link {
 	background: var(--wp--preset--color--primary);
-	border-radius: var(--wp--preset--border-radius--small);
+	border-radius: var(--wp--preset--border-radius--base);
 	color: var(--wp--preset--color--white);
-	left: -9999px;
-	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--small);
+	inset-inline-start: -9999px;
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--sm);
 	position: absolute;
 	text-decoration: none;
 	z-index: var(--z-index-tooltip);
 }
 
 .skip-link:focus {
-	left: var(--wp--preset--spacing--small);
-	top: var(--wp--preset--spacing--small);
+	inset-block-start: var(--wp--preset--spacing--sm);
+	inset-inline-start: var(--wp--preset--spacing--sm);
 }
 
-/* WordPress alignment classes */
+/* ==========================================================================
+   WordPress Alignment Classes
+   ========================================================================== */
+
 .alignnone {
 	margin: var(--wp--preset--spacing--base) 0;
 }
@@ -159,22 +194,83 @@ a:focus {
 
 .alignleft {
 	float: left;
-	margin-right: var(--wp--preset--spacing--base);
-	text-align: left;
+	margin-inline-end: var(--wp--preset--spacing--base);
+	text-align: start;
 }
 
 .alignright {
 	float: right;
-	margin-left: var(--wp--preset--spacing--base);
-	text-align: right;
+	margin-inline-start: var(--wp--preset--spacing--base);
+	text-align: end;
 }
 
 .aligncenter {
 	clear: both;
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 	text-align: center;
+}
+
+.alignwide {
+	margin-inline: auto;
+	max-width: var(--wp--style--global--wide-size, 1200px);
+	width: 100%;
+}
+
+.alignfull {
+	margin-inline: 0;
+	max-width: none;
+	width: 100%;
+}
+
+.wp-site-blocks > * {
+	/* Default: all content goes in the center column */
+	grid-column: 2;
+}
+
+.wp-site-blocks > .alignfull {
+	/* Full-width content spans all columns */
+	grid-column: 1 / -1;
+}
+
+.wp-site-blocks > .alignwide {
+	/* Wide content spans all columns but with max-width constraint */
+	grid-column: 1 / -1;
+	margin-inline: auto;
+	max-width: var(--wp--style--global--wide-size, 1200px);
+}
+
+.wp-site-blocks > .wp-block-template-part {
+	/* Template parts span full width and manage their own layout */
+	grid-column: 1 / -1;
+  max-width: none;
+	padding-inline: 0;
+}
+
+/* Entry content inherits the same grid behavior */
+.entry-content {
+	display: grid;
+	gap: var(--wp--preset--spacing--base, 1rem);
+	grid-template-columns: 
+		minmax(var(--wp--preset--spacing--base, 1rem), 1fr)
+		min(var(--wp--style--global--content-size, 650px), 100% - 2 * var(--wp--preset--spacing--base, 1rem))
+		minmax(var(--wp--preset--spacing--base, 1rem), 1fr);
+	overflow-x: visible;
+
+  & > .alignfull,
+  & > .wp-block-cover {
+	grid-column: 1 / -1;
+  }
+}
+
+.entry-content > * {
+	grid-column: 2;
+}
+
+.entry-content > .alignwide {
+	grid-column: 1 / -1;
+	margin-inline: auto;
+	max-width: var(--wp--style--global--wide-size, 1200px);
 }
 
 /* WordPress caption styles */
@@ -185,14 +281,15 @@ a:focus {
 
 .wp-caption img[class*="wp-image-"] {
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 }
 
 .wp-caption .wp-caption-text {
 	color: var(--wp--preset--color--neutral-600);
-	font-size: var(--wp--preset--font-size--small);
-	margin: var(--wp--preset--spacing--xs) 0 0 0;
+	font-size: var(--wp--preset--font-size--sm);
+	margin-block-end: 0;
+	margin-block-start: var(--wp--preset--spacing--xs);
+	margin-inline: 0;
 	text-align: center;
 }
 
@@ -201,7 +298,7 @@ a:focus {
 }
 
 .wp-caption.alignright {
-	text-align: right;
+	text-align: end;
 }
 
 .wp-caption-text {
@@ -224,36 +321,177 @@ a:focus {
 
 .screen-reader-text:focus {
 	background-color: var(--wp--preset--color--neutral-100);
-	border-radius: var(--wp--preset--border-radius--small);
-	box-shadow: var(--wp--preset--shadow--medium);
+	border-radius: var(--wp--preset--border-radius--base);
+	box-shadow: var(--wp--preset--shadow--base);
 	clip: auto !important;
 	clip-path: none;
 	color: var(--wp--preset--color--neutral-900);
 	display: block;
-	font-size: var(--wp--preset--font-size--small);
+	font-size: var(--wp--preset--font-size--sm);
 	font-weight: 700;
 	height: auto;
-	left: var(--wp--preset--spacing--small);
+	inset-block-start: var(--wp--preset--spacing--sm);
+	inset-inline-start: var(--wp--preset--spacing--sm);
 	line-height: normal;
-	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--medium)
-		var(--wp--preset--spacing--xs) var(--wp--preset--spacing--small);
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--md) var(--wp--preset--spacing--xs) var(--wp--preset--spacing--sm);
 	text-decoration: none;
-	top: var(--wp--preset--spacing--small);
 	width: auto;
 	z-index: var(--z-index-tooltip);
 }
 
-strong,
-b {
-	font-weight: 700;
+/* 
+ * Simplified Container Utilities
+ * Consolidated from multiple competing approaches
+ */
+.container {
+	margin-inline: auto;
+	max-width: var(--wp--style--global--wide-size);
+	padding-inline: var(--wp--preset--spacing--base);
 }
 
-/* Accessibility - Reduced Motion Support */
+.container-narrow {
+	margin-inline: auto;
+	max-width: var(--wp--style--global--content-size);
+	padding-inline: var(--wp--preset--spacing--base);
+}
+
+/* 
+ * Essential Layout Utilities
+ * Simplified grid system (1-6 columns) and essential flex utilities
+ */
+
+/* Grid System - Reduced from 12 to 6 columns */
+.grid {
+	display: grid;
+	gap: var(--wp--preset--spacing--base, 1rem);
+}
+
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+.grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+/* Essential Flex Utilities */
+.flex {
+	display: flex;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.items-start {
+	align-items: flex-start;
+}
+
+.items-end {
+	align-items: flex-end;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.justify-start {
+	justify-content: flex-start;
+}
+
+.justify-end {
+	justify-content: flex-end;
+}
+
+/* Gap Utilities */
+.gap-xs { gap: var(--wp--preset--spacing--xs); }
+
+.gap-sm { gap: var(--wp--preset--spacing--sm); }
+
+.gap-base { gap: var(--wp--preset--spacing--base); }
+
+.gap-md { gap: var(--wp--preset--spacing--md); }
+
+.gap-lg { gap: var(--wp--preset--spacing--lg); }
+
+.gap-xl { gap: var(--wp--preset--spacing--xl); }
+
+/* Responsive Utilities */
+@media (min-width: 640px) {
+	.sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+	.sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+	.sm\:flex-row { flex-direction: row; }
+}
+
+@media (min-width: 768px) {
+	.md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+	.md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+	.md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+	.md\:flex-row { flex-direction: row; }
+}
+
+@media (min-width: 1024px) {
+	.lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+	.lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+	.lg\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+	.lg\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+/* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,
 	*::after {
-		animation-duration: 0.001s !important;
-		transition-duration: 0.001s !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* Enhanced support for nested block content */
+.entry-content .wp-block-group > *:not(.alignfull):not(.alignwide) {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 100%;
+}
+
+/* Ensure proper spacing for block content */
+.wp-site-blocks > .entry-content * + * {
+	margin-top: var(--wp--preset--spacing--base, 1rem);
+}
+
+/* Fallback for older browsers */
+@supports not (grid-template-columns: subgrid) {
+	.alignfull {
+		left: 50%;
+		margin-inline: -50vw;
+		position: relative;
+		right: 50%;
+		width: 100vw;
 	}
 }

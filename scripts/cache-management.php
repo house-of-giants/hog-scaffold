@@ -1,443 +1,281 @@
 <?php
 /**
- * Cache Management Utility
+ * Simple Cache Management Utility
  *
- * A standalone script for managing various cache types in WordPress/WPEngine.
- * Can be run via WP-CLI or included in other scripts.
+ * A lightweight cache management script for WordPress themes.
+ * Supports common caching plugins and hosting providers.
  *
  * Usage:
- * - wp eval-file scripts/cache-management.php
- * - php scripts/cache-management.php (if WordPress constants are defined)
+ * - wp eval-file scripts/cache-management.php clear [type]
+ * - wp eval-file scripts/cache-management.php status
  *
- * @package HoG_Scaffold
+ * @package Your_Theme_Name
  */
 
-// Check if we're in WordPress context
-if ( ! defined( 'ABSPATH' ) ) {
-	// Try to load WordPress if running standalone
-	$wp_config_path = dirname( __DIR__ ) . '/wp-config.php';
-	if ( file_exists( $wp_config_path ) ) {
-		require_once $wp_config_path;
-	} else {
-		die( "WordPress not found. Run this script via WP-CLI: wp eval-file scripts/cache-management.php\n" );
-	}
+// Ensure WordPress context
+if (!defined('ABSPATH')) {
+  $wp_config_path = dirname(__DIR__) . '/wp-config.php';
+  if (file_exists($wp_config_path)) {
+    require_once $wp_config_path;
+  } else {
+    die("WordPress not found. Run via WP-CLI: wp eval-file scripts/cache-management.php\n");
+  }
 }
 
 /**
- * Cache Management Class
+ * Simple Cache Management Class
  */
-class Cache_Management_Utility {
+class Simple_Cache_Management
+{
 
+  /**
+   * Available cache types
+   */
+  const CACHE_TYPES = array(
+    'object' => 'Object Cache',
+    'page' => 'Page Cache',
+    'transients' => 'WordPress Transients',
+    'opcache' => 'PHP OPcache',
+  );
 
-	/**
-	 * Available cache types
-	 */
-	const CACHE_TYPES = array(
-		'object'     => 'Object Cache (Redis/Memcached)',
-		'page'       => 'Page Cache',
-		'transients' => 'WordPress Transients',
-		'opcache'    => 'OPcache (PHP)',
-		'cdn'        => 'CDN Cache',
-	);
+  /**
+   * Initialize cache management
+   */
+  public static function init()
+  {
+    $args = $_SERVER['argv'] ?? array();
+    $action = $args[1] ?? 'status';
+    $type = $args[2] ?? 'all';
 
-	/**
-	 * Run cache management operations
-	 */
-	public static function run() {
-		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			self::wp_cli_interface();
-		} else {
-			self::web_interface();
-		}
-	}
+    switch ($action) {
+      case 'clear':
+        self::clear_cache($type);
+        break;
+      case 'status':
+      default:
+        self::show_status();
+        break;
+    }
+  }
 
-	/**
-	 * WP-CLI interface
-	 */
-	private static function wp_cli_interface() {
-		$args      = $_SERVER['argv'] ?? array();
-		$operation = $args[1] ?? 'status';
+  /**
+   * Clear cache by type
+   *
+   * @param string $type Cache type to clear ('all', 'object', 'page', 'transients', 'opcache')
+   */
+  public static function clear_cache($type = 'all')
+  {
+    $cleared = array();
+    $errors = array();
 
-		switch ( $operation ) {
-			case 'clear':
-				$type = $args[2] ?? 'all';
-				self::clear_cache( $type );
-				break;
-			case 'warm':
-				self::warm_cache();
-				break;
-			case 'status':
-			default:
-				self::show_cache_status();
-				break;
-		}
-	}
+    if ($type === 'all' || $type === 'object') {
+      if (self::clear_object_cache()) {
+        $cleared[] = 'object';
+      } else {
+        $errors[] = 'object';
+      }
+    }
 
-	/**
-	 * Web interface (for admin pages)
-	 */
-	private static function web_interface() {
-		if ( is_admin() && current_user_can( 'manage_options' ) ) {
-			$action = $_POST['cache_action'] ?? $_GET['cache_action'] ?? 'status';
-			$type   = $_POST['cache_type'] ?? $_GET['cache_type'] ?? 'all';
+    if ($type === 'all' || $type === 'page') {
+      if (self::clear_page_cache()) {
+        $cleared[] = 'page';
+      } else {
+        $errors[] = 'page';
+      }
+    }
 
-			switch ( $action ) {
-				case 'clear':
-					self::clear_cache( $type );
-					wp_redirect( admin_url( 'admin.php?page=cache-management&message=cleared' ) );
-					exit;
-				case 'warm':
-					self::warm_cache();
-					wp_redirect( admin_url( 'admin.php?page=cache-management&message=warmed' ) );
-					exit;
-				default:
-					self::show_cache_status();
-					break;
-			}
-		}
-	}
+    if ($type === 'all' || $type === 'transients') {
+      if (self::clear_transients()) {
+        $cleared[] = 'transients';
+      } else {
+        $errors[] = 'transients';
+      }
+    }
 
-	/**
-	 * Clear cache by type
-	 *
-	 * @param string $type Cache type to clear
-	 */
-	public static function clear_cache( $type = 'all' ) {
-		$cleared = array();
-		$errors  = array();
+    if ($type === 'all' || $type === 'opcache') {
+      if (self::clear_opcache()) {
+        $cleared[] = 'opcache';
+      } else {
+        $errors[] = 'opcache';
+      }
+    }
 
-		if ( $type === 'all' || $type === 'object' ) {
-			if ( self::clear_object_cache() ) {
-				$cleared[] = 'object';
-			} else {
-				$errors[] = 'object';
-			}
-		}
+    // Output results
+    if (!empty($cleared)) {
+      self::log('✅ Cleared: ' . implode(', ', $cleared));
+    }
 
-		if ( $type === 'all' || $type === 'page' ) {
-			if ( self::clear_page_cache() ) {
-				$cleared[] = 'page';
-			} else {
-				$errors[] = 'page';
-			}
-		}
+    if (!empty($errors)) {
+      self::log('❌ Errors: ' . implode(', ', $errors));
+    }
 
-		if ( $type === 'all' || $type === 'transients' ) {
-			if ( self::clear_transients() ) {
-				$cleared[] = 'transients';
-			} else {
-				$errors[] = 'transients';
-			}
-		}
+    // Hook for additional functionality
+    do_action('simple_cache_cleared', $type, $cleared, $errors);
+  }
 
-		if ( $type === 'all' || $type === 'opcache' ) {
-			if ( self::clear_opcache() ) {
-				$cleared[] = 'opcache';
-			} else {
-				$errors[] = 'opcache';
-			}
-		}
+  /**
+   * Clear object cache
+   *
+   * @return bool Success status
+   */
+  private static function clear_object_cache()
+  {
+    try {
+      wp_cache_flush();
 
-		if ( $type === 'all' || $type === 'cdn' ) {
-			if ( self::clear_cdn_cache() ) {
-				$cleared[] = 'cdn';
-			} else {
-				$errors[] = 'cdn';
-			}
-		}
+      // WP Engine specific
+      if (class_exists('WpeCommon') && method_exists('WpeCommon', 'purge_memcached')) {
+        WpeCommon::purge_memcached();
+      }
 
-		// Output results
-		if ( ! empty( $cleared ) ) {
-			self::log_message( '✅ Cleared cache types: ' . implode( ', ', $cleared ) );
-		}
+      return true;
+    } catch (Exception $e) {
+      self::log('Object cache error: ' . $e->getMessage());
+      return false;
+    }
+  }
 
-		if ( ! empty( $errors ) ) {
-			self::log_message( '❌ Failed to clear cache types: ' . implode( ', ', $errors ) );
-		}
+  /**
+   * Clear page cache
+   *
+   * @return bool Success status
+   */
+  private static function clear_page_cache()
+  {
+    try {
+      // WP Engine
+      if (class_exists('WpeCommon') && method_exists('WpeCommon', 'clear_maxcdn_cache')) {
+        WpeCommon::clear_maxcdn_cache();
+      }
 
-		// Fire action for other plugins/themes to hook into
-		do_action( 'cache_management_cleared', $type, $cleared, $errors );
-	}
+      // WP Super Cache
+      if (function_exists('wp_cache_clear_cache')) {
+        wp_cache_clear_cache();
+      }
 
-	/**
-	 * Clear object cache
-	 */
-	private static function clear_object_cache() {
-		try {
-			wp_cache_flush();
+      // W3 Total Cache
+      if (function_exists('w3tc_flush_all')) {
+        w3tc_flush_all();
+      }
 
-			// WPEngine specific object cache clearing
-			if ( class_exists( 'WpeCommon' ) ) {
-				if ( method_exists( 'WpeCommon', 'purge_memcached' ) ) {
-					WpeCommon::purge_memcached();
-				}
-			}
+      // WP Rocket
+      if (function_exists('rocket_clean_domain')) {
+        rocket_clean_domain();
+      }
 
-			return true;
-		} catch ( Exception $e ) {
-			self::log_message( 'Object cache error: ' . $e->getMessage() );
-			return false;
-		}
-	}
+      // LiteSpeed Cache
+      if (class_exists('LiteSpeed_Cache_API') && method_exists('LiteSpeed_Cache_API', 'purge_all')) {
+        LiteSpeed_Cache_API::purge_all();
+      }
 
-	/**
-	 * Clear page cache
-	 */
-	private static function clear_page_cache() {
-		try {
-			// WPEngine page cache
-			if ( class_exists( 'WpeCommon' ) ) {
-				if ( method_exists( 'WpeCommon', 'clear_maxcdn_cache' ) ) {
-					WpeCommon::clear_maxcdn_cache();
-				}
-			}
+      return true;
+    } catch (Exception $e) {
+      self::log('Page cache error: ' . $e->getMessage());
+      return false;
+    }
+  }
 
-			// WP Super Cache
-			if ( function_exists( 'wp_cache_clear_cache' ) ) {
-				wp_cache_clear_cache();
-			}
+  /**
+   * Clear WordPress transients
+   *
+   * @return bool Success status
+   */
+  private static function clear_transients()
+  {
+    global $wpdb;
 
-			// W3 Total Cache
-			if ( function_exists( 'w3tc_flush_all' ) ) {
-				w3tc_flush_all();
-			}
+    try {
+      $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_%'");
+      $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_site_transient_%'");
+      return true;
+    } catch (Exception $e) {
+      self::log('Transients error: ' . $e->getMessage());
+      return false;
+    }
+  }
 
-			// WP Rocket
-			if ( function_exists( 'rocket_clean_domain' ) ) {
-				rocket_clean_domain();
-			}
+  /**
+   * Clear PHP OPcache
+   *
+   * @return bool Success status
+   */
+  private static function clear_opcache()
+  {
+    try {
+      if (function_exists('opcache_reset')) {
+        return opcache_reset();
+      }
+      return false;
+    } catch (Exception $e) {
+      self::log('OPcache error: ' . $e->getMessage());
+      return false;
+    }
+  }
 
-			return true;
-		} catch ( Exception $e ) {
-			self::log_message( 'Page cache error: ' . $e->getMessage() );
-			return false;
-		}
-	}
+  /**
+   * Show cache status
+   */
+  public static function show_status()
+  {
+    self::log('=== Cache Status ===');
 
-	/**
-	 * Clear WordPress transients
-	 */
-	private static function clear_transients() {
-		global $wpdb;
+    foreach (self::CACHE_TYPES as $key => $label) {
+      $status = self::get_cache_status($key);
+      self::log("{$label}: {$status}");
+    }
+  }
 
-		try {
-			// Clear all transients
-			$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_%'" );
-			$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_site_transient_%'" );
+  /**
+   * Get cache status for a specific type
+   *
+   * @param string $type Cache type
+   * @return string Status description
+   */
+  private static function get_cache_status($type)
+  {
+    switch ($type) {
+      case 'object':
+        return wp_using_ext_object_cache() ? '✅ Active' : '❌ Not Active';
+      case 'page':
+        if (class_exists('WpeCommon')) {
+          return '✅ WP Engine Cache';
+        } elseif (function_exists('wp_cache_clear_cache')) {
+          return '✅ WP Super Cache';
+        } elseif (function_exists('w3tc_flush_all')) {
+          return '✅ W3 Total Cache';
+        } elseif (function_exists('rocket_clean_domain')) {
+          return '✅ WP Rocket';
+        } elseif (class_exists('LiteSpeed_Cache_API')) {
+          return '✅ LiteSpeed Cache';
+        }
+        return '❌ No page cache detected';
+      case 'opcache':
+        return function_exists('opcache_get_status') && opcache_get_status() ? '✅ Active' : '❌ Not Active';
+      case 'transients':
+        global $wpdb;
+        $count = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE '_transient_%'");
+        return $count ? "✅ {$count} transients" : '✅ No transients';
+      default:
+        return '❓ Unknown';
+    }
+  }
 
-			return true;
-		} catch ( Exception $e ) {
-			self::log_message( 'Transients error: ' . $e->getMessage() );
-			return false;
-		}
-	}
-
-	/**
-	 * Clear OPcache
-	 */
-	private static function clear_opcache() {
-		try {
-			if ( function_exists( 'opcache_reset' ) ) {
-				opcache_reset();
-				return true;
-			}
-			return false;
-		} catch ( Exception $e ) {
-			self::log_message( 'OPcache error: ' . $e->getMessage() );
-			return false;
-		}
-	}
-
-	/**
-	 * Clear CDN cache
-	 */
-	private static function clear_cdn_cache() {
-		// This is environment-specific and should be implemented based on your CDN
-		// Examples: CloudFlare, MaxCDN, CloudFront, etc.
-
-		$cdn_cleared = false;
-
-		// CloudFlare example (requires API credentials)
-		if ( defined( 'CLOUDFLARE_API_KEY' ) && defined( 'CLOUDFLARE_ZONE_ID' ) ) {
-			$cdn_cleared = self::clear_cloudflare_cache();
-		}
-
-		// Allow other plugins to handle CDN clearing
-		$cdn_cleared = apply_filters( 'cache_management_clear_cdn', $cdn_cleared );
-
-		return $cdn_cleared;
-	}
-
-	/**
-	 * Example CloudFlare cache clearing
-	 */
-	private static function clear_cloudflare_cache() {
-		// This is a placeholder - implement based on your CloudFlare setup
-		return false;
-	}
-
-	/**
-	 * Warm up cache
-	 */
-	public static function warm_cache() {
-		$urls   = self::get_urls_to_warm();
-		$warmed = 0;
-		$errors = 0;
-
-		foreach ( $urls as $url ) {
-			if ( self::warm_url( $url ) ) {
-				++$warmed;
-			} else {
-				++$errors;
-			}
-		}
-
-		self::log_message( "🔥 Cache warmup complete: {$warmed} URLs warmed, {$errors} errors" );
-
-		// Fire action
-		do_action( 'cache_management_warmed', $urls, $warmed, $errors );
-	}
-
-	/**
-	 * Get URLs to warm up
-	 */
-	private static function get_urls_to_warm() {
-		$urls = array(
-			home_url( '/' ),
-		);
-
-		// Add recent posts
-		$recent_posts = get_posts(
-			array(
-				'numberposts' => 10,
-				'post_status' => 'publish',
-			)
-		);
-
-		foreach ( $recent_posts as $post ) {
-			$urls[] = get_permalink( $post->ID );
-		}
-
-		// Add category pages
-		$categories = get_categories( array( 'number' => 5 ) );
-		foreach ( $categories as $category ) {
-			$urls[] = get_category_link( $category->term_id );
-		}
-
-		// Allow filtering
-		return apply_filters( 'cache_management_warmup_urls', $urls );
-	}
-
-	/**
-	 * Warm up a specific URL
-	 */
-	private static function warm_url( $url ) {
-		try {
-			$response = wp_remote_get(
-				$url,
-				array(
-					'timeout'    => 30,
-					'user-agent' => 'Cache Warmup Bot',
-				)
-			);
-
-			return ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200;
-		} catch ( Exception $e ) {
-			return false;
-		}
-	}
-
-	/**
-	 * Show cache status
-	 */
-	public static function show_cache_status() {
-		$status = array();
-
-		// Object cache status
-		$status['object'] = self::get_object_cache_status();
-
-		// Page cache status
-		$status['page'] = self::get_page_cache_status();
-
-		// OPcache status
-		$status['opcache'] = self::get_opcache_status();
-
-		// Output status
-		self::log_message( '📊 Cache Status Report:' );
-		foreach ( $status as $type => $info ) {
-			$emoji = $info['enabled'] ? '✅' : '❌';
-			self::log_message( "{$emoji} {$info['name']}: {$info['status']}" );
-		}
-
-		return $status;
-	}
-
-	/**
-	 * Get object cache status
-	 */
-	private static function get_object_cache_status() {
-		return array(
-			'name'    => 'Object Cache',
-			'enabled' => wp_using_ext_object_cache(),
-			'status'  => wp_using_ext_object_cache() ? 'Active' : 'Not Active',
-		);
-	}
-
-	/**
-	 * Get page cache status
-	 */
-	private static function get_page_cache_status() {
-		$active_plugins = array();
-
-		if ( class_exists( 'WpeCommon' ) ) {
-			$active_plugins[] = 'WPEngine';
-		}
-		if ( function_exists( 'wp_cache_clear_cache' ) ) {
-			$active_plugins[] = 'WP Super Cache';
-		}
-		if ( function_exists( 'w3tc_flush_all' ) ) {
-			$active_plugins[] = 'W3 Total Cache';
-		}
-		if ( function_exists( 'rocket_clean_domain' ) ) {
-			$active_plugins[] = 'WP Rocket';
-		}
-
-		return array(
-			'name'    => 'Page Cache',
-			'enabled' => ! empty( $active_plugins ),
-			'status'  => ! empty( $active_plugins ) ? implode( ', ', $active_plugins ) : 'No page cache detected',
-		);
-	}
-
-	/**
-	 * Get OPcache status
-	 */
-	private static function get_opcache_status() {
-		$enabled = function_exists( 'opcache_get_status' ) && opcache_get_status();
-
-		return array(
-			'name'    => 'OPcache',
-			'enabled' => $enabled,
-			'status'  => $enabled ? 'Enabled' : 'Disabled',
-		);
-	}
-
-	/**
-	 * Log message
-	 */
-	private static function log_message( $message ) {
-		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			WP_CLI::log( $message );
-		} else {
-			error_log( $message );
-			if ( is_admin() ) {
-				echo '<p>' . esc_html( $message ) . '</p>';
-			}
-		}
-	}
+  /**
+   * Simple logging function
+   *
+   * @param string $message Message to log
+   */
+  private static function log($message)
+  {
+    if (defined('WP_CLI') && WP_CLI) {
+      WP_CLI::line($message);
+    } else {
+      echo esc_html($message) . "\n";
+    }
+  }
 }
 
 // Run if called directly
-if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
-	Cache_Management_Utility::run();
+if (!defined('WP_CLI') || (defined('WP_CLI') && WP_CLI)) {
+  Simple_Cache_Management::init();
 }

@@ -1,8 +1,6 @@
-/**
- * Core Image Block Styles
- * 
- * @package HoGScaffold
- */
+/* ==========================================================================
+	Core Image Block Styles
+	========================================================================== */
 
 .wp-block-image {
 	margin: 0 0 var(--wp--preset--spacing--medium, 1.5rem) 0;

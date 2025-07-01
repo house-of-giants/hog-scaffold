@@ -8,11 +8,17 @@
 	/* Colors - synced with theme.json palette */
 	--wp--preset--color--black: #000000;
 	--wp--preset--color--white: #ffffff;
-	--wp--preset--color--primary: #000000;
-	--wp--preset--color--secondary: #ffffff;
-	--wp--preset--color--accent: #007cba;
+	--wp--preset--color--primary: #005cee;
+	--wp--preset--color--secondary: #1a365d;
+	--wp--preset--color--accent: #0052cc;
+	--wp--preset--color--base: #ffffff;
+	--wp--preset--color--base-2: #f7f7f7;
+	--wp--preset--color--base-3: #e0e0e0;
+	--wp--preset--color--contrast: #000000;
+	--wp--preset--color--contrast-2: #636363;
+	--wp--preset--color--contrast-3: #a7a7a7;
 
-	/* Neutral Colors */
+	/* Neutral Colors - expanded neutral palette */
 	--wp--preset--color--neutral-50: #fafafa;
 	--wp--preset--color--neutral-100: #f5f5f5;
 	--wp--preset--color--neutral-200: #e5e5e5;
@@ -23,59 +29,124 @@
 	--wp--preset--color--neutral-700: #404040;
 	--wp--preset--color--neutral-800: #262626;
 	--wp--preset--color--neutral-900: #171717;
+	--wp--preset--color--neutral-950: #0a0a0a;
 
 	/* Semantic Colors */
 	--wp--preset--color--success: #00a32a;
-	--wp--preset--color--warning: #f0b849;
-	--wp--preset--color--error: #d63638;
+	--wp--preset--color--warning: #ca8a04;
+	--wp--preset--color--error: #dc2626;
+	--wp--preset--color--info: #0ea5e9;
 
-	/* Typography - synced with theme.json fontSizes */
-	--wp--preset--font-size--2xs: 0.512rem;
-	--wp--preset--font-size--xs: 0.64rem;
-	--wp--preset--font-size--small: 0.8rem;
-	--wp--preset--font-size--base: 1rem;
-	--wp--preset--font-size--medium: 1.25rem;
-	--wp--preset--font-size--large: 1.563rem;
-	--wp--preset--font-size--xl: 1.953rem;
-	--wp--preset--font-size--2xl: 2.441rem;
-	--wp--preset--font-size--3xl: 3.052rem;
+	/* Primary color variations */
+	--wp--preset--color--primary-50: rgba(0, 92, 238, 0.05);
+	--wp--preset--color--primary-100: rgba(0, 92, 238, 0.1);
 
-	/* Font Families - synced with theme.json fontFamilies */
-	--wp--preset--font-family--system:
-		-apple-system, blinkmacsystemfont, "segoe ui", roboto, oxygen-sans, ubuntu,
-		cantarell, "helvetica neue", sans-serif;
-	--wp--preset--font-family--body: sans-serif;
-	--wp--preset--font-family--heading: serif;
+	/* Component-specific colors */
+	--wp--preset--color--text-dark: #242424;
+	--wp--preset--color--button-purple: #5c53e9;
+	--wp--preset--color--border-light: #eef0f3;
+	--wp--preset--color--editor-blue: #007cba;
+	--wp--preset--color--text-muted: #757575;
+	--wp--preset--color--border-gray: #dddddd;
+	--wp--preset--color--border-medium: #e0e0e0;
+	--wp--preset--color--bg-light: #f8f9fa;
+	--wp--preset--color--bg-lighter: #e9ecef;
+	--wp--preset--color--text-light: #666666;
 
-	/* Spacing - synced with theme.json spacingSizes */
-	--wp--preset--spacing--2xs: 0.512rem;
-	--wp--preset--spacing--xs: 0.64rem;
-	--wp--preset--spacing--small: 0.8rem;
+	/* Gradient-specific colors */
+	--wp--preset--color--hero-gradient-start: #ffffff;
+	--wp--preset--color--hero-gradient-end: rgba(3, 57, 96, 0);
+	--wp--preset--color--button-gradient-base: #0f80d2;
+	--wp--preset--color--button-gradient-overlay-light: rgba(108, 108, 108, 0.15);
+	--wp--preset--color--button-gradient-overlay-dark: rgba(108, 108, 108, 0.25);
+
+	/* Component interaction colors */
+	--wp--preset--color--nav-mobile-backdrop: rgba(0, 0, 0, 0.6);
+	--wp--preset--color--primary-hover: rgba(0, 92, 238, 0.08);
+	--wp--preset--color--success-light: rgba(0, 163, 42, 0.1);
+	--wp--preset--color--error-light: rgba(220, 38, 38, 0.1);
+
+	/* Typography - synced with updated theme.json fontSizes */
+	--wp--preset--font-size--xs: clamp(0.75rem, 0.7273rem + 0.1136vw, 0.8125rem);
+	--wp--preset--font-size--sm: clamp(0.875rem, 0.8409rem + 0.1705vw, 0.9688rem);
+	--wp--preset--font-size--base: clamp(1rem, 0.9659rem + 0.1705vw, 1.125rem);
+	--wp--preset--font-size--lg: clamp(1.125rem, 1.0909rem + 0.1705vw, 1.25rem);
+	--wp--preset--font-size--xl: clamp(1.25rem, 1.1364rem + 0.5682vw, 1.5625rem);
+	--wp--preset--font-size--2xl: clamp(1.5rem, 1.3636rem + 0.6818vw, 1.875rem);
+	--wp--preset--font-size--3xl: clamp(1.875rem, 1.6477rem + 1.1364vw, 2.5rem);
+	--wp--preset--font-size--4xl: clamp(2.25rem, 1.9318rem + 1.5909vw, 3.125rem);
+	--wp--preset--font-size--5xl: clamp(3rem, 2.6136rem + 1.9318vw, 4.0625rem);
+	--wp--preset--font-size--6xl: clamp(3.75rem, 3.2955rem + 2.2727vw, 5rem);
+
+	/* Font Families - synced with updated theme.json fontFamilies */
+	--wp--preset--font-family--system: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--wp--preset--font-family--sans: ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--wp--preset--font-family--serif: ui-serif, georgia, cambria, 'Times New Roman', times, serif;
+	--wp--preset--font-family--mono: ui-monospace, sfmono-regular, 'SF Mono', menlo, monaco, consolas, 'Liberation Mono', 'Courier New', monospace;
+
+	/* Spacing - synced with updated theme.json spacingSizes */
+	--wp--preset--spacing--xs: 0.25rem;
+	--wp--preset--spacing--sm: 0.5rem;
 	--wp--preset--spacing--base: 1rem;
-	--wp--preset--spacing--medium: 1.25rem;
-	--wp--preset--spacing--large: 1.563rem;
-	--wp--preset--spacing--xl: 1.953rem;
-	--wp--preset--spacing--2xl: 2.441rem;
-	--wp--preset--spacing--3xl: 3.052rem;
+	--wp--preset--spacing--md: 1.5rem;
+	--wp--preset--spacing--lg: 2rem;
+	--wp--preset--spacing--xl: 2.5rem;
+	--wp--preset--spacing--2xl: 3rem;
+	--wp--preset--spacing--3xl: 4rem;
+	--wp--preset--spacing--4xl: 5rem;
+	--wp--preset--spacing--5xl: 6rem;
+	--wp--preset--spacing--6xl: 8rem;
+
+	/* Additional spacing aliases for consistency */
+	--wp--preset--spacing--small: var(--wp--preset--spacing--sm);
+	--wp--preset--spacing--medium: var(--wp--preset--spacing--md);
+	--wp--preset--spacing--large: var(--wp--preset--spacing--lg);
 
 	/* Layout */
 	--wp--style--block-gap: var(--wp--preset--spacing--base);
-	--wp--style--global--content-size: 65ch;
-	--wp--style--global--wide-size: 1200px;
+	--wp--style--global--content-size: 1280px;
+	--wp--style--global--wide-size: 1400px;
 
-	/* Borders */
-	--wp--preset--border-radius--small: 4px;
-	--wp--preset--border-radius--medium: 8px;
-	--wp--preset--border-radius--large: 16px;
-	--wp--preset--border-radius--full: 50%;
+	/* Border Radius - Tailwind-inspired scale */
+	--wp--preset--border-radius--none: 0;
+	--wp--preset--border-radius--sm: 0.125rem;
+	--wp--preset--border-radius--base: 0.25rem;
+	--wp--preset--border-radius--md: 0.375rem;
+	--wp--preset--border-radius--lg: 0.5rem;
+	--wp--preset--border-radius--xl: 0.75rem;
+	--wp--preset--border-radius--2xl: 1rem;
+	--wp--preset--border-radius--3xl: 1.5rem;
+	--wp--preset--border-radius--full: 9999px;
 
-	/* Shadows */
-	--wp--preset--shadow--small:
-		0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-	--wp--preset--shadow--medium:
-		0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-	--wp--preset--shadow--large:
-		0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	/* Border widths */
+	--border-width-thin: 1px;
+	--border-width-base: 2px;
+	--border-width-thick: 3px;
+
+	/* Component sizes */
+	--icon-size-sm: 2rem;
+	--icon-size-base: 3.75rem;
+	--icon-size-lg: 4rem;
+	--hamburger-size: 1.25rem;
+	--hamburger-line-height: 0.125rem;
+
+	/* Transform values */
+	--transform-hover-lift: translateY(-1px);
+	--transform-hover-lift-sm: translateY(-2px);
+	--transform-scale-hover: scale(1.05);
+
+	/* Content width constraints */
+	--content-width-narrow: 37.5rem; /* 600px */
+	--content-width-medium: 43.75rem; /* 700px */
+
+	/* Shadows - synced with updated theme.json shadow presets */
+	--wp--preset--shadow--xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	--wp--preset--shadow--sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+	--wp--preset--shadow--base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	--wp--preset--shadow--md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+	--wp--preset--shadow--lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+	--wp--preset--shadow--xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+	--wp--preset--shadow--inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 
 	/* Z-Index Scale */
 	--z-index-dropdown: 1000;
@@ -85,6 +156,7 @@
 	--z-index-modal: 1050;
 	--z-index-popover: 1060;
 	--z-index-tooltip: 1070;
+	--z-index-header: 100;
 
 	/* Breakpoints */
 	--breakpoint-sm: 640px;
@@ -119,14 +191,14 @@
 /* Responsive Variable Adjustments */
 @media (min-width: 768px) {
 	:root {
-		--wp--style--block-gap: var(--wp--preset--spacing--medium);
-		--grid-gap: var(--wp--preset--spacing--medium);
+		--wp--style--block-gap: var(--wp--preset--spacing--md);
+		--grid-gap: var(--wp--preset--spacing--md);
 	}
 }
 
 @media (min-width: 1024px) {
 	:root {
-		--wp--style--block-gap: var(--wp--preset--spacing--large);
-		--grid-gap: var(--wp--preset--spacing--large);
+		--wp--style--block-gap: var(--wp--preset--spacing--lg);
+		--grid-gap: var(--wp--preset--spacing--lg);
 	}
 }

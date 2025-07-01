@@ -1,8 +1,6 @@
-/**
- * Core Paragraph Block Styles
- * 
- * @package HoGScaffold
- */
+/* ==========================================================================
+	Core Paragraph Block Styles
+	========================================================================== */
 
 .wp-block-paragraph {
 	line-height: 1.6;

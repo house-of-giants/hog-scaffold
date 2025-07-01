@@ -4,13 +4,10 @@
    ========================================================================== */
 
 /* Core WordPress Blocks */
-@import "core/group.css";
 @import "core/columns.css";
-@import "core/button.css";
-
-/* Custom Blocks */
-@import "custom/hero.css";
-@import "custom/service-cards.css";
-@import "custom/team-profiles.css";
-@import "custom/testimonials.css";
-@import "custom/cta.css"; 
+@import "core/cover.css";
+@import "core/group.css";
+@import "core/heading.css";
+@import "core/image.css";
+@import "core/list.css";
+@import "core/paragraph.css";

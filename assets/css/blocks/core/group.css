@@ -1,23 +1,122 @@
 /* ==========================================================================
 	Core Group Block Styles
-	WordPress core group block styling using custom properties
 	========================================================================== */
 
+/* Reset default padding - groups should not have padding by default */
 .wp-block-group {
-	padding: var(--wp--preset--spacing--base);
+	padding: 0;
 }
 
-.wp-block-group.has-background {
-	padding: var(--wp--preset--spacing--large);
-}
-
+/* Inner container constraints */
 .wp-block-group__inner-container {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: var(--wp--style--global--wide-size);
 }
 
-/* Group Variations */
+/* ==========================================================================
+	Intentional Spacing System
+	========================================================================== */
+
+/* Visual containers - groups that need padding for visual separation */
+.wp-block-group.has-background,
+.wp-block-group.is-style-container,
+.wp-block-group.is-style-card {
+	padding: var(--wp--preset--spacing--medium);
+}
+
+/* Large visual containers */
+.wp-block-group.is-style-section,
+.wp-block-group.is-style-hero {
+	padding: var(--wp--preset--spacing--large) var(--wp--preset--spacing--medium);
+}
+
+/* Site structure containers - semantic containers that need padding */
+.wp-block-group.site-footer,
+.wp-block-group.site-main {
+	padding-bottom: var(--wp--preset--spacing--medium);
+	padding-top: var(--wp--preset--spacing--medium);
+}
+
+/* ==========================================================================
+	Flow and Vertical Rhythm System
+	========================================================================== */
+
+/* Apply consistent gap to flex and grid layouts */
+.wp-block-group.is-layout-flex {
+	gap: var(--wp--preset--spacing--small);
+}
+
+.wp-block-group.is-layout-grid {
+	gap: var(--wp--preset--spacing--medium);
+}
+
+/* Flow spacing - consistent vertical rhythm for block content */
+.wp-block-group.is-layout-flow > * + * {
+	margin-top: var(--wp--preset--spacing--medium);
+}
+
+/* Reduce spacing for tightly related content */
+.wp-block-group.is-style-tight > .is-layout-flow > * + * {
+	margin-top: var(--wp--preset--spacing--small);
+}
+
+/* Increase spacing for section-level content */
+.wp-block-group.is-style-spacious > .is-layout-flow > * + * {
+	margin-top: var(--wp--preset--spacing--large);
+}
+
+/* ==========================================================================
+	Responsive Adjustments
+	========================================================================== */
+
+@media (min-width: 768px) {
+	/* Increase padding on larger screens for visual containers */
+	.wp-block-group.has-background,
+	.wp-block-group.is-style-container,
+	.wp-block-group.is-style-card {
+		padding: var(--wp--preset--spacing--large);
+	}
+	
+	.wp-block-group.is-style-section,
+	.wp-block-group.is-style-hero {
+		padding: var(--wp--preset--spacing--xl) var(--wp--preset--spacing--large);
+	}
+	
+	/* Increase site structure padding */
+	.wp-block-group.site-footer,
+	.wp-block-group.site-main {
+		padding-bottom: var(--wp--preset--spacing--large);
+		padding-top: var(--wp--preset--spacing--large);
+	}
+}
+
+/* ==========================================================================
+	Utility Classes for Manual Control
+	========================================================================== */
+
+/* Explicit padding utilities when needed */
+.wp-block-group.has-padding-small {
+	padding: var(--wp--preset--spacing--small);
+}
+
+.wp-block-group.has-padding-medium {
+	padding: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-group.has-padding-large {
+	padding: var(--wp--preset--spacing--large);
+}
+
+/* Explicit no-padding utility */
+.wp-block-group.has-no-padding {
+	padding: 0 !important;
+}
+
+/* ==========================================================================
+	Group Variations
+	========================================================================== */
+
 .wp-block-group.is-style-full-height {
 	align-items: center;
 	display: flex;
@@ -27,24 +126,25 @@
 .wp-block-group.is-style-container {
 	border-radius: var(--wp--preset--border-radius--medium);
 	box-shadow: var(--wp--preset--shadow--small);
-	padding: var(--wp--preset--spacing--large);
 }
 
-.wp-block-group.is-style-section {
-	padding: var(--wp--preset--spacing--xl) var(--wp--preset--spacing--base);
-}
+/* ==========================================================================
+	Editor Specific Styles
+	========================================================================== */
 
-@media (min-width: 768px) {
-	.wp-block-group.is-style-section {
-		padding: var(--wp--preset--spacing--2xl) var(--wp--preset--spacing--medium);
-	}
-}
-
-/* Editor Specific Styles */
 .editor-styles-wrapper .wp-block-group {
-	margin-bottom: var(--wp--preset--spacing--base);
+	/* Remove default margins in editor to prevent double spacing */
+	margin-bottom: 0;
 }
 
-.editor-styles-wrapper .wp-block-group:last-child {
-	margin-bottom: 0;
+/* Add visual indicator for empty groups in editor */
+.editor-styles-wrapper .wp-block-group:empty::before {
+	background: var(--wp--preset--color--contrast-2);
+	color: var(--wp--preset--color--base);
+	content: "Group Block";
+	display: block;
+	font-size: var(--wp--preset--font-size--small);
+	opacity: 0.5;
+	padding: var(--wp--preset--spacing--small);
+	text-align: center;
 }

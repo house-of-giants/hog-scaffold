@@ -22,8 +22,8 @@
 
 	/* Ensure good typography for print */
 	body {
-		background: #ffffff;
-		color: #000000;
+		background: var(--wp--preset--color--white, #ffffff);
+		color: var(--wp--preset--color--black, #000000);
 		font-family: "Times New Roman", serif;
 		font-size: 12pt;
 		line-height: 1.5;
@@ -31,7 +31,7 @@
 
 	/* Headings */
 	h1, h2, h3, h4, h5, h6 {
-		color: #000000;
+		color: var(--wp--preset--color--black, #000000);
 		font-weight: 700;
 		page-break-after: avoid;
 	}
@@ -57,12 +57,12 @@
 
 	/* Links */
 	a {
-		color: #000000;
+		color: var(--wp--preset--color--black, #000000);
 		text-decoration: underline;
 	}
 
 	a[href^="http"]::after {
-		color: #666666;
+		color: var(--wp--preset--color--text-light, #666666);
 		content: " (" attr(href) ")";
 		font-size: 10pt;
 	}
@@ -94,13 +94,13 @@
 	}
 
 	th, td {
-		border: 1px solid #cccccc;
+		border: 1px solid var(--wp--preset--color--border-gray, #cccccc);
 		padding: 6pt;
 		text-align: left;
 	}
 
 	th {
-		background-color: #f5f5f5;
+		background-color: var(--wp--preset--color--neutral-100, #f5f5f5);
 		font-weight: 700;
 	}
 

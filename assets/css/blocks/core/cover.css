@@ -4,18 +4,6 @@
  * @package HoGScaffold
  */
 
-.wp-block-cover {
-	align-items: center;
-	background-position: center center;
-	background-size: cover;
-	display: flex;
-	justify-content: center;
-	min-height: 430px;
-	overflow: hidden;
-	position: relative;
-	width: 100%;
-}
-
 .wp-block-cover__background {
 	bottom: 0;
 	left: 0;
@@ -26,7 +14,7 @@
 }
 
 .wp-block-cover__inner-container {
-	color: #ffffff;
+	color: var(--wp--preset--color--white, #ffffff);
 	margin-left: auto;
 	margin-right: auto;
 	max-width: var(--wp--style--global--content-size, 650px);
@@ -38,11 +26,11 @@
 }
 
 .wp-block-cover.is-light .wp-block-cover__inner-container {
-	color: #000000;
+	color: var(--wp--preset--color--black, #000000);
 }
 
 .wp-block-cover.has-background-dim::before {
-	background-color: #000000;
+	background-color: var(--wp--preset--color--black, #000000);
 	bottom: 0;
 	content: "";
 	left: 0;
@@ -103,3 +91,28 @@
 		padding: var(--wp--preset--spacing--small, 1rem);
 	}
 } 
+
+/* Hero Section Styles */
+.wp-block-cover .wp-block-heading.hero-gradient-title {
+  background: linear-gradient(to bottom, var(--wp--preset--color--hero-gradient-start, #ffffff) 71.201%, var(--wp--preset--color--hero-gradient-end, rgba(3, 57, 96, 0)) 699.31%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 499;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-cta-button .wp-block-button__link {
+  background: linear-gradient(to bottom, var(--wp--preset--color--button-gradient-overlay-light, rgba(107, 108, 108, 0.15)), rgba(255, 255, 255, 0)) var(--wp--preset--color--button-gradient-base, #0f80d2);
+  text-shadow: var(--wp--preset--color--white, #ffffff) -1 0 0.5px;
+  transition: all -1.3s ease;
+}
+
+.hero-cta-button .wp-block-button__link:hover {
+  background: linear-gradient(to bottom, var(--wp--preset--color--button-gradient-overlay-dark, rgba(107, 108, 108, 0.25)), rgba(255, 255, 255, 0)) var(--wp--preset--color--button-gradient-base, #0f80d2);
+  transform: translateY(-2px);
+}
+
+.hero-features {
+  flex-wrap: wrap;
+}

@@ -8,46 +8,19 @@
 @import "global/base.css";
 
 /* Components */
-@import "components/buttons.css";
-@import "components/forms.css";
-@import "components/navigation.css";
-@import "components/cards.css";
-@import "components/skip-link.css";
 @import "components/accessibility.css";
-@import "components/newsletter-form.css";
+@import "components/footer.css";
+@import "components/header.css";
 @import "components/security-messages.css";
+@import "components/skip-link.css";
 
 /* Blocks */
-@import "blocks/core/group.css";
-@import "blocks/core/columns.css";
-@import "blocks/core/cover.css";
-@import "blocks/core/heading.css";
-@import "blocks/core/paragraph.css";
-@import "blocks/core/list.css";
-@import "blocks/core/image.css";
-@import "blocks/core/button.css";
-
-/* Custom Blocks */
-@import "blocks/custom/hero.css";
-@import "blocks/custom/service-cards.css";
-@import "blocks/custom/team-profiles.css";
-@import "blocks/custom/testimonials.css";
-@import "blocks/custom/cta.css";
+@import "blocks/index.css";
 
 /* Templates */
-@import "templates/header.css";
-@import "templates/footer.css";
-@import "templates/single.css";
-@import "templates/archive.css";
-@import "templates/page.css";
 
-/* Utilities */
-@import "utilities/spacing.css";
-@import "utilities/typography.css";
-@import "utilities/layout.css";
-@import "utilities/visibility.css";
-@import "utilities/contrast.css";
-@import "utilities/interactive-blocks.css";
+/* Utilities - Only Essential Classes Used in Theme */
+@import "utilities/containers.css";
 
 /* Print Styles */
 @import "print.css" print;

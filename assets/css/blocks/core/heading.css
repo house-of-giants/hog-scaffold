@@ -1,8 +1,6 @@
-/**
- * Core Heading Block Styles
- * 
- * @package HoGScaffold
- */
+/* ==========================================================================
+	Core Heading Block Styles
+	========================================================================== */
 
 .wp-block-heading {
 	font-weight: 600;

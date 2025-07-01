@@ -17,9 +17,10 @@ define('HOG_SCAFFOLD_PATH', get_template_directory() . '/');
 define('HOG_SCAFFOLD_INC', HOG_SCAFFOLD_PATH . 'inc/');
 define('HOG_SCAFFOLD_BLOCK_DIR', HOG_SCAFFOLD_INC . 'blocks/');
 
-// Manually require CPT classes since autoloader isn't working
-require_once HOG_SCAFFOLD_INC . 'classes/CPT_Helper.php';
-require_once HOG_SCAFFOLD_INC . 'classes/CPT_Migration.php';
+// Include custom post type system
+require_once HOG_SCAFFOLD_INC . 'cpt/functions.php';
+require_once HOG_SCAFFOLD_INC . 'cpt/helpers.php';
+require_once HOG_SCAFFOLD_INC . 'cpt/definitions.php';
 
 require_once HOG_SCAFFOLD_INC . 'security-config.php';
 require_once HOG_SCAFFOLD_INC . 'core.php';
@@ -29,7 +30,6 @@ require_once HOG_SCAFFOLD_INC . 'utility.php';
 require_once HOG_SCAFFOLD_INC . 'blocks.php';
 require_once HOG_SCAFFOLD_INC . 'security.php';
 require_once HOG_SCAFFOLD_INC . 'performance.php';
-require_once HOG_SCAFFOLD_INC . 'cpt.php';
 require_once HOG_SCAFFOLD_INC . 'wpengine-config.php';
 require_once HOG_SCAFFOLD_PATH . 'config/environments.php';
 
@@ -38,7 +38,6 @@ HoGScaffold\Core\setup();
 HoGScaffold\Blocks\setup();
 HoGScaffold\Security\setup();
 HoGScaffold\Performance\setup();
-HoGScaffold\CPT\setup();
 
 if (!function_exists('wp_body_open')) {
 

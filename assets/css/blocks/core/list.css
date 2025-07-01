@@ -1,8 +1,6 @@
-/**
- * Core List Block Styles
- * 
- * @package HoGScaffold
- */
+/* ==========================================================================
+	Core List Block Styles
+	========================================================================== */
 
 .wp-block-list {
 	margin: 0 0 var(--wp--preset--spacing--medium, 1.5rem) 0;

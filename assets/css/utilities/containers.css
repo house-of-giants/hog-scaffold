@@ -1,0 +1,172 @@
+/* ==========================================================================
+	Essential Utilities - Optimized & Systematic
+	Streamlined utility classes using modern CSS and logical properties
+	Only includes utilities actually used in the theme
+	========================================================================== */
+
+/* 
+ * Spacing Utilities - Using Logical Properties
+ * Consistent system based on design tokens
+ */
+
+/* Section Spacing - Improved naming and consistency */
+.has-section-spacing-xs {
+	padding-block: var(--wp--preset--spacing--xs);
+}
+
+.has-section-spacing-sm {
+	padding-block: var(--wp--preset--spacing--sm);
+}
+
+.has-section-spacing {
+	padding-block: var(--wp--preset--spacing--base);
+}
+
+.has-section-spacing-md {
+	padding-block: var(--wp--preset--spacing--md);
+}
+
+.has-section-spacing-lg {
+	padding-block: var(--wp--preset--spacing--lg);
+}
+
+/* Maintain backward compatibility */
+.has-section-spacing-small {
+	padding-block: var(--wp--preset--spacing--md);
+}
+
+/* 
+ * Gap Utilities - Simplified and Consistent
+ * Using logical properties and updated naming
+ */
+.has-gap-xs { gap: var(--wp--preset--spacing--xs) !important; }
+
+.has-gap-sm { gap: var(--wp--preset--spacing--sm) !important; }
+
+.has-gap { gap: var(--wp--preset--spacing--base) !important; }
+
+.has-gap-md { gap: var(--wp--preset--spacing--md) !important; }
+
+.has-gap-lg { gap: var(--wp--preset--spacing--lg) !important; }
+
+.has-gap-xl { gap: var(--wp--preset--spacing--xl) !important; }
+
+/* Maintain backward compatibility */
+.has-gap-small { gap: var(--wp--preset--spacing--sm) !important; }
+
+.has-gap-medium { gap: var(--wp--preset--spacing--md) !important; }
+
+/* 
+ * Content Flow - Enhanced spacing system
+ * Using modern CSS and logical properties
+ */
+.is-content-flow {
+	padding: 0;
+}
+
+.is-content-flow > * + * {
+	margin-block-start: var(--wp--preset--spacing--md);
+}
+
+.is-content-flow-sm > * + * {
+	margin-block-start: var(--wp--preset--spacing--sm);
+}
+
+.is-content-flow-lg > * + * {
+	margin-block-start: var(--wp--preset--spacing--lg);
+}
+
+/* 
+ * Responsive Spacing Utilities
+ * Using clamp() for fluid spacing where appropriate
+ */
+.has-fluid-spacing {
+	padding-block: clamp(var(--wp--preset--spacing--base), 4vw, var(--wp--preset--spacing--xl));
+}
+
+.has-fluid-gap {
+	gap: clamp(var(--wp--preset--spacing--sm), 2vw, var(--wp--preset--spacing--lg));
+}
+
+/* 
+ * Accessibility Utilities
+ * Essential screen reader and focus utilities
+ */
+.sr-only {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.sr-only:focus {
+	clip: auto;
+	height: auto;
+	margin: initial;
+	overflow: visible;
+	padding: initial;
+	position: static;
+	white-space: normal;
+	width: auto;
+}
+
+/* 
+ * Layout Utilities - Essential only
+ * Reduced to most commonly used patterns
+ */
+.full-width {
+	width: 100%;
+}
+
+.max-content-width {
+	margin-inline: auto;
+	max-width: var(--wp--style--global--content-size);
+}
+
+.max-wide-width {
+	margin-inline: auto;
+	max-width: var(--wp--style--global--wide-size);
+}
+
+/* 
+ * Text Utilities - Essential only
+ */
+.text-center {
+	text-align: center;
+}
+
+.text-start {
+	text-align: start;
+}
+
+.text-end {
+	text-align: end;
+}
+
+/* 
+ * Responsive Utilities - Mobile-first approach
+ */
+@media (min-width: 768px) {
+	.md\:has-section-spacing-lg {
+		padding-block: var(--wp--preset--spacing--lg);
+	}
+	
+	.md\:has-gap-lg {
+		gap: var(--wp--preset--spacing--lg) !important;
+	}
+}
+
+@media (min-width: 1024px) {
+	.lg\:has-section-spacing-xl {
+		padding-block: var(--wp--preset--spacing--xl);
+	}
+	
+	.lg\:has-gap-xl {
+		gap: var(--wp--preset--spacing--xl) !important;
+	}
+} 

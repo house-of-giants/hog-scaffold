@@ -30,17 +30,8 @@ function setup()
   add_filter('script_loader_tag', $n('script_loader_tag'), 10, 2);
 
   // Add FSE compatibility improvements
-  add_action('init', $n('register_block_patterns'));
+  // NOTE: Pattern registration is handled in inc/blocks.php using WordPress 6.0+ native discovery
   add_action('init', $n('register_template_part_support'));
-  add_action('init', $n('improve_block_validation'));
-  add_action('switch_theme', $n('clear_block_validation_cache'));
-  add_action('switch_theme', $n('force_block_template_validation'));
-  add_action('after_switch_theme', $n('force_block_template_validation'));
-  add_action('admin_notices', $n('fse_troubleshooting_notice'));
-  add_filter('render_block', $n('fix_block_validation'), 10, 2);
-  add_filter('render_block', $n('debug_block_validation'), 5, 2);
-  add_filter('block_editor_rest_api_preload_paths', $n('clear_block_validation_cache'));
-  add_filter('get_template_part', $n('validate_template_content'));
 }
 
 /**
@@ -54,7 +45,7 @@ function setup()
  */
 function i18n()
 {
-  load_theme_textdomain('HoG-scaffold', HOG_SCAFFOLD_PATH . '/languages');
+  load_theme_textdomain('hog-scaffold', HOG_SCAFFOLD_PATH . '/languages');
 }
 
 /**
@@ -127,6 +118,27 @@ function scripts()
   // Add defer attribute for non-critical JavaScript
   wp_script_add_data('frontend', 'script_execution', 'defer');
 
+  // Enqueue component scripts
+  wp_enqueue_script(
+    'header-component',
+    HOG_SCAFFOLD_TEMPLATE_URL . '/dist/js/header-component.js',
+    array(),
+    HOG_SCAFFOLD_VERSION,
+    true
+  );
+
+  wp_enqueue_script(
+    'footer-component',
+    HOG_SCAFFOLD_TEMPLATE_URL . '/dist/js/footer-component.js',
+    array(),
+    HOG_SCAFFOLD_VERSION,
+    true
+  );
+
+  // Add defer attribute for component scripts
+  wp_script_add_data('header-component', 'script_execution', 'defer');
+  wp_script_add_data('footer-component', 'script_execution', 'defer');
+
   // Enqueue accessibility enhancements
   wp_enqueue_script(
     'accessibility',
@@ -165,6 +177,21 @@ function styles()
     HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/style.css',
     array(),
     Utility\get_dep_asset('styles', 'version'),
+  );
+
+  // Enqueue component styles
+  wp_enqueue_style(
+    'header-component-style',
+    HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/header-component-style.css',
+    array('styles'),
+    HOG_SCAFFOLD_VERSION
+  );
+
+  wp_enqueue_style(
+    'footer-component-style',
+    HOG_SCAFFOLD_TEMPLATE_URL . '/dist/css/footer-component-style.css',
+    array('styles'),
+    HOG_SCAFFOLD_VERSION
   );
 }
 
@@ -227,62 +254,6 @@ function add_manifest()
 }
 
 /**
- * Register block patterns for the theme
- *
- * @return void
- */
-function register_block_patterns()
-{
-  // Remove default WordPress patterns that might conflict
-  if (function_exists('unregister_block_pattern')) {
-    unregister_block_pattern('core/query-standard-posts');
-    unregister_block_pattern('core/query-medium-posts');
-    unregister_block_pattern('core/query-small-posts');
-  }
-}
-
-/**
- * Fix block validation issues by cleaning up block content
- *
- * @param string $block_content The block content.
- * @param array  $block         The block data.
- * @return string The modified block content.
- */
-function fix_block_validation($block_content, $block)
-{
-  // Skip if we don't have block data
-  if (!isset($block['blockName'])) {
-    return $block_content;
-  }
-
-  // Handle template part blocks specifically
-  if ('core/template-part' === $block['blockName']) {
-    // Ensure template parts have proper theme attribute
-    if (isset($block['attrs']['slug']) && empty($block['attrs']['theme'])) {
-      $block['attrs']['theme'] = get_stylesheet();
-    }
-  }
-
-  // Handle navigation blocks
-  if ('core/navigation' === $block['blockName']) {
-    // Remove problematic ref attributes that might reference non-existent menus
-    if (isset($block['attrs']['ref'])) {
-      unset($block['attrs']['ref']);
-    }
-  }
-
-  // Handle group blocks that might have validation issues
-  if ('core/group' === $block['blockName']) {
-    // Ensure group blocks have proper layout structure
-    if (!isset($block['attrs']['layout'])) {
-      $block['attrs']['layout'] = array('type' => 'default');
-    }
-  }
-
-  return $block_content;
-}
-
-/**
  * Register additional template part support
  *
  * @return void
@@ -310,148 +281,5 @@ function register_template_part_support()
       'label' => __('Footer', 'hog-scaffold'),
       'description' => __('The footer template part', 'hog-scaffold'),
     ));
-  }
-}
-
-/**
- * Additional block validation improvements
- *
- * @return void
- */
-function improve_block_validation()
-{
-  // Remove problematic core patterns that might conflict
-  remove_theme_support('core-block-patterns');
-
-  // Re-add specific core patterns we want to keep
-  add_theme_support('core-block-patterns');
-}
-
-/**
- * Filter to ensure proper block validation on the frontend
- *
- * @param string $content The template content.
- * @return string Modified content.
- */
-function validate_template_content($content)
-{
-  // Ensure template parts have proper theme attributes
-  $content = preg_replace(
-    '/<!-- wp:template-part \{([^}]*)"slug":"([^"]*)"([^}]*)\} \/-->/',
-    '<!-- wp:template-part {"slug":"$2","theme":"' . get_stylesheet() . '"$3} /-->',
-    $content
-  );
-
-  // Remove any problematic ref attributes from navigation blocks
-  $content = preg_replace(
-    '/<!-- wp:navigation \{([^}]*)"ref":[^,}]*,?([^}]*)\} -->/',
-    '<!-- wp:navigation {$1$2} -->',
-    $content
-  );
-
-  return $content;
-}
-
-/**
- * Clear WordPress block validation cache
- *
- * @return void
- */
-function clear_block_validation_cache()
-{
-  // Clear any WordPress caches that might be causing validation issues
-  if (function_exists('wp_cache_flush')) {
-    wp_cache_flush();
-  }
-
-  // Clear theme transients
-  delete_transient('theme_template_' . get_stylesheet());
-  delete_transient('theme_template_part_' . get_stylesheet());
-}
-
-/**
- * Debug block validation issues when WP_DEBUG is enabled
- *
- * @param string $block_content The block content.
- * @param array  $block         The block data.
- * @return string The block content.
- */
-function debug_block_validation($block_content, $block)
-{
-  // Only run in debug mode
-  if (!defined('WP_DEBUG') || !WP_DEBUG) {
-    return $block_content;
-  }
-
-  // Log blocks that might have validation issues
-  if (
-    isset($block['blockName']) && (
-      strpos($block['blockName'], 'template-part') !== false ||
-      strpos($block['blockName'], 'navigation') !== false ||
-      strpos($block['blockName'], 'group') !== false
-    )
-  ) {
-    error_log('Block Debug - ' . $block['blockName'] . ': ' . print_r($block['attrs'] ?? [], true));
-  }
-
-  return $block_content;
-}
-
-/**
- * Add admin notice for FSE troubleshooting
- *
- * @return void
- */
-function fse_troubleshooting_notice()
-{
-  // Only show to administrators
-  if (!current_user_can('manage_options')) {
-    return;
-  }
-
-  // Only show on editor pages
-  $screen = get_current_screen();
-  if (!$screen || strpos($screen->id, 'site-editor') === false) {
-    return;
-  }
-
-  echo '<div class="notice notice-info">';
-  echo '<p><strong>FSE Theme Debug:</strong> If you see block validation errors, try these steps:</p>';
-  echo '<ol>';
-  echo '<li>Clear any caching plugins</li>';
-  echo '<li>Refresh the editor page</li>';
-  echo '<li>Click "Attempt recovery" on each invalid block</li>';
-  echo '<li>Create navigation menus in Appearance > Menus</li>';
-  echo '</ol>';
-  echo '</div>';
-}
-
-/**
- * Force block template validation on theme activation
- *
- * @return void
- */
-function force_block_template_validation()
-{
-  // Clear any existing template caches
-  wp_cache_delete('theme_template_' . get_stylesheet(), 'theme');
-  wp_cache_delete('theme_template_part_' . get_stylesheet(), 'theme');
-
-  // Delete any problematic transients
-  $transients_to_delete = [
-    'theme_template_' . get_stylesheet(),
-    'theme_template_part_' . get_stylesheet(),
-    '_site_transient_theme_roots',
-    '_transient_theme_roots',
-  ];
-
-  foreach ($transients_to_delete as $transient) {
-    delete_transient($transient);
-    delete_site_transient($transient);
-  }
-
-  // Force WordPress to re-scan block templates
-  if (function_exists('_prime_post_caches')) {
-    _prime_post_caches([], false, false);
   }
 }

@@ -559,4 +559,150 @@ To prevent recreation of duplicate structures:
 - [WordPress Block Theme Documentation](https://developer.wordpress.org/themes/block-themes/)
 - [CSS Custom Properties Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
 - [BEM Methodology](http://getbem.com/)
-- [Modern CSS Architecture](https://www.madebymike.com.au/writing/css-architecture-for-modern-web-applications/) 
+- [Modern CSS Architecture](https://www.madebymike.com.au/writing/css-architecture-for-modern-web-applications/)
+
+## WordPress Container Strategy
+
+### Overview
+This theme implements Dave Rupert's :not() selector approach for WordPress container management, providing a clean and maintainable solution for handling full-width and contained content in WordPress block themes.
+
+### Container Implementation
+
+#### Core Approach
+The container strategy uses CSS :not() selectors to apply constraints to content that should be contained, while allowing full-width and wide elements to break out naturally:
+
+```css
+/* Apply basic centering to all direct children */
+.wp-site-blocks > * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Apply content constraints only to elements that should be contained */
+.wp-site-blocks > *:not(.alignfull):not(.alignwide):not(.wp-block-group.alignfull):not(.wp-block-group.alignwide) {
+    max-width: var(--wp--style--global--content-size, 650px);
+    padding-left: var(--wp--preset--spacing--base, 1rem);
+    padding-right: var(--wp--preset--spacing--base, 1rem);
+}
+```
+
+#### Alignment Classes
+
+**Full-width elements (.alignfull):**
+```css
+.alignfull {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+    width: 100%;
+}
+```
+
+**Wide elements (.alignwide):**
+```css
+.alignwide {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--wp--style--global--wide-size, 1200px);
+    width: 100%;
+}
+```
+
+#### Alternative CSS Grid Approach
+For sites that prefer explicit grid control, an alternative CSS Grid implementation is available:
+
+```css
+.site-container {
+    display: grid;
+    grid-template-columns: 
+        1fr 
+        min(var(--wp--style--global--content-size, 650px), 100% - 2rem) 
+        1fr;
+}
+
+.site-container > * {
+    grid-column: 2;
+}
+
+.site-container > .alignfull {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+.site-container > .alignwide {
+    grid-column: 1 / -1;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--wp--style--global--wide-size, 1200px);
+}
+```
+
+### Benefits of the :not() Approach
+
+1. **Cleaner CSS**: No need to override styles for full-width elements
+2. **Better Maintainability**: Single source of truth for container constraints
+3. **WordPress Compatibility**: Works seamlessly with WordPress block editor
+4. **Nested Block Support**: Handles complex nested block structures
+5. **Performance**: Reduced CSS specificity and fewer style calculations
+
+### Usage Guidelines
+
+#### When to Use .wp-site-blocks
+- Default container approach for most WordPress themes
+- Automatic handling of WordPress alignment classes
+- Best for themes that primarily use WordPress blocks
+
+#### When to Use .site-container
+- When you need explicit grid control
+- For complex layout requirements
+- Can coexist with .wp-site-blocks approach
+
+#### Nested Block Groups
+The implementation includes special handling for nested block groups:
+
+```css
+.wp-site-blocks .wp-block-group > *:not(.alignfull):not(.alignwide) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+```
+
+### WordPress Integration
+
+#### Theme.json Variables
+The container strategy uses WordPress theme.json variables for consistency:
+
+- `--wp--style--global--content-size`: Standard content width (default: 650px)
+- `--wp--style--global--wide-size`: Wide content width (default: 1200px)
+- `--wp--preset--spacing--base`: Base spacing unit (default: 1rem)
+
+#### Block Editor Compatibility
+- Full compatibility with WordPress block editor
+- Real-time preview of alignment changes
+- Supports all core WordPress alignment classes
+- Works with custom block implementations
+
+### Best Practices
+
+1. **Use WordPress Variables**: Always use theme.json variables for widths and spacing
+2. **Test with Nested Blocks**: Verify behavior with complex nested block structures
+3. **Responsive Design**: Ensure container strategy works across all viewport sizes
+4. **Accessibility**: Maintain proper content flow and reading order
+5. **Performance**: Leverage the efficient :not() selector approach
+
+### Troubleshooting
+
+#### Common Issues
+- **Full-width elements not extending**: Check for parent container constraints
+- **Nested blocks not aligning**: Verify nested block group handling
+- **Responsive issues**: Test container behavior at different viewport sizes
+- **Specificity conflicts**: Use browser dev tools to check CSS cascade
+
+#### Debugging Tips
+- Use browser dev tools to inspect which container rules are applying
+- Check for conflicting CSS from plugins or custom code
+- Verify theme.json variables are loading correctly
+- Test with various block combinations and nesting levels
+
+## Block Styles 

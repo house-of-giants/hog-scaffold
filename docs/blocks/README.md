@@ -6,7 +6,7 @@ This directory contains documentation related to WordPress blocks, block pattern
 
 - Block development guides
 - Block pattern creation and testing
-- Custom block registration
+- Modern block registration (WordPress 6.8+)
 - Block editor customization
 - Block variation examples
 - Theme block templates
@@ -17,7 +17,26 @@ Navigate back to [Documentation Index](../README.md)
 
 # Block Development
 
-This section contains comprehensive guides for developing WordPress blocks with the House of Giants scaffold.
+This section contains comprehensive guides for developing WordPress blocks with the House of Giants scaffold using modern WordPress standards.
+
+## Modern Block Registration System
+
+**WordPress 6.8+ Optimized**: This theme uses the latest WordPress block registration standards for optimal performance and maintainability.
+
+### Key Features
+
+- ✅ **Manifest-Based Registration** - Uses `wp_register_block_types_from_metadata_collection()` for better performance
+- ✅ **Automatic Asset Handling** - WordPress handles dependency extraction and enqueueing
+- ✅ **Simplified Architecture** - No manual registration loops or complex validation scripts
+- ✅ **Backward Compatibility** - Supports WordPress 6.7+ and legacy versions with fallbacks
+- ✅ **Standard WordPress APIs** - Follows WordPress core recommendations
+
+### How It Works
+
+1. **Build Process** generates `blocks-manifest.php` using `wp-scripts build --blocks-manifest`
+2. **Single Function Call** in `inc/blocks.php` registers all blocks at once
+3. **WordPress Core** handles asset loading, dependencies, and validation
+4. **No Manual Registration** - eliminates complex per-block registration code
 
 ## Quick Start
 
@@ -39,7 +58,7 @@ This section contains comprehensive guides for developing WordPress blocks with 
 
 - **[Block Development Guide](block-development-guide.md)** - Comprehensive development guide
   - WordPress block fundamentals
-  - Theme-specific patterns
+  - Modern registration patterns
   - Custom block creation
   - Testing and validation
 
@@ -62,6 +81,7 @@ This section contains comprehensive guides for developing WordPress blocks with 
 
 - **[Block Patterns](block-patterns.md)** - Reusable block compositions
   - Pre-built pattern library
+  - WordPress 6.0+ auto-discovery
   - Creating custom patterns
   - Pattern registration and management
 
@@ -106,7 +126,12 @@ Specialized content display blocks:
 
 3. **Build for production:**
    ```bash
-   npm run build
+   npm run build  # Generates blocks manifest + builds all assets
+   ```
+
+4. **Generate blocks manifest only:**
+   ```bash
+   npm run build:blocks-manifest
    ```
 
 ### Block Creation Process
@@ -114,8 +139,16 @@ Specialized content display blocks:
 1. **Copy template** from `inc/blocks/layout/_template`
 2. **Update block.json** with your block metadata
 3. **Develop edit and save components** in React
-4. **Add webpack entries** for JavaScript and CSS
-5. **Test thoroughly** across different scenarios
+4. **Add webpack entries** for JavaScript and CSS (if using custom webpack)
+5. **Run build process** to generate manifest
+6. **Test thoroughly** across different scenarios
+
+### Modern Registration Benefits
+
+- **No PHP Registration Code** - Blocks are automatically discovered via manifest
+- **Better Performance** - Single PHP file vs multiple JSON reads
+- **Automatic Dependencies** - WordPress handles script/style dependencies
+- **Simplified Debugging** - Fewer moving parts, clearer error messages
 
 ### Code Quality
 
@@ -152,6 +185,7 @@ Specialized content display blocks:
 ### File Structure
 ```
 inc/blocks/
+├── blocks-manifest.php  # Generated manifest file (WordPress 6.8+)
 ├── layout/              # Layout utility blocks
 │   ├── utils/          # Shared utilities and components
 │   ├── _template/      # Block template for new blocks
@@ -163,30 +197,53 @@ inc/blocks/
 ```
 
 ### Build System Integration
-- **Webpack** handles asset compilation and optimization
+- **wp-scripts** generates blocks manifest for modern registration
+- **Webpack** handles theme asset compilation and optimization
 - **Babel** transpiles modern JavaScript for browser compatibility
 - **PostCSS** processes CSS with modern features
 - **WordPress Dependency Extraction** manages WordPress and React dependencies
 
 ### Theme Integration
-- Blocks are automatically registered via PHP
-- Styles are properly enqueued through WordPress
-- Block categories are organized by functionality
-- Custom block inspector controls integrate with theme settings
+- **Manifest-based registration** via `wp_register_block_types_from_metadata_collection()`
+- **Automatic asset handling** through WordPress core
+- **Fallback support** for WordPress 6.7 and legacy versions
+- **Block categories** organized by functionality
+- **Custom block inspector controls** integrate with theme settings
+
+## WordPress Version Compatibility
+
+### WordPress 6.8+
+- Full manifest-based registration with optimal performance
+- Uses `wp_register_block_types_from_metadata_collection()`
+- Single function call registers all blocks
+
+### WordPress 6.7
+- Fallback to `wp_register_block_metadata_collection()`
+- Still uses manifest file for better performance
+
+### WordPress 6.0-6.6
+- Legacy manual registration with full functionality
+- Individual `register_block_type()` calls as fallback
 
 ## Troubleshooting
 
 ### Common Issues
 
 **Block not appearing in editor:**
-- Check block registration in PHP
+- Check that `blocks-manifest.php` was generated during build
 - Verify webpack build completed successfully
 - Ensure block.json is valid
 - Check browser console for JavaScript errors
 
+**Manifest not generated:**
+- Run `npm run build:blocks-manifest` manually
+- Check that `@wordpress/scripts` is installed
+- Verify block.json files are properly formatted
+- Ensure build process completed without errors
+
 **Styles not loading:**
 - Verify CSS files are being built by webpack
-- Check that styles are properly enqueued
+- Check that styles are properly enqueued via block.json
 - Clear browser cache
 - Validate CSS syntax
 

@@ -1,25 +1,33 @@
-const path = require( 'path' );
+const path = require("path");
 
-module.exports   = ({ file, env }) => {
+module.exports = ({ file, env }) => {
 	const config = {
 		plugins: {
-			'postcss-import': {},
-			'postcss-mixins': {},
-			'postcss-nesting': {},
-			'postcss-preset-env': {
+			"postcss-import": {},
+			"postcss-mixins": {},
+			"postcss-nesting": {},
+			"postcss-preset-env": {
 				stage: 0,
 				autoprefixer: {
-					grid: true,
+					grid: false,
+					// Suppress warnings for IE since we don't support it
+					overrideBrowserslist: [
+						"> 1%",
+						"last 2 versions",
+						"Firefox ESR",
+						"not IE 11",
+						"not IE_Mob 11",
+					],
 				},
 			},
 		},
 	};
 
 	config.plugins.cssnano =
-		env === 'production'
+		env === "production"
 			? {
-				preset: [
-						'default',
+					preset: [
+						"default",
 						{
 							autoprefixer: false,
 							calc: {
@@ -31,9 +39,9 @@ module.exports   = ({ file, env }) => {
 							},
 							mergeLonghand: false,
 							zindex: false,
-				},
+						},
 					],
-	}
+				}
 			: false;
 
 	return config;

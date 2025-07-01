@@ -21,7 +21,7 @@
 }
 
 .editor-styles-wrapper .wp-block-group:hover {
-	border-color: #007cba;
+	border-color: var(--wp--preset--color--editor-blue);
 }
 
 .editor-styles-wrapper .wp-block-group.alignfull {
@@ -30,9 +30,9 @@
 }
 
 .editor-styles-wrapper .wp-block-group.alignfull::before {
-	background: #ffffff;
+	background: var(--wp--preset--color--white);
 	border-radius: 2px;
-	color: #757575;
+	color: var(--wp--preset--color--text-muted);
 	content: "Full Width Section";
 	font-size: 11px;
 	left: 0;
@@ -51,7 +51,7 @@
 .editor-styles-wrapper input[type="text"],
 .editor-styles-wrapper input[type="email"],
 .editor-styles-wrapper textarea {
-	border: 2px solid #dddddd;
+	border: 2px solid var(--wp--preset--color--border-gray);
 	border-radius: 8px;
 	font-family: inherit;
 	font-size: 16px;
@@ -63,21 +63,21 @@
 .editor-styles-wrapper input[type="text"]:focus,
 .editor-styles-wrapper input[type="email"]:focus,
 .editor-styles-wrapper textarea:focus {
-	border-color: #007cba;
+	border-color: var(--wp--preset--color--editor-blue);
 	box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
 	outline: none;
 }
 
 /* Better visual feedback for details/summary elements */
 .editor-styles-wrapper .wp-block-details {
-	border: 1px solid #e0e0e0;
+	border: 1px solid var(--wp--preset--color--border-medium);
 	border-radius: 12px;
 	overflow: hidden;
 }
 
 .editor-styles-wrapper .wp-block-details summary {
-	background: #f8f9fa;
-	border-bottom: 1px solid #e0e0e0;
+	background: var(--wp--preset--color--bg-light);
+	border-bottom: 1px solid var(--wp--preset--color--border-medium);
 	cursor: pointer;
 	font-weight: 600;
 	padding: 20px;
@@ -85,11 +85,11 @@
 }
 
 .editor-styles-wrapper .wp-block-details summary:hover {
-	background: #e9ecef;
+	background: var(--wp--preset--color--bg-lighter);
 }
 
 .editor-styles-wrapper .wp-block-details[open] summary {
-	border-bottom: 1px solid #e0e0e0;
+	border-bottom: 1px solid var(--wp--preset--color--border-medium);
 }
 
 /* Improved column visualization in editor */
@@ -100,7 +100,7 @@
 }
 
 .editor-styles-wrapper .wp-block-columns:hover {
-	border-color: #007cba;
+	border-color: var(--wp--preset--color--editor-blue);
 }
 
 .editor-styles-wrapper .wp-block-column {
@@ -190,7 +190,7 @@
 .editor-styles-wrapper .wp-block-group[class*="has-base-2-background-color"]::after {
 	background: rgba(255, 255, 255, 0.8);
 	border-radius: 2px;
-	color: #666666;
+	color: var(--wp--preset--color--text-light);
 	content: "Alternate Background";
 	font-size: 10px;
 	opacity: 0;

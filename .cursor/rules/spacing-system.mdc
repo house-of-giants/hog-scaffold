@@ -1,0 +1,218 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# **WordPress Block Spacing System**
+
+## **Core Philosophy**
+
+- **No Default Padding**: Groups have zero padding by default to prevent stacking
+- **Intentional Spacing**: Only apply padding when explicitly needed for visual containers
+- **Flow-Based Rhythm**: Use `gap` and flow patterns for consistent spacing between elements
+- **Utility Override**: Provide utilities for fine-grained control when needed
+
+## **Group Padding Strategy**
+
+### ✅ **DO: Use Semantic Classes**
+```html
+<!-- Visual containers that need padding -->
+<div class="wp-block-group has-background">...</div>
+<div class="wp-block-group is-style-container">...</div>
+<div class="wp-block-group is-style-section">...</div>
+
+<!-- Site structure containers -->
+<header class="wp-block-group site-header">...</header>
+<main class="wp-block-group site-main">...</main>
+<footer class="wp-block-group site-footer">...</footer>
+```
+
+### ❌ **DON'T: Apply Universal Padding**
+```css
+/* AVOID - This creates padding hell */
+.wp-block-group {
+  padding: var(--wp--preset--spacing--medium);
+}
+```
+
+## **Spacing Patterns**
+
+### **1. Flow Spacing (Automatic)**
+```css
+/* Applied automatically to flow layouts */
+.wp-block-group.is-layout-flow > * + * {
+  margin-top: var(--wp--preset--spacing--medium);
+}
+```
+
+### **2. Gap Spacing (Flex/Grid)**
+```html
+<!-- Use gap classes for flex/grid containers -->
+<div class="wp-block-group has-gap-small is-layout-flex">...</div>
+<div class="wp-block-group has-gap-medium is-layout-grid">...</div>
+```
+
+### **3. Section Spacing (Major Layout)**
+```html
+<!-- For major page sections -->
+<section class="wp-block-group has-section-spacing">...</section>
+<section class="wp-block-group has-section-spacing-large">...</section>
+```
+
+## **Available Utility Classes**
+
+### **Gap Control**
+- `has-gap-none` - No gap between flex/grid items
+- `has-gap-small` - Small gap (--spacing-small)
+- `has-gap-medium` - Medium gap (--spacing-medium)
+- `has-gap-large` - Large gap (--spacing-large)
+- `has-gap-xl` - Extra large gap (--spacing-xl)
+
+### **Margin Control**
+- `has-margin-top-none` - Remove top margin
+- `has-margin-top-small` - Small top margin
+- `has-margin-top-medium` - Medium top margin
+- `has-margin-top-large` - Large top margin
+- `has-margin-bottom-none` - Remove bottom margin
+- `has-margin-bottom-small` - Small bottom margin
+- `has-margin-bottom-medium` - Medium bottom margin
+- `has-margin-bottom-large` - Large bottom margin
+
+### **Flow Control**
+- `has-no-child-margins` - Remove all child margins
+- `has-tight-flow` - Reduce spacing between children
+- `has-loose-flow` - Increase spacing between children
+- `is-content-flow` - Content-only container (no padding, flow spacing)
+- `breaks-flow` - Break vertical rhythm chain
+
+### **Section Spacing**
+- `has-section-spacing-small` - Small section padding
+- `has-section-spacing` - Standard section padding
+- `has-section-spacing-large` - Large section padding
+
+### **Manual Padding (Use Sparingly)**
+- `has-padding-small` - Explicit small padding
+- `has-padding-medium` - Explicit medium padding  
+- `has-padding-large` - Explicit large padding
+- `has-no-padding` - Force remove padding
+
+## **Common Patterns**
+
+### **Site Header**
+```html
+<header class="wp-block-group site-header has-section-spacing-small">
+  <div class="wp-block-group has-gap-medium is-layout-flex">
+    <div class="wp-block-group site-branding has-gap-small">
+      <!-- Logo and title -->
+    </div>
+    <nav class="wp-block-group has-gap-small">
+      <!-- Navigation -->
+    </nav>
+  </div>
+</header>
+```
+
+### **Content Section**
+```html
+<section class="wp-block-group has-section-spacing">
+  <div class="wp-block-group is-content-flow">
+    <!-- Flowing content with automatic vertical rhythm -->
+    <h2>Heading</h2>
+    <p>Paragraph with automatic spacing</p>
+    <div class="wp-block-group has-background">
+      <!-- This card gets padding, content inside flows naturally -->
+    </div>
+  </div>
+</section>
+```
+
+### **Breaking Flow for Special Cases**
+```html
+<div class="wp-block-group is-content-flow">
+  <h2>Section Title</h2>
+  <p>Introduction text</p>
+  
+  <!-- This image shouldn't have top margin -->
+  <figure class="wp-block-image breaks-flow">
+    <img src="hero.jpg" alt="Hero image">
+  </figure>
+  
+  <!-- Content after break resumes normal flow -->
+  <p class="has-margin-top-medium">Caption text</p>
+</div>
+```
+
+## **Migration from Old System**
+
+### **Replace Inline Styles**
+```html
+<!-- OLD -->
+<div class="wp-block-group" style="padding-top: var(--wp--preset--spacing--medium)">
+
+<!-- NEW -->
+<div class="wp-block-group has-section-spacing-small">
+```
+
+### **Replace blockGap Styles**
+```html
+<!-- OLD -->
+<div class="wp-block-group" style="gap: var(--wp--preset--spacing--small)">
+
+<!-- NEW -->
+<div class="wp-block-group has-gap-small">
+```
+
+### **Nested Group Cleanup**
+```html
+<!-- OLD - Padding stacks -->
+<div class="wp-block-group" style="padding: 1rem;">
+  <div class="wp-block-group" style="padding: 1rem;">
+    <!-- 2rem total padding! -->
+  </div>
+</div>
+
+<!-- NEW - Intentional spacing -->
+<div class="wp-block-group has-background">
+  <div class="wp-block-group is-content-flow">
+    <!-- Outer container provides padding, inner manages flow -->
+  </div>
+</div>
+```
+
+## **When to Use Each Approach**
+
+### **Use Flow Spacing When:**
+- Content should have natural vertical rhythm
+- Elements are stacked vertically in reading order
+- You want automatic, consistent spacing
+
+### **Use Gap Spacing When:**
+- Elements are laid out with flexbox or grid
+- You need consistent spacing between peer elements
+- Layout is primarily horizontal or grid-based
+
+### **Use Explicit Padding When:**
+- Creating visual containers (cards, sections)
+- Establishing clear content boundaries
+- Background colors or borders require internal space
+
+### **Use Manual Utilities When:**
+- Breaking or adjusting automatic spacing patterns
+- Fine-tuning specific spacing relationships
+- Overriding defaults for special cases
+
+## **Performance Notes**
+
+- Gap properties are more performant than margins for flex/grid layouts
+- Flow spacing reduces layout calculations compared to individual margins
+- Utility classes are cached and reusable
+- Avoiding deep specificity improves CSS performance
+
+## **Accessibility Considerations**
+
+- Consistent spacing improves reading flow for all users
+- Adequate spacing helps users with motor difficulties
+- Logical spacing patterns aid screen reader navigation
+- Visual rhythm supports users with cognitive differences
+
+**Remember**: The goal is predictable, maintainable spacing that doesn't require constant overrides or calculations. Start with semantic patterns and use utilities only when the defaults don't meet your needs.

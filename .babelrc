@@ -19,6 +19,7 @@
 		],
 		"@wordpress/babel-preset-default"
 	],
+	"compact": false,
 	"env": {
 		"development": {
 			"presets": [

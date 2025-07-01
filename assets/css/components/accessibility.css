@@ -1,12 +1,11 @@
 /* ==========================================================================
-   Accessibility Component
-   Comprehensive accessibility styles for WCAG 2.1 AA compliance
+   Accessibility 
    ========================================================================== */
 
 /* Focus Management */
 :focus {
 	border-radius: 2px;
-	outline: 2px solid var(--wp--preset--color--primary, #005cee);
+	outline: 2px solid var(--wp--preset--color--neutral-900, #171717);
 	outline-offset: 2px;
 }
 
@@ -17,41 +16,42 @@
 
 :focus-visible {
 	border-radius: 2px;
-	outline: 2px solid var(--wp--preset--color--primary, #005cee);
+	outline: 2px solid var(--wp--preset--color--neutral-900, #171717);
 	outline-offset: 2px;
 }
 
 /* Enhanced focus for interactive elements */
 a:focus,
-button:focus,
 input:focus,
 textarea:focus,
 select:focus,
 [tabindex]:focus {
-	box-shadow: 0 0 0 4px rgba(0, 92, 238, 0.15);
-	outline: 2px solid var(--wp--preset--color--primary, #005cee);
+	box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+	outline: 2px solid var(--wp--preset--color--neutral-900, #171717);
 	outline-offset: 2px;
-	transition: box-shadow 0.15s ease-in-out;
+	transition: box-shadow var(--transition-fast);
 }
 
 /* Focus for navigation links */
 .wp-block-navigation a:focus {
 	background-color: var(--wp--preset--color--primary, #005cee);
+	box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.8);
 	color: var(--wp--preset--color--white, #ffffff);
+	outline: 3px solid var(--wp--preset--color--neutral-900, #171717);
+	outline-offset: 3px;
 	text-decoration: none;
 }
 
-/* Focus for buttons */
-.wp-block-button__link:focus,
-button:focus {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(0, 92, 238, 0.15);
-	transform: translateY(-1px);
-}
+/* Focus for buttons - Let button component styles handle this */
+/* Removed duplicate button focus styles to avoid conflicts */
 
 /* Keyboard Navigation Indicators */
 .keyboard-navigation .wp-block-navigation-item > a:focus {
 	background-color: var(--wp--preset--color--primary, #005cee);
+	box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.8);
 	color: var(--wp--preset--color--white, #ffffff);
+	outline: 3px solid var(--wp--preset--color--neutral-900, #171717);
+	outline-offset: 3px;
 }
 
 /* Windows High Contrast Mode Support */
@@ -86,46 +86,6 @@ button:focus {
 	}
 }
 
-/* Screen Reader Only Text */
-.sr-only,
-.screen-reader-text {
-	border: 0 !important;
-	clip: rect(1px, 1px, 1px, 1px) !important;
-	-webkit-clip-path: inset(50%) !important;
-	clip-path: inset(50%) !important;
-	height: 1px !important;
-	margin: -1px !important;
-	overflow: hidden !important;
-	padding: 0 !important;
-	position: absolute !important;
-	white-space: nowrap !important;
-	width: 1px !important;
-}
-
-.sr-only:focus,
-.screen-reader-text:focus {
-	background-color: var(--wp--preset--color--contrast, #000000);
-	border-radius: 4px;
-	clip: auto !important;
-	clip-path: none !important;
-	color: var(--wp--preset--color--base, #ffffff);
-	display: block;
-	font-size: var(--wp--preset--font-size--small, 0.875rem);
-	font-weight: 600;
-	height: auto !important;
-	left: var(--wp--preset--spacing--xs, 0.5rem);
-	line-height: normal;
-	outline: 2px solid var(--wp--preset--color--primary, #005cee);
-	outline-offset: 2px;
-	padding: var(--wp--preset--spacing--xs, 0.5rem) var(--wp--preset--spacing--base, 1rem);
-	position: absolute !important;
-	text-decoration: none;
-	top: var(--wp--preset--spacing--xs, 0.5rem);
-	white-space: normal !important;
-	width: auto !important;
-	z-index: 100000;
-}
-
 /* Text Scaling Support */
 @media (min-width: 1200px) {
 	html {
@@ -134,7 +94,62 @@ button:focus {
 }
 
 /* Ensure minimum target size for interactive elements */
-a, button, input, select, textarea, [role="button"], [role="link"] {
+button, 
+input, 
+select, 
+textarea,
+[role="button"],
+.wp-block-button a,
+.wp-block-social-links a,
+.wp-block-search__button,
+nav:not(footer nav):not(.wp-block-site-footer nav) a,
+.menu:not(footer .menu):not(.wp-block-site-footer .menu) a,
+.pagination a,
+.wp-block-navigation:not(.wp-block-site-footer .wp-block-navigation) a {
+	min-height: 44px;
+	min-width: 44px;
+}
+
+/* Exception for inline content links - they should flow naturally */
+.entry-content a,
+.wp-block-post-content a,
+.has-text-align-left a,
+.has-text-align-center a,
+.has-text-align-right a,
+p a,
+li a:not(.wp-block-navigation a),
+blockquote a,
+.wp-block-quote a {
+	min-height: auto;
+	min-width: auto;
+}
+
+/* Footer links - ensure adequate spacing without forced dimensions */
+.wp-block-site-footer a,
+footer a,
+.site-footer a,
+[role="contentinfo"] a,
+.footer a,
+.wp-block-site-footer .wp-block-navigation a {
+	display: inline-block;
+	min-height: auto !important;
+	min-width: auto !important;
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--sm);
+}
+
+/* More specific footer navigation handling */
+.wp-block-site-footer .wp-block-navigation__container a,
+.wp-block-site-footer .wp-block-navigation-item a,
+footer nav a,
+.site-footer nav a {
+	display: inline-block;
+	min-height: auto !important;
+	min-width: auto !important;
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--sm) !important;
+}
+
+/* Standalone links that should maintain target size */
+a:not(p a):not(li a):not(.entry-content a):not(.wp-block-post-content a):not(.wp-block-site-footer a):not(footer a):not(.site-footer a):not([role="contentinfo"] a) {
 	min-height: 44px;
 	min-width: 44px;
 }
@@ -185,35 +200,6 @@ legend {
 	color: var(--wp--preset--color--contrast, #000000);
 }
 
-/* Modal and Dialog Accessibility */
-.modal[aria-hidden="true"] {
-	display: none;
-}
-
-.modal-backdrop {
-	background-color: rgba(0, 0, 0, 0.5);
-	bottom: 0;
-	left: 0;
-	position: fixed;
-	right: 0;
-	top: 0;
-	z-index: 999;
-}
-
-.modal-content {
-	background-color: var(--wp--preset--color--base, #ffffff);
-	border-radius: 8px;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-	left: 50%;
-	max-height: 90vh;
-	overflow-y: auto;
-	position: fixed;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: min(90vw, 600px);
-	z-index: 1000;
-}
-
 /* Print Accessibility */
 @media print {
 	.skip-link,
@@ -230,59 +216,42 @@ legend {
 	}
 }
 
-/* Custom Properties for Accessibility */
+/* Additional accessibility properties */
 :root {
-	--focus-color: var(--wp--preset--color--primary, #005cee);
 	--focus-outline-width: 2px;
 	--focus-outline-offset: 2px;
-	--min-target-size: 44px;
-	--error-color: var(--wp--preset--color--vivid-red, #cf2e2e);
-	--success-color: var(--wp--preset--color--vivid-green, #00a32a);
-	--warning-color: var(--wp--preset--color--vivid-orange, #f56e28);
-	--z-index-skip: 100000;
-	--z-index-modal: 1000;
-	--z-index-modal-backdrop: 999;
+	--focus-outline-color: var(--wp--preset--color--neutral-900, #171717);
+	--target-size-min: 44px;
 }
 
-/* Landmark Role Enhancements */
+/* ARIA and semantic elements */
 [role="banner"],
-[role="navigation"],
 [role="main"],
-[role="complementary"],
+[role="navigation"],
 [role="contentinfo"] {
 	position: relative;
 }
 
-/* Search Form Accessibility */
+/* Search form accessibility */
 .wp-block-search .wp-block-search__input {
-	min-height: var(--min-target-size);
+	min-height: var(--target-size-min);
 }
 
 .wp-block-search .wp-block-search__button {
-	min-height: var(--min-target-size);
-	min-width: var(--min-target-size);
+	min-height: var(--target-size-min);
+	min-width: var(--target-size-min);
 }
 
-/* Newsletter Form Accessibility */
-.newsletter-form input[type="email"] {
-	min-height: var(--min-target-size);
-}
-
-.newsletter-form button {
-	min-height: var(--min-target-size);
-	min-width: var(--min-target-size);
-}
-
-/* Social Links Accessibility */
+/* Social links accessibility */
 .wp-block-social-links a {
 	align-items: center;
 	display: flex;
 	justify-content: center;
-	min-height: var(--min-target-size);
-	min-width: var(--min-target-size);
+	min-height: var(--target-size-min);
+	min-width: var(--target-size-min);
 }
 
-/* Animation Control */
+/* Reduce motion for specific elements */
 .no-motion *,
 .no-motion *::before,
 .no-motion *::after {
@@ -291,15 +260,32 @@ legend {
 	transition-duration: 0.01ms !important;
 }
 
-/* Keyboard Navigation Detection */
+/* Enhanced keyboard navigation styles */
 .keyboard-navigation .wp-block-button__link:focus {
-	outline: 2px solid var(--focus-color);
-	outline-offset: 2px;
+	outline: 3px solid var(--focus-outline-color);
+	outline-offset: var(--focus-outline-offset);
 }
 
 .keyboard-navigation .wp-block-navigation-item a:focus {
-	background-color: var(--focus-color);
+	background-color: var(--wp--preset--color--primary, #005cee);
+	box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.8);
 	color: var(--wp--preset--color--white, #ffffff);
-	outline: 2px solid var(--focus-color);
-	outline-offset: 2px;
+	outline: 3px solid var(--focus-outline-color);
+	outline-offset: 3px;
+}
+
+/* Force target size utility */
+.force-target-size {
+	min-height: var(--target-size-min) !important;
+	min-width: var(--target-size-min) !important;
+}
+
+.no-target-size {
+	min-height: auto !important;
+	min-width: auto !important;
+}
+
+.small-interactive {
+	min-height: 32px !important;
+	min-width: 32px !important;
 } 

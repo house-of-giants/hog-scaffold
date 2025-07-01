@@ -24,14 +24,18 @@ patterns/
 
 ## Adding New Patterns
 
+**WordPress 6.0+ Auto-Discovery:** Patterns are automatically discovered and registered from this directory. No manual registration required!
+
 1. **Create Pattern File:** Add a new `.php` file to this directory
-2. **Follow File Structure:**
+2. **Add Pattern Header:** Include pattern metadata in PHP comments:
    ```php
    <?php
    /**
-    * Pattern Name
-    *
-    * @package HoGScaffold
+    * Title: Your Pattern Title
+    * Slug: hog-scaffold/your-pattern-name
+    * Categories: hog-scaffold-sections, featured
+    * Description: Brief description of what this pattern does.
+    * Keywords: keyword1, keyword2, keyword3
     */
    ?>
    
@@ -43,15 +47,15 @@ patterns/
    <!-- /wp:group -->
    ```
 
-3. **Register in inc/blocks.php:** Add pattern metadata to the `$pattern_files` array:
-   ```php
-   'your-pattern-name' => array(
-     'title' => __('Your Pattern Title', 'hog-scaffold'),
-     'description' => __('Pattern description for users', 'hog-scaffold'),
-     'categories' => array('hog-scaffold-sections'),
-     'keywords' => array('keyword1', 'keyword2', 'keyword3'),
-   ),
-   ```
+3. **That's it!** WordPress automatically discovers and registers your pattern.
+
+### Pattern Header Fields
+
+- **Title:** Display name in the pattern library
+- **Slug:** Unique identifier (use `hog-scaffold/` prefix)
+- **Categories:** Pattern categories (see list below)
+- **Description:** Help text for users
+- **Keywords:** Search terms for pattern discovery
 
 ## Block Markup Guidelines
 
@@ -92,19 +96,26 @@ Use WordPress preset variables for consistent spacing:
 
 ## Pattern Categories
 
+### Theme Categories (Registered in inc/blocks.php)
 - `hog-scaffold-sections` - Complete page sections
 - `hog-scaffold-content` - Smaller content components
-- `header` - WordPress core header category
-- `featured` - WordPress core featured category
-- `text` - WordPress core text category
-- `contact` - WordPress core contact category
+
+### WordPress Core Categories
+- `header` - Header sections
+- `featured` - Featured content
+- `text` - Text-based patterns
+- `contact` - Contact forms and info
+- `call-to-action` - CTA sections
+- `testimonials` - Customer testimonials
+- `team` - Team member profiles
 
 ## Common Issues
 
 ### Pattern Not Showing
 - Check file exists in `/patterns` directory
-- Verify registration in `inc/blocks.php`
+- Verify pattern header syntax is correct
 - Check for PHP syntax errors
+- Ensure pattern categories are registered
 
 ### Styling Problems
 - Ensure proper block markup structure
@@ -124,6 +135,13 @@ Use WordPress preset variables for consistent spacing:
 3. **Performance:** Optimize images and minimize markup complexity
 4. **Consistency:** Follow established design patterns from existing theme patterns
 5. **Documentation:** Comment complex markup and explain custom classes
+6. **Auto-Discovery:** Leverage WordPress 6.0+ pattern auto-discovery - no manual registration needed
+
+## WordPress 6.8+ Features
+
+- **Subfolder Organization:** Organize patterns in subdirectories for better structure
+- **Enhanced Performance:** Improved pattern loading and caching
+- **Better Pattern Search:** Enhanced keyword matching and discovery
 
 ## WordPress Resources
 
