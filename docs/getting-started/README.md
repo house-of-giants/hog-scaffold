@@ -6,7 +6,17 @@ Welcome to the House of Giants WordPress Theme Scaffold! This section provides e
 
 ## Quick Start
 
-**New to the theme?** Follow these steps:
+### Starting a New Project
+
+**Want to use this scaffold for a new project?** Start here:
+
+1. **[New Project Setup Guide](new-project-setup.md)** - Complete guide to customize this scaffold for your project
+2. **[Installation Guide](installation-guide.md)** - Set up your development environment
+3. **[Build System Guide](build-system.md)** - Understand the development workflow
+
+### Learning the Existing Theme
+
+**Exploring or contributing to this theme?** Follow these steps:
 
 1. **[Installation Guide](installation-guide.md)** - Set up your development environment
 2. **[Build System Guide](build-system.md)** - Understand the development workflow
@@ -15,6 +25,14 @@ Welcome to the House of Giants WordPress Theme Scaffold! This section provides e
 ## Documentation Contents
 
 ### Setup and Installation
+
+- **[New Project Setup Guide](new-project-setup.md)** - Complete guide for using this scaffold to start a new project
+  - Project customization and branding
+  - Search and replace operations for theme identifiers
+  - Configuration file updates
+  - Development environment setup
+  - WordPress installation and theme activation
+  - Asset configuration and build system setup
 
 - **[Installation Guide](installation-guide.md)** - Complete setup instructions for local development
   - Prerequisites and required software

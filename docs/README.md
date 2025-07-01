@@ -4,8 +4,10 @@ Welcome to the comprehensive documentation for the House of Giants WordPress The
 
 ## 🚀 Quick Start
 
-New to the theme? Start here:
+### Starting a New Project
+- [New Project Setup Guide](getting-started/new-project-setup.md) - **Complete guide for using this scaffold in a new project**
 
+### Learning the Theme
 - [Theme Features Overview](theme-features-overview.md) - Complete overview of what this theme offers
 - [Build System Guide](getting-started/build-system.md) - Set up your development environment
 - [Style Guide](style-guide.md) - Documentation standards and formatting guidelines
